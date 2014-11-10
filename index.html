@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+    <title>iLiteratura</title>
+    <script type="text/javascript" charset="utf-8" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="phonegap.js"></script>
+    <script type="text/javascript" src="js/inited_utils.js"></script>
+    <script type="text/javascript" src="js/scriptsDefault.js"></script>
+    <script type="text/javascript" src="js/scripts.js"></script>
+    <script type="text/javascript" src="js/fastclick.js"></script>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+</head>
+<body>
+<script type="text/javascript">
+
+    var local = true;
+
+    // hacks
+
+
+    if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    if (local) {
+        window.addEventListener("load", onDeviceReady, false);
+    }
+
+    /*
+     window.addEventListener('load', function () {
+     onLoad();
+     FastClick.attach(document.body);
+     }, false);
+     */
+
+</script>
+
+
+<div id="main" class="main">
+
+    <!-------------------------------------------------- this info must be last of spec! Put spec before!
+     its on the top of z-index layer
+     -->
+
+    <div class="special cover">
+    </div>
+
+    <div data-cont-id="specInfo" class="special info">
+        <div class="symbolLoading">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+        <h1>Načítám...</h1>
+    </div>
+
+    <!-------------------------------------------------- tops -->
+
+    <!-------------------------------------------------- main content -->
+    <div data-cont-id="contentIndex" class="mainContent index">
+        <!-- HEADER -->
+        <header id="header">
+            <div class="container"><img src="img/logo.png" alt="logo" class="logo"></div>
+        </header>
+        <section id="mid_section">
+            <div class="container">
+                <div class="bs_title">
+                    <h2>Kniha týdne</h2>
+                </div>
+
+                <!------------------------------------ Predelavka na cordovu  -->
+                <!--**booksectionrow**-->
+                <div class="book_seciton _buttonClick" data-click="showWindow('article')" data-article-id="1">
+                    <!--****bookleft****-->
+                    <div class="book_seciton_left"><img src="img/book/1.jpg" alt="book"> <span>RECENZE</span>
+
+                        <p>Petr Nagy<Br>
+                            11.7.2010</p>
+                    </div>
+                    <!--****bookleft****-->
+                    <!--****bookright****-->
+                    <div class="book_seciton_right">
+                        <h3>Leo Spitzer: Stylistické studie z románských literatur</h3>
+
+                        <div class="rate_div">
+                            <div class="rate"> 30%</div>
+                            <span class="next_link"><i class="fa fa-angle-right"></i></span>
+                        </div>
+                        <p>Kniha Flashky, která nedávno vyšla v nakladatelství Torst a jejíž autorkou je Eva Zábranová,
+                            patří
+                            nesporně k titulům schopným rozdělit čtenářskou veřejnost na několik nesmiřitelných táborů,
+                            a
+                            vyžadujícím tak i po literárním kritikovi, aby již na úvod svého referátu</p>
+                    </div>
+                    <!--****bookright****-->
+                </div>
+                <!------------------------------------ /Predelavka na cordovu  -->
+
+
+                <!--**booksectionrow**-->
+
+
+                <!--**booksectionrow**-->
+                <div class="bs_title">
+                    <h2>Novinky</h2>
+
+                    <div class="tab_link">
+                        <ul>
+                            <li><a href="#_">podle data</a></li>
+                            <li><a href="#_" class="active">hodnoceni</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="book_seciton">
+                    <!--****bookleft****-->
+                    <div class="book_seciton_left"><img src="img/book/2.jpg" alt="book"> <span>RECENZE</span>
+
+                        <p>Petr Nagy<Br>
+                            11.7.2010</p>
+                    </div>
+                    <!--****bookleft****-->
+                    <!--****bookright****-->
+                    <div class="book_seciton_right">
+                        <h3>Leo Spitzer: Stylistické studie z románských literatur</h3>
+
+                        <div class="rate_div">
+                            <div class="rate"> 30%</div>
+                            <a href="artical.html" class="next_link"><i class="fa fa-angle-right"></i></a></div>
+                        <p>Kniha Flashky, která nedávno vyšla v nakladatelství Torst a jejíž autorkou je Eva Zábranová,
+                            patří
+                            nesporně k titulům schopným rozdělit čtenářskou veřejnost na několik nesmiřitelných táborů,
+                            a
+                            vyžadujícím tak i po literárním kritikovi, aby již na úvod svého referátu</p>
+                    </div>
+                    <!--****bookright****-->
+                </div>
+
+
+                <!--**booksectionrow**-->
+                <div class="book_list">
+                    <div class="book_list_left">
+                        <h3>Leo Spitzer: Stylistické studie z románských literatur</h3>
+                        <span>RECENZE</span>
+
+                        <p>Petr Nagy 11.7.2010</p>
+                    </div>
+                    <div class="book_list_right">
+                        <div class="rate_div">
+                            <div class="rate"> 30%</div>
+                            <a href="artical.html" class="next_link"><i class="fa fa-angle-right"></i></a></div>
+                    </div>
+                </div>
+                <!--**booksectionrow**-->
+            </div>
+        </section>
+    </div>
+</div>
+<div data-cont-id="contentRecCateg" class="mainContent recCateg"><h1>Doporucene kategorie</h1></div>
+<div data-cont-id="contentArticles" class="mainContent articles"><h1>Clanky</h1></div>
+<div data-cont-id="contentSearch" class="mainContent search"><h1>Vyhledávání</h1></div>
+<div data-cont-id="contentScan" class="mainContent scan"><h1>Scan ISBN</h1></div>
+<div data-cont-id="contentArticle" class="mainContent article"><h1>Clanek</h1></div>
+<div data-cont-id="contentArticleDetail" class="mainContent articleDetail"><h1>Detail Clanku</h1></div>
+<div data-cont-id="contentRecList" class="mainContent recList"><h1>Doporucene clanky v kategorii</h1></div>
+
+<!-------------------------------------------------- menu -->
+<div class="footer">
+    <ul>
+        <li class="_buttonClick" data-click="showWindow('index')">
+            <span><i class="fa fa-star"></i>Novinky</span>
+        </li>
+        <li class="_buttonClick" data-click="showWindow('recCateg')">
+            <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
+        </li>
+        <li class="_buttonClick" data-click="showWindow('articles')">
+            <span><i class="fa fa-reorder"></i>Články</span>
+        </li>
+        <li class="_buttonClick" data-click="showWindow('search')">
+            <span><i class="fa fa-search"></i>Search</span>
+        </li>
+        <li class="_buttonClick" data-click="showWindow('scan')">
+            <span><i class="fa fa-barcode"></i>Scan ISBN</span>
+        </li>
+    </ul>
+</div>
+</div>
+</body>
+</html>
