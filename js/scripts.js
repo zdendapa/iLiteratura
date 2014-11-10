@@ -61,6 +61,7 @@ function getArticle(id) {
     $.ajax({
         url: url,
         dataType: 'json',
+        crossDomain: true,
         success: processArticle,
         error: ajaxError
     });
@@ -77,17 +78,14 @@ function processArticle(data, textStatus, jqXHR) {
     // Console info
     console.log("AJAX Article Detail:", jqXHR.status, textStatus)
     var img = $('<img/>').attr('src', data.TitleImgUrl);
-    var title = $('<div class="title"></div>').text("Titulek: " + data.Title);
-    var author = $('<div class="author"></div>').text("Autor: " + data.Author.NameFirst + " " + data.Author.NameLast);
-    var date = $('<div class="date"></div>').text("Datum: " + data.Date);
-    var isbn = $('<div class="isbn"></div>').text("ISBN: " + data.ISBN);
-    var text = $('<div class="text"></div>').text("Text: " + data.Text);
-    $("div[data-cont-id='contentArticle']")
+    var title = $('<h3></h3>').text(data.Title);
+    var author = $('<div class="author"></div>').text("Autor článku: " + data.Author.NameFirst + " " + data.Author.NameLast + " - " + data.Date);
+    var text = $('<div class="text"></div>').text(data.Text);
+    $("div[data-cont-id='contentArticle'] .artical")
+        .empty()
         .append(img)
         .append(title)
         .append(author)
-        .append(date)
-        .append(isbn)
         .append(text);
 }
 
@@ -103,6 +101,7 @@ function getArticleDetail(idArticle) {
     $.ajax({
         url: url,
         dataType: 'json',
+        crossDomain: true,
         success: processArticleDetail,
         error: ajaxError
     });
@@ -117,29 +116,33 @@ function getArticleDetail(idArticle) {
  */
 function processArticleDetail(data, textStatus, jqXHR) {
     // Console info
-    console.log("AJAX Article Detail:", jqXHR.status, textStatus)
+    console.log("AJAX Article Detail:", jqXHR.status, textStatus);
+
+
     // Creating html element and putting data
+    var relArticlesHeader = $('<div class="bs_title"><h2>související clánky:</h2></div>');
+    var ratingHeader = $('<div class="bs_title"><h2>hodnocení knihy:</h2></div>');
     var authorsRating = $('<div class="aRating"></div>').text("Autor rating: " + data.RatingAuthorArticle);
     var usersRating = $('<div class="uRating"></div>').text("Uzivatel rating: " + data.RatingUsers);
     var views = $('<div class="views"></div>').text("Zhlédnutí: " + data.Views);
-    var relatedArticles = $('<div class="related-articles"></div>').text("Přidružené články");
+    var relatedArticles = $('<div class="related-articles"></div>');
     // Cycle for related articles
     $.each(data.RelatedArticles, function (key, val) {
-        var relArticle = $('<div></div>').addClass(val.Id).text("Přidružený článek");
-        var relArticleTitle = $('<div class="title"></div>').text("Titulek: " + val.Title);
-        var relArticleType = $('<div class="type"></div>').text("Typ článku: " + val.Type.Name);
-        // Appending divs
-        relArticle
-            .append(relArticleTitle)
-            .append(relArticleType);
+        var relArticle = $('<div class="book_list _buttonClick"></div>')
+            .attr("data-click", "showWindow('article')")
+            .attr("data-article-id", val.Id);
+
+        var bookListLeft = $('<div class="book-list-left>"</div>')
+            .append($('<h3></h3>').text(val.Title))
+            .append($('<span></span>').text(val.Type.Name.toUpperCase()));
+        relArticle.append(bookListLeft);
         relatedArticles.append(relArticle);
     });
     // Appending to document
-    $("div[data-cont-id='contentArticleDetail']")
+    $("div[data-cont-id='contentArticleDetail'] .mid_section .container")
+        .append(relArticlesHeader)
         .append(relatedArticles)
-        .append(authorsRating)
-        .append(usersRating)
-        .append(views);
+        .append(ratingHeader);
 }
 
 /**
@@ -155,6 +158,7 @@ function postArticleRating(idArticle, rating) {
         url: url,
         type: 'POST',
         dataType: 'json',
+        crossDomain: true,
         processData: false,
         data: json,
         success: function (data, textStatus, jqXHR) {
@@ -178,6 +182,7 @@ function getDiscussion(idArticle, page, pageSize) {
     $.ajax({
         url: url,
         dataType: 'json',
+        crossDomain: true,
         success: processDiscussion,
         error: ajaxError
     });
@@ -194,17 +199,16 @@ function processDiscussion(data, textStatus, jqXHR) {
     // Console info
     console.log("AJAX Discussion:", jqXHR.status, textStatus);
     // Creating html element and putting data
-    var posts = $('<div class="posts"></div>').text("Diskuze");
+    $("div[data-cont-id='contentArticle'] .discuss").empty();
     $.each(data, function (key, value) {
-        var discussionBox = $('<div class="discussionBox"></div>').text("Příspěvek");
-        var name = $('<div class="name"></div>').text("Jméno: " + value.Name);
-        var text = $('<div class="text"></div>').text("Text: " + value.Text);
+        var discussionBox = $('<div class="discuss_content"></div>');
+        var name = $('<h4></h4>').text(value.Name);
+        var text = $('<p></p>').text(value.Text);
         discussionBox
             .append(name)
             .append(text);
-        posts.append(discussionBox);
+        $("div[data-cont-id='contentArticle'] .discuss").append(discussionBox);
     });
-    $("div[data-cont-id='contentArticle']").append(posts);
 }
 
 /**
@@ -222,6 +226,7 @@ function postDiscussion(idArticle, name, email, post) {
         url: url,
         type: 'POST',
         dataType: 'json',
+        crossDomain: true,
         processData: false,
         data: json,
         success: function (data, textStatus, jqXHR) {
@@ -253,6 +258,7 @@ function searchArticles(author, title, authorArticle, isbn, page, pageSize) {
     $.ajax({
         url: url,
         dataType: 'json',
+        crossDomain: true,
         success: processSearch,
         error: ajaxError
     });

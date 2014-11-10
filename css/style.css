@@ -43,7 +43,8 @@ h1, h2, h3, h4, h5 {
     top: 0px;
     left: 0px;
     width: 100%;
-    height: 100%;
+    height: auto;
+    margin-bottom: 72px;
 }
 
 .clear {
@@ -53,7 +54,7 @@ h1, h2, h3, h4, h5 {
     padding: 0px;
 }
 
-#header {
+.header {
     position: relative;
     width: 100%;
     height: auto;
@@ -80,7 +81,7 @@ h1, h2, h3, h4, h5 {
     width: 210px;
 }
 
-#mid_section {
+.mid_section {
     width: 100%;
     float: left;
     margin: 0px;
@@ -293,9 +294,8 @@ h1, h2, h3, h4, h5 {
     float: left;
     margin: 0px;
     padding: 0px;
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
+    position: relative;
+    bottom: 0;
 }
 
 .footer ul li {
