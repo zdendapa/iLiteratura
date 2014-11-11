@@ -17,6 +17,29 @@ function onDeviceReady() {
     //showWindow("prihlaseni");
 }
 
+function clickInit()
+{
+
+    $('._buttonClick[data-article-id]').on('click', function () {
+        console.log("a");
+        setTimeout(function(){
+            showWindow("article");
+        },300);
+
+        var idArticle = $(this).attr("data-article-id");
+        console.log("Selected article ID:", idArticle);
+        getArticle(idArticle);
+        getDiscussion(idArticle, null, null);
+        $('div[data-cont-id="contentArticle"] .header .container .next').attr('data-article-detail-id', idArticle);
+        $('div[data-cont-id="contentArticle"] .header .container .next[data-article-detail-id]').on('click', function () {
+            var idArticle = $(this).attr("data-article-detail-id");
+            console.log("Selected article detail ID:", idArticle);
+            getArticleDetail(idArticle);
+        });
+    });
+
+}
+
 /**
  * Funcion show window by its name.
  *

@@ -14,6 +14,7 @@
     <script type="text/javascript" src="js/scripts.js"></script>
     <script type="text/javascript" src="js/fastclick.js"></script>
     <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
 </head>
 <body>
@@ -60,18 +61,17 @@
 <!-------------------------------------------------- main content -->
 <div data-cont-id="contentIndex" class="mainContent index">
     <!-- HEADER -->
-    <header class="header">
+    <div class="header">
         <div class="container"><img src="img/logo.png" alt="logo" class="logo"></div>
-    </header>
-    <section id="mid_section">
-        <div class="container">
+    </div>
+        <div class="container content">
             <div class="bs_title">
                 <h2>Kniha týdne</h2>
             </div>
 
             <!------------------------------------ Predelavka na cordovu  -->
             <!--**booksectionrow**-->
-            <div class="book_seciton _buttonClick" data-click="showWindow('article')" data-article-id="1">
+            <div class="book_seciton _buttonClick" data-article-id="1">
                 <!--****bookleft****-->
                 <div class="book_seciton_left"><img src="img/book/1.jpg" alt="book"> <span>RECENZE</span>
 
@@ -112,7 +112,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="book_seciton _buttonClick" data-click="showWindow('article')" data-article-id="1">
+            <div class="book_seciton _buttonClick" data-article-id="2">
                 <!--****bookleft****-->
                 <div class="book_seciton_left"><img src="img/book/2.jpg" alt="book"> <span>RECENZE</span>
 
@@ -138,7 +138,7 @@
 
 
             <!--**booksectionrow**-->
-            <div class="book_list _buttonClick" data-click="showWindow('article')" data-article-id="1">
+            <div class="book_list _buttonClick" data-article-id="3">
                 <div class="book_list_left">
                     <h3>Leo Spitzer: Stylistické studie z románských literatur</h3>
                     <span>RECENZE</span>
@@ -153,26 +153,68 @@
             </div>
             <!--**booksectionrow**-->
         </div>
-    </section>
+    <div class="footer">
+        <ul>
+            <li class="_buttonClick" data-click="showWindow('index')">
+                <span><i class="fa fa-star"></i>Novinky</span>
+            </li>
+            <li class="_buttonClick" data-click="showWindow('recCateg')">
+                <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
+            </li>
+            <li class="_buttonClick" data-click="showWindow('articles')">
+                <span><i class="fa fa-reorder"></i>Články</span>
+            </li>
+            <li class="_buttonClick" data-click="showWindow('search')">
+                <span><i class="fa fa-search"></i>Search</span>
+            </li>
+            <li class="_buttonClick" data-click="showWindow('scan')">
+                <span><i class="fa fa-barcode"></i>Scan ISBN</span>
+            </li>
+        </ul>
+    </div>
 </div>
-<div data-cont-id="contentRecCateg" class="mainContent recCateg"><h1>Doporucene kategorie</h1></div>
+<div data-cont-id="contentRecCateg" class="mainContent recCateg">
+    <div class="header">
+        <div class="container">
+            <span class="title_content">Doporučené</span>
+        </div>
+    </div>
+    <div class="footer">
+        <ul>
+            <li class="_buttonClick" data-click="showWindow('index')">
+                <span><i class="fa fa-star"></i>Novinky</span>
+            </li>
+            <li class="_buttonClick" data-click="showWindow('recCateg')">
+                <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
+            </li>
+            <li class="_buttonClick" data-click="showWindow('articles')">
+                <span><i class="fa fa-reorder"></i>Články</span>
+            </li>
+            <li class="_buttonClick" data-click="showWindow('search')">
+                <span><i class="fa fa-search"></i>Search</span>
+            </li>
+            <li class="_buttonClick" data-click="showWindow('scan')">
+                <span><i class="fa fa-barcode"></i>Scan ISBN</span>
+            </li>
+        </ul>
+    </div>
+</div>
 <div data-cont-id="contentArticles" class="mainContent articles"><h1>Clanky</h1></div>
 <div data-cont-id="contentSearch" class="mainContent search"><h1>Vyhledávání</h1></div>
 <div data-cont-id="contentScan" class="mainContent scan"><h1>Scan ISBN</h1></div>
 <div data-cont-id="contentArticle" class="mainContent article">
     <!--*********headsection***********-->
-    <header class="header">
+    <div class="header">
         <div class="container">
             <span class="back"><i class="fa fa-angle-left"></i>zpět</span>
             <span class="title_content">Článek</span>
             <span class="next _buttonClick" data-click="showWindow('articleDetail')"><i class="fa fa-plus"></i></span>
         </div>
-    </header>
+    </div>
     <!--*********headsection***********-->
 
     <!--*********midsection***********-->
-    <section class="mid_section">
-        <div class="container">
+        <div class="container content">
             <!--**article**-->
             <div class="artical">
                 <img src="img/artical.jpg" alt="artical">
@@ -213,7 +255,6 @@
                 <div class="odl_button">Odeslat</div>
             </div>
         </div>
-    </section>
     <!--*********midsection***********-->
 
 </div>
@@ -270,26 +311,9 @@
     <!--*********midsection***********-->
 </div>
 <div data-cont-id="contentRecList" class="mainContent recList"><h1>Doporucene clanky v kategorii</h1></div>
+<div id="verzeApp">v0.1</div>
 
 <!-------------------------------------------------- menu -->
-<div class="footer">
-    <ul>
-        <li class="_buttonClick" data-click="showWindow('index')">
-            <span><i class="fa fa-star"></i>Novinky</span>
-        </li>
-        <li class="_buttonClick" data-click="showWindow('recCateg')">
-            <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
-        </li>
-        <li class="_buttonClick" data-click="showWindow('articles')">
-            <span><i class="fa fa-reorder"></i>Články</span>
-        </li>
-        <li class="_buttonClick" data-click="showWindow('search')">
-            <span><i class="fa fa-search"></i>Search</span>
-        </li>
-        <li class="_buttonClick" data-click="showWindow('scan')">
-            <span><i class="fa fa-barcode"></i>Scan ISBN</span>
-        </li>
-    </ul>
-</div>
+
 </body>
 </html>
