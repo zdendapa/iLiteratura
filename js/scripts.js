@@ -42,7 +42,9 @@ function clickInit() {
 function focusOutInit() {
     $('div[data-cont-id="search"] .search-input input').focusout(function () {
         var input = $('div[data-cont-id="search"] .search-input input').val();
-        searchArticles(input, input, input, input, 1, 10);
+        if (input !== "") {
+            searchArticles(input, input, input, input, 1, 10);
+        }
     });
 }
 
@@ -59,6 +61,9 @@ function showWindow(windowName) {
     }
     if (windowName === "recCateg") {
         containerVisibilitySet("recCateg", true);
+    }
+    if (windowName === "recArticles") {
+        containerVisibilitySet("recArticles", true);
     }
     if (windowName === "articles") {
         containerVisibilitySet("articles", true);
@@ -305,6 +310,7 @@ function searchArticles(author, title, authorArticle, isbn, page, pageSize) {
     pageSize = pageSize || 10;
     var url = queryURL + "/articles/search?" +
         "{" + author + "}&{" + title + "}&{" + authorArticle + "}&{" + isbn + "}&{" + page + "}&{" + pageSize + "}";
+    addLoadingImg($('.search .container.content'));
     $.ajax({
         url: url,
         dataType: 'json',
@@ -324,6 +330,7 @@ function searchArticles(author, title, authorArticle, isbn, page, pageSize) {
 function processSearch(data, textStatus, jqXHR) {
     // Console info
     console.log("AJAX Search:", jqXHR.status, textStatus);
+    removeLoadingImg();
 
     var page = $("div[data-cont-id='search'] .container.content");
     page.find('.articlesList').remove();
@@ -369,6 +376,7 @@ function processSearch(data, textStatus, jqXHR) {
  */
 function ajaxError(jqXHR, textStatus, errThrown) {
     console.log("AJAX:", textStatus, jqXHR.status, errThrown);
+    removeLoadingImg();
 }
 
 /**
@@ -381,4 +389,51 @@ function addLoadingImg(jQueryEl) {
         .attr('src', './img/ajax-loader.gif')
         .attr('alt', 'Nahrávám data ...');
     jQueryEl.append(img);
+}
+function removeLoadingImg() {
+    $('.loading-image').remove();
+}
+
+/**
+ * Take data from discussion form and make check. If everything is OK, then call AJAX post.
+ */
+function sendDiscussionPost() {
+    var name, email, text, error, articleID;
+    articleID = $('div[data-cont-id="article"] .header .container .next[data-article-detail-id]').attr('data-article-detail-id');
+    error = false;
+    name = $('.artical_form input[name="name"]');
+    email = $('.artical_form input[name="mail"]');
+    text = $('.artical_form textarea[name="message"]');
+    if (name.val() === "") {
+        name.css('border', '1px solid red');
+        error = true;
+    }
+
+    if (validateEmail(email.val())) {
+        email.css('border', '1px solid red');
+        error = true;
+    }
+
+    if (text.val() === "") {
+        text.css('border', '1px solid red');
+        error = true;
+    }
+    if (!error) {
+        postDiscussion(articleID, name.val(), email.val(), text.val());
+        name.val("").css('border', 0);
+        email.val("").css('border', 0);
+        text.val("").css('border', 0);
+        alertG("Příspěvek odeslán.", "Info");
+    }
+}
+
+/**
+ * Test if mail address suits regexp.
+ *
+ * @param email string with mail adress
+ * @returns {boolean} true if mail test fails
+ */
+function validateEmail(email) {
+    var emailReg = new RegExp("^[\\w\\d._%+-]+@[\\w\\d.-]+\\.[\\w]{2,4}$");
+    return !emailReg.test(email);
 }

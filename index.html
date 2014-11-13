@@ -64,6 +64,7 @@
     <div class="header">
         <div class="container"><img src="img/logo.png" alt="logo" class="logo"></div>
     </div>
+
     <div class="container content">
         <div class="bs_title">
             <h2>Kniha týdne</h2>
@@ -126,7 +127,7 @@
 
                 <div class="rate_div">
                     <div class="rate"> 30%</div>
-                    <a href="artical.html" class="next_link"><i class="fa fa-angle-right"></i></a></div>
+                    <span class="next_link"><i class="fa fa-angle-right"></i></span></div>
                 <p>Kniha Flashky, která nedávno vyšla v nakladatelství Torst a jejíž autorkou je Eva Zábranová,
                     patří
                     nesporně k titulům schopným rozdělit čtenářskou veřejnost na několik nesmiřitelných táborů,
@@ -175,10 +176,90 @@
 </div>
 <div data-cont-id="recCateg" class="mainContent recCateg">
     <div class="header">
-        <div class="container">
-            <span class="title_content">Doporučené</span>
+        <div class="header">
+            <div class="container">
+                <span class="title_content">Doporučené</span>
+            </div>
         </div>
     </div>
+
+    <div class="container content">
+        <div class="_buttonClick rec-categ" data-click="showWindow('recArticles')">
+            <h2>Vánoce</h2>
+            <span class="next_link"><i class="fa fa-angle-right"></i></span>
+        </div>
+        <div class="_buttonClick rec-categ" data-click="showWindow('recArticles')">
+            <h2>Rodiče</h2>
+            <span class="next_link"><i class="fa fa-angle-right"></i></span>
+        </div>
+        <div class="_buttonClick rec-categ" data-click="showWindow('recArticles')">
+            <h2>Děti</h2>
+            <span class="next_link"><i class="fa fa-angle-right"></i></span>
+        </div>
+    </div>
+
+    <div class="footer">
+        <ul>
+            <li class="_buttonClick" data-click="showWindow('index')">
+                <span><i class="fa fa-star"></i>Novinky</span>
+            </li>
+            <li class="_buttonClick" data-click="showWindow('recCateg')">
+                <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
+            </li>
+            <li class="_buttonClick" data-click="showWindow('articles')">
+                <span><i class="fa fa-reorder"></i>Články</span>
+            </li>
+            <li class="_buttonClick" data-click="showWindow('search')">
+                <span><i class="fa fa-search"></i>Search</span>
+            </li>
+            <li class="_buttonClick" data-click="showWindow('scan')">
+                <span><i class="fa fa-barcode"></i>Scan ISBN</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div data-cont-id="recArticles" class="mainContent recArticles">
+    <div class="header">
+        <div class="header">
+            <div class="container">
+                <span class="title_content">Doporučené</span>
+            </div>
+        </div>
+        <div class="bs_title">
+            <h2>Vánoce</h2>
+
+            <div class="tab_link">
+                <ul>
+                    <li><a href="#_">podle data</a></li>
+                    <li><a href="#_" class="active">hodnoceni</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container content">
+        <div class="articlesList">
+            <div class="book_list _buttonClick" data-article-id="28077">
+                <div class="book_list_right">
+                    <div class="rate_div">
+                        <div class="rate">60 %</div>
+                        <span class="next_link"><i class="fa fa-angle-right"></i></span></div>
+                </div>
+                <div class="book_list_left"><h3>Andjelkovski, Tašo: Mirny</h3><span>recenze</span>
+
+                    <p>Tašo Andjelkovski 28.3.2011 10:19:00</p></div>
+            </div>
+            <div class="book_list _buttonClick" data-article-id="9461">
+                <div class="book_list_right">
+                    <div class="rate_div"><span class="next_link"><i class="fa fa-angle-right"></i></span></div>
+                </div>
+                <div class="book_list_left"><h3>Auster, Paul: Leviatan</h3><span>recenze</span>
+
+                    <p>Paul Auster 9.4.2003</p></div>
+            </div>
+        </div>
+    </div>
+
     <div class="footer">
         <ul>
             <li class="_buttonClick" data-click="showWindow('index')">
@@ -200,7 +281,44 @@
     </div>
 </div>
 <div data-cont-id="articles" class="mainContent articles">
-    <h1>Clanky</h1>
+    <div class="header">
+        <div class="header">
+            <div class="container">
+                <span class="title_content">Články</span>
+                <span class="next text">řadit podle</span>
+            </div>
+        </div>
+        <div class="bs_title">
+            <h2>žánr:</h2>
+        </div>
+        <div class="select">
+            <h2>BELETRIE ČESKÁ</h2>
+            <i class="fa fa-angle-right"></i>
+        </div>
+    </div>
+
+    <div class="container content">
+        <div class="articlesList">
+            <div class="book_list _buttonClick" data-article-id="28077">
+                <div class="book_list_right">
+                    <div class="rate_div">
+                        <div class="rate">60 %</div>
+                        <span class="next_link"><i class="fa fa-angle-right"></i></span></div>
+                </div>
+                <div class="book_list_left"><h3>Andjelkovski, Tašo: Mirny</h3><span>recenze</span>
+
+                    <p>Tašo Andjelkovski 28.3.2011 10:19:00</p></div>
+            </div>
+            <div class="book_list _buttonClick" data-article-id="9461">
+                <div class="book_list_right">
+                    <div class="rate_div"><span class="next_link"><i class="fa fa-angle-right"></i></span></div>
+                </div>
+                <div class="book_list_left"><h3>Auster, Paul: Leviatan</h3><span>recenze</span>
+
+                    <p>Paul Auster 9.4.2003</p></div>
+            </div>
+        </div>
+    </div>
 
     <div class="footer">
         <ul>
@@ -228,14 +346,14 @@
         <div class="container">
             <span class="title_content">Vyhledávání</span>
         </div>
+        <div class="search-input">
+            <input name="search" type="text" class="artical_text_field" placeholder="Hledat"/>
+        </div>
     </div>
 
     <!--*********headsection***********-->
 
     <div class="container content">
-        <div class="search-input">
-            <input name="search" type="text" class="artical_text_field" placeholder="Hledat"/>
-        </div>
 
     </div>
 
@@ -260,7 +378,11 @@
     </div>
 </div>
 <div data-cont-id="scan" class="mainContent scan">
-    <h1>Scan ISBN</h1>
+    <div class="header">
+        <div class="container">
+            <span class="title_content">Scan ISBN</span>
+        </div>
+    </div>
 
     <div class="footer">
         <ul>
@@ -313,26 +435,21 @@
         </div>
         <!--**article**-->
 
-        <div class="social_section">
-            <ul>
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Twitter</a></li>
-                <li><a href="#">Google+</a></li>
-                <li><a href="#">E-mail</a></li>
-            </ul>
-            <input name="cancel" type="button" class="cancel_button" value="Zrušit">
+        <div class="rating_box">
+            <div class="rating_button _buttonClick">Hodnotit knihu</div>
         </div>
+
         <div class="discuss">
             <h3>Diskuze:</h3>
         </div>
         <div class="artical_form">
             <label>Přidat komentář do diskuze</label>
-            <input name="text" type="text" class="artical_text_field" placeholder="Vaše jméno">
-            <input name="text" type="text" class="artical_text_field" placeholder="Váš e-mail">
+            <input name="name" type="text" class="artical_text_field" placeholder="Vaše jméno">
+            <input name="mail" type="text" class="artical_text_field" placeholder="Váš e-mail">
             <textarea name="message" cols="" rows="" class="artical_text_area"
                       placeholder="Text příspěvku"></textarea>
 
-            <div class="odl_button">Odeslat</div>
+            <div class="odl_button _buttonClick" data-click="sendDiscussionPost()">Odeslat</div>
         </div>
     </div>
     <!--*********midsection***********-->
