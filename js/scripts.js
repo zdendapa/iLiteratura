@@ -1,5 +1,3 @@
-var elMainTopH;
-
 /**
  * URL of page which reacts to AJAX requests
  * @type {string}
@@ -14,13 +12,13 @@ function onDeviceReady() {
     scripDefaultInit();
 
     showWindow("index");
-    //showWindow("prihlaseni");
 }
 
+/**
+ * Initialize button click on data-article-id buttons, call AJAX functions for content of article and discussion.
+ */
 function clickInit() {
-
-    $('._buttonClick[data-article-id]').on('click', function () {
-        console.log("a");
+    $(document).on('click', '._buttonClick[data-article-id]', function () {
         setTimeout(function () {
             showWindow("article");
         }, 300);
@@ -36,7 +34,16 @@ function clickInit() {
             getArticleDetail(idArticle);
         });
     });
+}
 
+/**
+ * Initialize focusOut listener on search input.
+ */
+function focusOutInit() {
+    $('div[data-cont-id="search"] .search-input input').focusout(function () {
+        var input = $('div[data-cont-id="search"] .search-input input').val();
+        searchArticles(input, input, input, input, 1, 10);
+    });
 }
 
 /**
@@ -84,6 +91,7 @@ function getArticle(id) {
         url: url,
         dataType: 'json',
         crossDomain: true,
+        /*beforeSend: addLoadingImg($("div[data-cont-id='article'] .artical")),*/
         success: processArticle,
         error: ajaxError
     });
@@ -239,7 +247,9 @@ function processDiscussion(data, textStatus, jqXHR) {
     // Console info
     console.log("AJAX Discussion:", jqXHR.status, textStatus);
     // Creating html element and putting data
-    $("div[data-cont-id='contentArticle'] .discuss").empty();
+    var page = $("div[data-cont-id='article']");
+    page.find(".discuss_content").remove();
+
     $.each(data, function (key, value) {
         var discussionBox = $('<div class="discuss_content"></div>');
         var name = $('<h4></h4>').text(value.Name);
@@ -279,13 +289,12 @@ function postDiscussion(idArticle, name, email, post) {
 /**
  * Function make AJAX search request.
  *
- * @param {type} author
- * @param {type} title
- * @param {type} authorArticle
- * @param {type} isbn
- * @param {type} page
- * @param {type} pageSize
- * @returns {undefined}
+ * @param {string} author
+ * @param {string} title
+ * @param {string} authorArticle
+ * @param {string} isbn
+ * @param {number} page
+ * @param {number} pageSize
  */
 function searchArticles(author, title, authorArticle, isbn, page, pageSize) {
     author = author || "";
@@ -305,28 +314,48 @@ function searchArticles(author, title, authorArticle, isbn, page, pageSize) {
     });
 }
 
+/**
+ * Take AJAX data from search request and make HTML code from them.
+ *
+ * @param data from AJAX request
+ * @param textStatus from AJAX request
+ * @param jqXHR javascript XMLHttpRequest
+ */
 function processSearch(data, textStatus, jqXHR) {
     // Console info
     console.log("AJAX Search:", jqXHR.status, textStatus);
+
+    var page = $("div[data-cont-id='search'] .container.content");
+    page.find('.articlesList').remove();
+
     // Creating html element and putting data
-    var articlesList = $('<div class="articlesList"></div>').text('Seznam vyhledaných článků');
+    var articlesList = $('<div class="articlesList"></div>');
     $.each(data, function (key, val) {
-        var articleBox = $('<div class="articleBox"></div>').text('Článek').attr("article-id", val.Id);
-        var title = $('<div class="title"></div>').text(val.Title);
-        var author = $('<div class="author"></div>').text(val.Author.NameFirst + " " + val.Author.NameLast);
-        var date = $('<div class="date"></div>').text(val.Date);
-        var type = $('<div class="type"></div>').text(val.Type.Name);
-        articleBox
+        var articleBox = $('<div class="book_list _buttonClick"></div>').attr("data-article-id", val.Id);
+        var leftPart = $('<div class="book_list_left"></div>');
+        var title = $('<h3></h3>').text(val.Title);
+        var type = $('<span></span>').text(val.Type.Name);
+        var author = $('<p></p>').text(val.Author.NameFirst + " " + val.Author.NameLast + " " + val.Date);
+        leftPart
             .append(title)
-            .append(author)
-            .append(date)
-            .append(type);
+            .append(type)
+            .append(author);
+
+        var rightPart = $('<div class="book_list_right"></div>').append($('<div class="rate_div"></div>'));
         if (val.RatingAuthorArticle) {
-            var rating = $('<div class="rating"></div>').text(val.RatingAuthorArticle);
-            articleBox.append(rating);
+            var rating = $('<div class="rate"></div>').text(val.RatingAuthorArticle + "0 %");
         }
+
+        rightPart.find('.rate_div')
+            .append(rating)
+            .append($('<span class="next_link"><i class="fa fa-angle-right"></i></span>'));
+
+        articleBox
+            .append(rightPart)
+            .append(leftPart);
+
         articlesList.append(articleBox);
-        $("div[data-cont-id='search']").append(articlesList);
+        page.append(articlesList);
     });
 
 }
@@ -340,4 +369,16 @@ function processSearch(data, textStatus, jqXHR) {
  */
 function ajaxError(jqXHR, textStatus, errThrown) {
     console.log("AJAX:", textStatus, jqXHR.status, errThrown);
+}
+
+/**
+ * Add ajax loading image to some jQuery selected element
+ *
+ * @param jQueryEl
+ */
+function addLoadingImg(jQueryEl) {
+    var img = $('<img class="loading-image"/>')
+        .attr('src', './img/ajax-loader.gif')
+        .attr('alt', 'Nahrávám data ...');
+    jQueryEl.append(img);
 }

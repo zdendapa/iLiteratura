@@ -109,6 +109,11 @@ input[type=button]:active {
     bottom: 0px;
 }
 
+.loading-image {
+    border: 0;
+    text-align: center;
+}
+
 /* --------- specificke ------------------ */
 .header {
     min-height: 45px;
