@@ -142,6 +142,10 @@ function processArticleDetail(data, textStatus, jqXHR) {
 
     // Elements for putting content
     var page = $('.mainContent.articleDetail');
+    page.find('.book_list').remove();
+    page.find('.gusetbook').remove();
+    page.find('.rating .bs_title:eq(1)').remove();
+
 
     // Creating dynamic html element
     var rating = $('<div class="gusetbook"><ul>' +
@@ -274,7 +278,7 @@ function postDiscussion(idArticle, name, email, post) {
 
 /**
  * Function make AJAX search request.
- * 
+ *
  * @param {type} author
  * @param {type} title
  * @param {type} authorArticle
