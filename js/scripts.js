@@ -17,21 +17,20 @@ function onDeviceReady() {
     //showWindow("prihlaseni");
 }
 
-function clickInit()
-{
+function clickInit() {
 
     $('._buttonClick[data-article-id]').on('click', function () {
         console.log("a");
-        setTimeout(function(){
+        setTimeout(function () {
             showWindow("article");
-        },300);
+        }, 300);
 
         var idArticle = $(this).attr("data-article-id");
         console.log("Selected article ID:", idArticle);
         getArticle(idArticle);
         getDiscussion(idArticle, null, null);
-        $('div[data-cont-id="contentArticle"] .header .container .next').attr('data-article-detail-id', idArticle);
-        $('div[data-cont-id="contentArticle"] .header .container .next[data-article-detail-id]').on('click', function () {
+        $('div[data-cont-id="article"] .header .container .next').attr('data-article-detail-id', idArticle);
+        $('div[data-cont-id="article"] .header .container .next[data-article-detail-id]').on('click', function () {
             var idArticle = $(this).attr("data-article-detail-id");
             console.log("Selected article detail ID:", idArticle);
             getArticleDetail(idArticle);
@@ -48,29 +47,29 @@ function clickInit()
 function showWindow(windowName) {
     hideAll();
 
-    if (windowName == "index") {
-        containerVisibilitySet("contentIndex", true);
+    if (windowName === "index") {
+        containerVisibilitySet("index", true);
     }
-    if (windowName == "recCateg") {
-        containerVisibilitySet("contentRecCateg", true);
+    if (windowName === "recCateg") {
+        containerVisibilitySet("recCateg", true);
     }
-    if (windowName == "articles") {
-        containerVisibilitySet("contentArticles", true);
+    if (windowName === "articles") {
+        containerVisibilitySet("articles", true);
     }
-    if (windowName == "search") {
-        containerVisibilitySet("contentSearch", true);
+    if (windowName === "search") {
+        containerVisibilitySet("search", true);
     }
-    if (windowName == "scan") {
-        containerVisibilitySet("contentScan", true);
+    if (windowName === "scan") {
+        containerVisibilitySet("scan", true);
     }
-    if (windowName == "article") {
-        containerVisibilitySet("contentArticle", true);
+    if (windowName === "article") {
+        containerVisibilitySet("article", true);
     }
-    if (windowName == "articleDetail") {
-        containerVisibilitySet("contentArticleDetail", true);
+    if (windowName === "articleDetail") {
+        containerVisibilitySet("articleDetail", true);
     }
-    if (windowName == "recList") {
-        containerVisibilitySet("contentRecList", true);
+    if (windowName === "recList") {
+        containerVisibilitySet("recList", true);
     }
 }
 
@@ -99,12 +98,12 @@ function getArticle(id) {
  */
 function processArticle(data, textStatus, jqXHR) {
     // Console info
-    console.log("AJAX Article Detail:", jqXHR.status, textStatus)
+    console.log("AJAX Article Detail:", jqXHR.status, textStatus);
     var img = $('<img/>').attr('src', data.TitleImgUrl);
     var title = $('<h3></h3>').text(data.Title);
     var author = $('<div class="author"></div>').text("Autor článku: " + data.Author.NameFirst + " " + data.Author.NameLast + " - " + data.Date);
     var text = $('<div class="text"></div>').text(data.Text);
-    $("div[data-cont-id='contentArticle'] .artical")
+    $("div[data-cont-id='article'] .artical")
         .empty()
         .append(img)
         .append(title)
@@ -141,31 +140,45 @@ function processArticleDetail(data, textStatus, jqXHR) {
     // Console info
     console.log("AJAX Article Detail:", jqXHR.status, textStatus);
 
+    // Elements for putting content
+    var page = $('.mainContent.articleDetail');
 
-    // Creating html element and putting data
-    var relArticlesHeader = $('<div class="bs_title"><h2>související clánky:</h2></div>');
-    var ratingHeader = $('<div class="bs_title"><h2>hodnocení knihy:</h2></div>');
-    var authorsRating = $('<div class="aRating"></div>').text("Autor rating: " + data.RatingAuthorArticle);
-    var usersRating = $('<div class="uRating"></div>').text("Uzivatel rating: " + data.RatingUsers);
-    var views = $('<div class="views"></div>').text("Zhlédnutí: " + data.Views);
-    var relatedArticles = $('<div class="related-articles"></div>');
+    // Creating dynamic html element
+    var rating = $('<div class="gusetbook"><ul>' +
+        '<li><span>' + data.RatingAuthorArticle + '</span>autor článku</li>' +
+        '<li><span>' + data.RatingUsers + '</span>čtenáři</li>' +
+        '</ul></div>');
+    var views = $('<div class="bs_title"><h2>zhlédnuto: ' + data.Views + 'x</h2></div>');
     // Cycle for related articles
     $.each(data.RelatedArticles, function (key, val) {
         var relArticle = $('<div class="book_list _buttonClick"></div>')
             .attr("data-click", "showWindow('article')")
             .attr("data-article-id", val.Id);
-
-        var bookListLeft = $('<div class="book-list-left>"</div>')
+        var bookListLeft = $('<div class="book_list_left"></div>')
             .append($('<h3></h3>').text(val.Title))
-            .append($('<span></span>').text(val.Type.Name.toUpperCase()));
-        relArticle.append(bookListLeft);
-        relatedArticles.append(relArticle);
+            .append($('<span></span>').text(val.Type.Name.toUpperCase()))
+            .append($('<p>Autor - (API chybí)</p>'));
+        var bookListRight = $('<div class="book_list_right"></div>');
+        var rateDiv = $('<div class="rate_div"></div>');
+        if (val.Type.Rating) {
+            var rating = $('<div class="rate"></div>').text(val.Type.Rating);
+        } else {
+            var rating = $('<div class="rate"></div>').text('API - Chybí');
+        }
+        rateDiv
+            .append(rating)
+            .append($('<span href="#" class="next_link"><i class="fa fa-angle-right"></i></span>'));
+        bookListRight.append(rateDiv);
+        relArticle
+            .append(bookListLeft)
+            .append(bookListRight);
+        page.find('.related-articles').append(relArticle);
     });
+
     // Appending to document
-    $("div[data-cont-id='contentArticleDetail'] .mid_section .container")
-        .append(relArticlesHeader)
-        .append(relatedArticles)
-        .append(ratingHeader);
+    page.find('.rating')
+        .append(rating)
+        .append(views);
 }
 
 /**
@@ -230,7 +243,7 @@ function processDiscussion(data, textStatus, jqXHR) {
         discussionBox
             .append(name)
             .append(text);
-        $("div[data-cont-id='contentArticle'] .discuss").append(discussionBox);
+        $("div[data-cont-id='article'] .discuss").append(discussionBox);
     });
 }
 
@@ -261,13 +274,14 @@ function postDiscussion(idArticle, name, email, post) {
 
 /**
  * Function make AJAX search request.
- *
- * @param optional author
- * @param optional title
- * @param optional authorArticle
- * @param optional isbn
- * @param optional page - default 1
- * @param pageSize - default 10
+ * 
+ * @param {type} author
+ * @param {type} title
+ * @param {type} authorArticle
+ * @param {type} isbn
+ * @param {type} page
+ * @param {type} pageSize
+ * @returns {undefined}
  */
 function searchArticles(author, title, authorArticle, isbn, page, pageSize) {
     author = author || "";
@@ -289,7 +303,7 @@ function searchArticles(author, title, authorArticle, isbn, page, pageSize) {
 
 function processSearch(data, textStatus, jqXHR) {
     // Console info
-    console.log("AJAX Search:", jqXHR.status, textStatus)
+    console.log("AJAX Search:", jqXHR.status, textStatus);
     // Creating html element and putting data
     var articlesList = $('<div class="articlesList"></div>').text('Seznam vyhledaných článků');
     $.each(data, function (key, val) {
@@ -308,7 +322,7 @@ function processSearch(data, textStatus, jqXHR) {
             articleBox.append(rating);
         }
         articlesList.append(articleBox);
-        $("div[data-cont-id='contentSearch']").append(articlesList);
+        $("div[data-cont-id='search']").append(articlesList);
     });
 
 }

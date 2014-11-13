@@ -113,6 +113,7 @@ input[type=button]:active {
 .header {
     min-height: 45px;
 }
+
 .mainContent {
     height: 100%;
     margin: 0px;
@@ -131,7 +132,19 @@ input[type=button]:active {
     bottom: 72px;
 }
 
-.article .content {
+.article .content, .articleDetail .content, .search .content {
     top: 45px;
-    bottom: 0px;
+    bottom: 72px;
+}
+
+.search-input {
+    padding: 15px;
+    background-color: #e9e7db;
+}
+
+.search-input input {
+    margin: 0;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #ffffff;
 }

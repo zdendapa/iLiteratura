@@ -1,319 +1,458 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-    <meta charset="utf-8"/>
-    <meta name="format-detection" content="telephone=no"/>
-    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-    <meta name="viewport"
-          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
-    <title>iLiteratura</title>
-    <script type="text/javascript" charset="utf-8" src="js/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="phonegap.js"></script>
-    <script type="text/javascript" src="js/inited_utils.js"></script>
-    <script type="text/javascript" src="js/scriptsDefault.js"></script>
-    <script type="text/javascript" src="js/scripts.js"></script>
-    <script type="text/javascript" src="js/fastclick.js"></script>
-    <link rel="stylesheet" href="css/style.css"/>
-    <link rel="stylesheet" href="css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
-</head>
-<body>
-<script type="text/javascript">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="format-detection" content="telephone=no"/>
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport"
+              content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+        <title>iLiteratura</title>
+        <script type="text/javascript" charset="utf-8" src="js/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
+        <script type="text/javascript" src="js/inited_utils.js"></script>
+        <script type="text/javascript" src="js/scriptsDefault.js"></script>
+        <script type="text/javascript" src="js/scripts.js"></script>
+        <script type="text/javascript" src="js/fastclick.js"></script>
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+    </head>
+    <body>
+        <script type="text/javascript">
 
-    var local = true;
+            var local = true;
 
-    // hacks
+            // hacks
 
 
-    if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
-        document.addEventListener("deviceready", onDeviceReady, false);
-    }
+            if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
+                document.addEventListener("deviceready", onDeviceReady, false);
+            }
 
-    if (local) {
-        window.addEventListener("load", onDeviceReady, false);
-    }
+            if (local) {
+                window.addEventListener("load", onDeviceReady, false);
+            }
 
-    /*
-     window.addEventListener('load', function () {
-     onLoad();
-     FastClick.attach(document.body);
-     }, false);
-     */
+            /*
+             window.addEventListener('load', function () {
+             onLoad();
+             FastClick.attach(document.body);
+             }, false);
+             */
 
-</script>
+        </script>
 
-<!-------------------------------------------------- this info must be last of spec! Put spec before!
- its on the top of z-index layer
- -->
+        <!-------------------------------------------------- this info must be last of spec! Put spec before!
+         its on the top of z-index layer
+        -->
 
-<div class="special cover">
-</div>
+        <div class="special cover">
+        </div>
 
-<div data-cont-id="specInfo" class="special info">
-    <div class="symbolLoading">
-        <i class="fa fa-refresh fa-spin"></i>
-    </div>
-    <h1>Načítám...</h1>
-</div>
-
-<!-------------------------------------------------- tops -->
-
-<!-------------------------------------------------- main content -->
-<div data-cont-id="contentIndex" class="mainContent index">
-    <!-- HEADER -->
-    <div class="header">
-        <div class="container"><img src="img/logo.png" alt="logo" class="logo"></div>
-    </div>
-        <div class="container content">
-            <div class="bs_title">
-                <h2>Kniha týdne</h2>
+        <div data-cont-id="specInfo" class="special info">
+            <div class="symbolLoading">
+                <i class="fa fa-refresh fa-spin"></i>
             </div>
+            <h1>Načítám...</h1>
+        </div>
 
-            <!------------------------------------ Predelavka na cordovu  -->
-            <!--**booksectionrow**-->
-            <div class="book_seciton _buttonClick" data-article-id="1">
-                <!--****bookleft****-->
-                <div class="book_seciton_left"><img src="img/book/1.jpg" alt="book"> <span>RECENZE</span>
+        <!-------------------------------------------------- tops -->
 
-                    <p>Petr Nagy<Br>
-                        11.7.2010</p>
+        <!-------------------------------------------------- main content -->
+        <div data-cont-id="index" class="mainContent index">
+            <!-- HEADER -->
+            <div class="header">
+                <div class="container"><img src="img/logo.png" alt="logo" class="logo"></div>
+            </div>
+            <div class="container content">
+                <div class="bs_title">
+                    <h2>Kniha týdne</h2>
                 </div>
-                <!--****bookleft****-->
-                <!--****bookright****-->
-                <div class="book_seciton_right">
-                    <h3>Leo Spitzer: Stylistické studie z románských literatur</h3>
 
-                    <div class="rate_div">
-                        <div class="rate"> 30%</div>
-                        <span class="next_link"><i class="fa fa-angle-right"></i></span>
+                <!------------------------------------ Predelavka na cordovu  -->
+                <!--**booksectionrow**-->
+                <div class="book_seciton _buttonClick" data-article-id="1">
+                    <!--****bookleft****-->
+                    <div class="book_seciton_left"><img src="img/book/1.jpg" alt="book"> <span>RECENZE</span>
+
+                        <p>Petr Nagy<Br>
+                            11.7.2010</p>
                     </div>
+                    <!--****bookleft****-->
+                    <!--****bookright****-->
+                    <div class="book_seciton_right">
+                        <h3>Leo Spitzer: Stylistické studie z románských literatur</h3>
+
+                        <div class="rate_div">
+                            <div class="rate"> 30%</div>
+                            <span class="next_link"><i class="fa fa-angle-right"></i></span>
+                        </div>
+                        <p>Kniha Flashky, která nedávno vyšla v nakladatelství Torst a jejíž autorkou je Eva Zábranová,
+                            patří
+                            nesporně k titulům schopným rozdělit čtenářskou veřejnost na několik nesmiřitelných táborů,
+                            a
+                            vyžadujícím tak i po literárním kritikovi, aby již na úvod svého referátu</p>
+                    </div>
+                    <!--****bookright****-->
+                </div>
+                <!------------------------------------ /Predelavka na cordovu  -->
+
+
+                <!--**booksectionrow**-->
+
+
+                <!--**booksectionrow**-->
+                <div class="bs_title">
+                    <h2>Novinky</h2>
+
+                    <div class="tab_link">
+                        <ul>
+                            <li><a href="#_">podle data</a></li>
+                            <li><a href="#_" class="active">hodnoceni</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="book_seciton _buttonClick" data-article-id="2">
+                    <!--****bookleft****-->
+                    <div class="book_seciton_left"><img src="img/book/2.jpg" alt="book"> <span>RECENZE</span>
+
+                        <p>Petr Nagy<Br>
+                            11.7.2010</p>
+                    </div>
+                    <!--****bookleft****-->
+                    <!--****bookright****-->
+                    <div class="book_seciton_right">
+                        <h3>Leo Spitzer: Stylistické studie z románských literatur</h3>
+
+                        <div class="rate_div">
+                            <div class="rate"> 30%</div>
+                            <a href="artical.html" class="next_link"><i class="fa fa-angle-right"></i></a></div>
+                        <p>Kniha Flashky, která nedávno vyšla v nakladatelství Torst a jejíž autorkou je Eva Zábranová,
+                            patří
+                            nesporně k titulům schopným rozdělit čtenářskou veřejnost na několik nesmiřitelných táborů,
+                            a
+                            vyžadujícím tak i po literárním kritikovi, aby již na úvod svého referátu</p>
+                    </div>
+                    <!--****bookright****-->
+                </div>
+
+
+                <!--**booksectionrow**-->
+                <div class="book_list _buttonClick" data-article-id="3">
+                    <div class="book_list_left">
+                        <h3>Leo Spitzer: Stylistické studie z románských literatur</h3>
+                        <span>RECENZE</span>
+
+                        <p>Petr Nagy 11.7.2010</p>
+                    </div>
+                    <div class="book_list_right">
+                        <div class="rate_div">
+                            <div class="rate"> 30%</div>
+                            <a href="artical.html" class="next_link"><i class="fa fa-angle-right"></i></a></div>
+                    </div>
+                </div>
+                <!--**booksectionrow**-->
+            </div>
+            <div class="footer">
+                <ul>
+                    <li class="_buttonClick" data-click="showWindow('index')">
+                        <span><i class="fa fa-star"></i>Novinky</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('recCateg')">
+                        <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('articles')">
+                        <span><i class="fa fa-reorder"></i>Články</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('search')">
+                        <span><i class="fa fa-search"></i>Search</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('scan')">
+                        <span><i class="fa fa-barcode"></i>Scan ISBN</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div data-cont-id="recCateg" class="mainContent recCateg">
+            <div class="header">
+                <div class="container">
+                    <span class="title_content">Doporučené</span>
+                </div>
+            </div>
+            <div class="footer">
+                <ul>
+                    <li class="_buttonClick" data-click="showWindow('index')">
+                        <span><i class="fa fa-star"></i>Novinky</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('recCateg')">
+                        <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('articles')">
+                        <span><i class="fa fa-reorder"></i>Články</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('search')">
+                        <span><i class="fa fa-search"></i>Search</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('scan')">
+                        <span><i class="fa fa-barcode"></i>Scan ISBN</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div data-cont-id="articles" class="mainContent articles">
+            <h1>Clanky</h1>
+
+            <div class="footer">
+                <ul>
+                    <li class="_buttonClick" data-click="showWindow('index')">
+                        <span><i class="fa fa-star"></i>Novinky</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('recCateg')">
+                        <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('articles')">
+                        <span><i class="fa fa-reorder"></i>Články</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('search')">
+                        <span><i class="fa fa-search"></i>Search</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('scan')">
+                        <span><i class="fa fa-barcode"></i>Scan ISBN</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div data-cont-id="search" class="mainContent search">
+            <!--*********headsection***********-->
+            <div class="header">
+                <div class="container">
+                    <span class="title_content">Vyhledávání</span>
+                </div>
+            </div>
+
+            <!--*********headsection***********-->
+
+            <div class="container content">
+                <div class="search-input">
+                    <input name="search" type="text" class="artical_text_field" placeholder="Hledat"/>
+                </div>
+
+            </div>
+
+            <div class="footer">
+                <ul>
+                    <li class="_buttonClick" data-click="showWindow('index')">
+                        <span><i class="fa fa-star"></i>Novinky</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('recCateg')">
+                        <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('articles')">
+                        <span><i class="fa fa-reorder"></i>Články</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('search')">
+                        <span><i class="fa fa-search"></i>Search</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('scan')">
+                        <span><i class="fa fa-barcode"></i>Scan ISBN</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div data-cont-id="scan" class="mainContent scan">
+            <h1>Scan ISBN</h1>
+
+            <div class="footer">
+                <ul>
+                    <li class="_buttonClick" data-click="showWindow('index')">
+                        <span><i class="fa fa-star"></i>Novinky</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('recCateg')">
+                        <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('articles')">
+                        <span><i class="fa fa-reorder"></i>Články</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('search')">
+                        <span><i class="fa fa-search"></i>Search</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('scan')">
+                        <span><i class="fa fa-barcode"></i>Scan ISBN</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div data-cont-id="article" class="mainContent article">
+            <!--*********headsection***********-->
+            <div class="header">
+                <div class="container">
+                    <span class="back"><i class="fa fa-angle-left"></i>zpět</span>
+                    <span class="title_content">Článek</span>
+                    <span class="next _buttonClick" data-click="showWindow('articleDetail')"><i class="fa fa-plus"></i></span>
+                </div>
+            </div>
+            <!--*********headsection***********-->
+
+            <!--*********midsection***********-->
+            <div class="container content">
+                <!--**article**-->
+                <div class="artical">
+                    <img src="img/artical.jpg" alt="artical">
+
+                    <h3>Leo Spitzer: Stylistické studie z románských literatur</h3>
+
                     <p>Kniha Flashky, která nedávno vyšla v nakladatelství Torst a jejíž autorkou je Eva Zábranová,
                         patří
-                        nesporně k titulům schopným rozdělit čtenářskou veřejnost na několik nesmiřitelných táborů,
-                        a
+                        nesporně k titulům schopným rozdělit čtenářskou veřejnost na několik nesmiřitelných táborů, a
+                        vyžadujícím tak i po literárním kritikovi, aby již na úvod svého referátu</p>
+
+                    <p>Kniha Flashky, která nedávno vyšla v nakladatelství Torst a jejíž autorkou je Eva Zábranová,
+                        patří
+                        nesporně k titulům schopným rozdělit čtenářskou veřejnost na několik nesmiřitelných táborů, a
                         vyžadujícím tak i po literárním kritikovi, aby již na úvod svého referátu</p>
                 </div>
-                <!--****bookright****-->
-            </div>
-            <!------------------------------------ /Predelavka na cordovu  -->
+                <!--**article**-->
 
-
-            <!--**booksectionrow**-->
-
-
-            <!--**booksectionrow**-->
-            <div class="bs_title">
-                <h2>Novinky</h2>
-
-                <div class="tab_link">
+                <div class="social_section">
                     <ul>
-                        <li><a href="#_">podle data</a></li>
-                        <li><a href="#_" class="active">hodnoceni</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Google+</a></li>
+                        <li><a href="#">E-mail</a></li>
                     </ul>
+                    <input name="cancel" type="button" class="cancel_button" value="Zrušit">
+                </div>
+                <div class="discuss">
+                    <h3>Diskuze:</h3>
+                </div>
+                <div class="artical_form">
+                    <label>Přidat komentář do diskuze</label>
+                    <input name="text" type="text" class="artical_text_field" placeholder="Vaše jméno">
+                    <input name="text" type="text" class="artical_text_field" placeholder="Váš e-mail">
+                    <textarea name="message" cols="" rows="" class="artical_text_area"
+                              placeholder="Text příspěvku"></textarea>
+
+                    <div class="odl_button">Odeslat</div>
                 </div>
             </div>
-            <div class="book_seciton _buttonClick" data-article-id="2">
-                <!--****bookleft****-->
-                <div class="book_seciton_left"><img src="img/book/2.jpg" alt="book"> <span>RECENZE</span>
-
-                    <p>Petr Nagy<Br>
-                        11.7.2010</p>
-                </div>
-                <!--****bookleft****-->
-                <!--****bookright****-->
-                <div class="book_seciton_right">
-                    <h3>Leo Spitzer: Stylistické studie z románských literatur</h3>
-
-                    <div class="rate_div">
-                        <div class="rate"> 30%</div>
-                        <a href="artical.html" class="next_link"><i class="fa fa-angle-right"></i></a></div>
-                    <p>Kniha Flashky, která nedávno vyšla v nakladatelství Torst a jejíž autorkou je Eva Zábranová,
-                        patří
-                        nesporně k titulům schopným rozdělit čtenářskou veřejnost na několik nesmiřitelných táborů,
-                        a
-                        vyžadujícím tak i po literárním kritikovi, aby již na úvod svého referátu</p>
-                </div>
-                <!--****bookright****-->
-            </div>
-
-
-            <!--**booksectionrow**-->
-            <div class="book_list _buttonClick" data-article-id="3">
-                <div class="book_list_left">
-                    <h3>Leo Spitzer: Stylistické studie z románských literatur</h3>
-                    <span>RECENZE</span>
-
-                    <p>Petr Nagy 11.7.2010</p>
-                </div>
-                <div class="book_list_right">
-                    <div class="rate_div">
-                        <div class="rate"> 30%</div>
-                        <a href="artical.html" class="next_link"><i class="fa fa-angle-right"></i></a></div>
-                </div>
-            </div>
-            <!--**booksectionrow**-->
-        </div>
-    <div class="footer">
-        <ul>
-            <li class="_buttonClick" data-click="showWindow('index')">
-                <span><i class="fa fa-star"></i>Novinky</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('recCateg')">
-                <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('articles')">
-                <span><i class="fa fa-reorder"></i>Články</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('search')">
-                <span><i class="fa fa-search"></i>Search</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('scan')">
-                <span><i class="fa fa-barcode"></i>Scan ISBN</span>
-            </li>
-        </ul>
-    </div>
-</div>
-<div data-cont-id="contentRecCateg" class="mainContent recCateg">
-    <div class="header">
-        <div class="container">
-            <span class="title_content">Doporučené</span>
-        </div>
-    </div>
-    <div class="footer">
-        <ul>
-            <li class="_buttonClick" data-click="showWindow('index')">
-                <span><i class="fa fa-star"></i>Novinky</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('recCateg')">
-                <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('articles')">
-                <span><i class="fa fa-reorder"></i>Články</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('search')">
-                <span><i class="fa fa-search"></i>Search</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('scan')">
-                <span><i class="fa fa-barcode"></i>Scan ISBN</span>
-            </li>
-        </ul>
-    </div>
-</div>
-<div data-cont-id="contentArticles" class="mainContent articles"><h1>Clanky</h1></div>
-<div data-cont-id="contentSearch" class="mainContent search"><h1>Vyhledávání</h1></div>
-<div data-cont-id="contentScan" class="mainContent scan"><h1>Scan ISBN</h1></div>
-<div data-cont-id="contentArticle" class="mainContent article">
-    <!--*********headsection***********-->
-    <div class="header">
-        <div class="container">
-            <span class="back"><i class="fa fa-angle-left"></i>zpět</span>
-            <span class="title_content">Článek</span>
-            <span class="next _buttonClick" data-click="showWindow('articleDetail')"><i class="fa fa-plus"></i></span>
-        </div>
-    </div>
-    <!--*********headsection***********-->
-
-    <!--*********midsection***********-->
-        <div class="container content">
-            <!--**article**-->
-            <div class="artical">
-                <img src="img/artical.jpg" alt="artical">
-
-                <h3>Leo Spitzer: Stylistické studie z románských literatur</h3>
-
-                <p>Kniha Flashky, která nedávno vyšla v nakladatelství Torst a jejíž autorkou je Eva Zábranová,
-                    patří
-                    nesporně k titulům schopným rozdělit čtenářskou veřejnost na několik nesmiřitelných táborů, a
-                    vyžadujícím tak i po literárním kritikovi, aby již na úvod svého referátu</p>
-
-                <p>Kniha Flashky, která nedávno vyšla v nakladatelství Torst a jejíž autorkou je Eva Zábranová,
-                    patří
-                    nesporně k titulům schopným rozdělit čtenářskou veřejnost na několik nesmiřitelných táborů, a
-                    vyžadujícím tak i po literárním kritikovi, aby již na úvod svého referátu</p>
-            </div>
-            <!--**article**-->
-
-            <div class="social_section">
+            <!--*********midsection***********-->
+            <!--*********footersection***********-->
+            <div class="footer">
                 <ul>
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">Google+</a></li>
-                    <li><a href="#">E-mail</a></li>
-                </ul>
-                <input name="cancel" type="button" class="cancel_button" value="Zrušit">
-            </div>
-            <div class="discuss">
-                <h3>Diskuze:</h3>
-            </div>
-            <div class="artical_form">
-                <label>Přidat komentář do diskuze</label>
-                <input name="text" type="text" class="artical_text_field" placeholder="Vaše jméno">
-                <input name="text" type="text" class="artical_text_field" placeholder="Váš e-mail">
-                <textarea name="message" cols="" rows="" class="artical_text_area"
-                          placeholder="Text příspěvku"></textarea>
-
-                <div class="odl_button">Odeslat</div>
-            </div>
-        </div>
-    <!--*********midsection***********-->
-
-</div>
-<div data-cont-id="contentArticleDetail" class="mainContent articleDetail">
-    <!--*********headsection***********-->
-    <header class="header">
-        <div class="container">
-            <a href="artical.html" class="back"> <i class="fa fa-angle-left"></i>zpět</a>
-            <span class="title_content">Více k článku</span>
-        </div>
-    </header>
-    <!--*********headsection***********-->
-
-    <!--*********midsection***********-->
-    <section class="mid_section">
-        <div class="container">
-            <!--**booksectionrow**-->
-
-            <div class="gusetbook">
-                <ul>
-                    <li><span>70%</span>autor článku</li>
-                    <li><span>65%</span>čtenáři</li>
+                    <li class="_buttonClick" data-click="showWindow('index')">
+                        <span><i class="fa fa-star"></i>Novinky</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('recCateg')">
+                        <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('articles')">
+                        <span><i class="fa fa-reorder"></i>Články</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('search')">
+                        <span><i class="fa fa-search"></i>Search</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('scan')">
+                        <span><i class="fa fa-barcode"></i>Scan ISBN</span>
+                    </li>
                 </ul>
             </div>
-            <div class="bs_title">
-                <h2>zhlédnuto: 518x</h2>
-            </div>
-            <div class="bs_title">
-                <h2>katalogy:</h2>
-            </div>
-            <div class="categlos">
-                <ul>
-                    <li>Souborný katalog NKP</li>
-                    <li>Google Books</li>
-                </ul>
-            </div>
-            <div class="bs_title">
-                <h2>koupit knihu na Kosmas.cz</h2>
-            </div>
-            <div class="bs_title">
-                <h2>štítky:</h2>
-            </div>
-            <div class="categlos">
-                <ul>
-                    <li>novinka 2014</li>
-                    <li>recenze</li>
-                    <li>poezie</li>
-                </ul>
-            </div>
-            <!--**booksectionrow**-->
-
+            <!--*********footersection***********-->
         </div>
-    </section>
-    <!--*********midsection***********-->
-</div>
-<div data-cont-id="contentRecList" class="mainContent recList"><h1>Doporucene clanky v kategorii</h1></div>
-<div id="verzeApp">v0.1</div>
+        <div data-cont-id="articleDetail" class="mainContent articleDetail">
+            <!--*********headsection***********-->
+            <div class="header">
+                <div class="container">
+                    <a href="artical.html" class="back"> <i class="fa fa-angle-left"></i>zpět</a>
+                    <span class="title_content">Více k článku</span>
+                </div>
+            </div>
+            <!--*********headsection***********-->
 
-<!-------------------------------------------------- menu -->
+            <!--*********midsection***********-->
+            <div class="mid_section">
+                <div class="container content">
+                    <div class="related-articles">
+                        <div class="bs_title"><h2>související clánky:</h2></div>
+                    </div>
+                    <div class="rating">
+                        <div class="bs_title"><h2>hodnocení knihy:</h2></div>
+                    </div>
+                    <div class="catalogs">
+                        <div class="bs_title">
+                            <h2>katalogy:</h2>
 
-</body>
+                        </div>
+                        <div class="categlos">
+                            <ul>
+                                <li>Souborný katalog NKP</li>
+                                <li>Google Books</li>
+                            </ul>
+                        </div>
+                        <div class="bs_title">
+                            <h2>koupit knihu na Kosmas.cz</h2>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <div class="bs_title">
+                            <h2>štítky:</h2>
+                        </div>
+                        <div class="categlos">
+                            <ul>
+                                <li>Chybí API</li>
+                                <li>Chybí API</li>
+                                <li>Chybí API</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <ul>
+                    <li class="_buttonClick" data-click="showWindow('index')">
+                        <span><i class="fa fa-star"></i>Novinky</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('recCateg')">
+                        <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('articles')">
+                        <span><i class="fa fa-reorder"></i>Články</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('search')">
+                        <span><i class="fa fa-search"></i>Search</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('scan')">
+                        <span><i class="fa fa-barcode"></i>Scan ISBN</span>
+                    </li>
+                </ul>
+            </div>
+            <!--*********midsection***********-->
+        </div>
+        <div data-cont-id="recList" class="mainContent recList">
+            <h1>Doporucene clanky v kategorii</h1>
+
+            <div class="footer">
+                <ul>
+                    <li class="_buttonClick" data-click="showWindow('index')">
+                        <span><i class="fa fa-star"></i>Novinky</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('recCateg')">
+                        <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('articles')">
+                        <span><i class="fa fa-reorder"></i>Články</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('search')">
+                        <span><i class="fa fa-search"></i>Search</span>
+                    </li>
+                    <li class="_buttonClick" data-click="showWindow('scan')">
+                        <span><i class="fa fa-barcode"></i>Scan ISBN</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="verzeApp">v0.1</div>
+
+        <!-------------------------------------------------- menu -->
+
+    </body>
 </html>
