@@ -37,6 +37,20 @@ function clickInit() {
 }
 
 /**
+ * Initialize transition futures like swiper, and special exceptions
+ */
+function transitionInit() {
+    pageSys.pageExceptionsAdd("articleDetail");
+}
+
+/**
+ * Initialize data, like localStorage...
+ */
+function dataManagerLoad() {
+
+}
+
+/**
  * Initialize focusOut listener on search input.
  */
 function focusOutInit() {
@@ -83,6 +97,11 @@ function showWindow(windowName) {
     if (windowName === "recList") {
         containerVisibilitySet("recList", true);
     }
+
+
+    // vlozeni do page historie
+    pageSys.addCurrent(windowName);
+
 }
 
 /**
