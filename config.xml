@@ -1,34 +1,29 @@
-<?xml version='1.0' encoding='utf-8'?>
-<widget id="cz.initedsolutions.iLiteratura" version="0.0.1" xmlns="http://www.w3.org/ns/widgets"
-        xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>iLiteratura</name>
-    <description>
-        iLiteratura.cz - Recenze knih, články, rozhovory, literární scéna.
-    </description>
-    <author href="http://inited.cz" email="info@inited.cz">INITED Solutions s.r.o.</author>
-    <content src="index.html"/>
-    <access origin="*"/>
-    <preference name="Fullscreen" value="false"/>
-    <preference name="target-device" value="universal"/>
-    <preference name="prerendered-icon" value="true"/>
-    <preference name="ios-statusbarstyle" value="black-opaque"/>
-    <preference name="detect-data-types" value="true"/>
-    <preference name="exit-on-suspend" value="false"/>
-    <preference name="EnableViewportScale" value="true"/>
-    <preference name="disable-cursor" value="false"/>
-    <preference name="android-minSdkVersion" value="7"/>
-    <preference name="android-installLocation" value="auto"/>
-    <preference name="orientation" value="portrait"/>
-    <preference name="AutoHideSplashScreen" value="false"/>
-    <preference name="SplashScreen" value="screen"/>
-    <preference name="SplashScreenDelay" value="5000"/>
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <gap:plugin name="com.phonegap.plugins.PushPlugin"/>
+<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:gap="http://phonegap.com/ns/1.0"
+        id="cz.initedsolutions.iliteratura"
+        version="0.1">
+    <!--
+        0.1
+    -->
+    <name>iLiteratura</name>
+    <description>iLiteratura.cz - Recenze knih, články, rozhovory, literární scéna.</description>
+    <author href="http://inited.cz" email="info@inited.cz">INITED Solutions s.r.o.</author>
+
+    <!--
+        Enable individual API permissions here.
+        The "device" permission is required for the 'deviceready' event.
+    -->
+
     <gap:plugin name="com.phonegap.plugins.barcodescanner"/>
+    <gap:plugin name="com.phonegap.plugins.pushplugin"/>
     <gap:plugin name="org.apache.cordova.device"/>
     <gap:plugin name="org.apache.cordova.network-information"/>
     <gap:plugin name="org.apache.cordova.splashscreen"/>
     <gap:plugin name="org.apache.cordova.statusbar"/>
+
 
     <gap:config-file platform="ios" parent="UIStatusBarHidden">
         <true/>
@@ -38,36 +33,111 @@
         <false/>
     </gap:config-file>
 
-    <!-- ICON and SPLASHSCREENS -->
-    <icon src="splscreen/icon.png"/>
+    <feature name="http://api.phonegap.com/1.0/device"/>
 
-    <gap:platform name="android">
-        <gap:splash src="splscreen/devices_240x320.png" density="port-ldpi"/>
-        <gap:splash src="splscreen/devices_320x480.png" density="port-mdpi"/>
-        <gap:splash src="splscreen/devices_480x800.png" density="port-hdpi"/>
-        <gap:splash src="splscreen/devices_640x960.png" density="port-xhdpi"/>
-    </gap:platform>
 
-    <gap:platform name="ios">
-        <!-- iPad -->
-        <!-- non-retina -->
-        <gap:splash src="splscreen/devices_768x1024.png" width="768" height="1024"/>
-        <!-- retina -->
-        <gap:splash src="splscreen/devices_1536x2048.png" width="1536" height="2048"/>
+    <!-- Customize your app and platform with the preference element. -->
+    <preference name="fullscreen" value="false"/>
+    <!-- when is true, keyboard hide input -->
 
-        <!-- iPhone -->
-        <!-- non-retina -->
-        <gap:splash src="splscreen/devices_320x480.png" width="320" height="480"/>
-        <!-- retina -->
-        <gap:splash src="splscreen/devices_640x960.png" width="640" height="960"/>
+    <preference name="EnableViewportScale" value="true"/>
+    <preference name="phonegap-version" value="3.5.0"/>
+    <!-- all: current version of PhoneGap -->
+    <preference name="orientation" value="portrait"/>
+    <!-- all: default means both landscape and portrait are enabled -->
+    <preference name="target-device" value="universal"/>
+    <!-- all: possible values handset, tablet, or universal -->
+    <preference name="fullscreen" value="false"/>
+    <!-- all: hides the status bar at the top of the screen -->
+    <preference name="prerendered-icon" value="true"/>
+    <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
+    <preference name="ios-statusbarstyle" value="black-opaque"/>
+    <!-- ios: black-translucent will appear black because the PhoneGap webview doesn't go beneath the status bar -->
+    <preference name="detect-data-types" value="true"/>
+    <!-- ios: controls whether data types (such as phone no. and dates) are automatically turned into links by the system -->
+    <preference name="exit-on-suspend" value="false"/>
+    <!-- ios: if set to true, app will terminate when home button is pressed -->
+    <preference name="auto-hide-splash-screen" value="true"/>
+    <!-- ios: if set to false, the splash screen must be hidden using a JavaScript API -->
+    <preference name="disable-cursor" value="false"/>
+    <!-- blackberry: prevents a mouse-icon/cursor from being displayed on the app -->
+    <preference name="android-minSdkVersion" value="7"/>
+    <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
+    <preference name="android-installLocation" value="auto"/>
+    <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
 
-        <!-- iPhone5 -->
-        <gap:splash src="splscreen/devices_640x1136.png" width="640" height="1136"/>
+    <!-- Plugins -->
 
-        <!-- iPhone6 -->
-        <gap:splash src="" width="750" height="1334"/>
+    <!-- Core plugins
+    <gap:plugin name="org.apache.cordova.battery-status" />
+    <gap:plugin name="org.apache.cordova.camera" />
+    <gap:plugin name="org.apache.cordova.media-capture" />
+    <gap:plugin name="org.apache.cordova.console" />
+    <gap:plugin name="org.apache.cordova.contacts" />
+    <gap:plugin name="org.apache.cordova.device" />
+    <gap:plugin name="org.apache.cordova.device-motion" />
+    <gap:plugin name="org.apache.cordova.device-orientation" />
+    <gap:plugin name="org.apache.cordova.dialogs" />
+    <gap:plugin name="org.apache.cordova.file" />
+    <gap:plugin name="org.apache.cordova.file-transfer" />
+    <gap:plugin name="org.apache.cordova.geolocation" />
+    <gap:plugin name="org.apache.cordova.globalization" />
+    <gap:plugin name="org.apache.cordova.inappbrowser" />
+    <gap:plugin name="org.apache.cordova.media" />
+    <gap:plugin name="org.apache.cordova.network-information" />
+    <gap:plugin name="org.apache.cordova.splashscreen" />
+    <gap:plugin name="org.apache.cordova.vibration" />
+-->
+    <!-- Third party plugins -->
+    <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
+    <!--
+        <gap:plugin name="com.phonegap.plugins.barcodescanner" />
+    -->
 
-        <!-- iPhone6+ -->
-        <gap:splash src="" width="1242" height="2208"/>
-    </gap:platform>
+
+    <!-- Define app icon for each platform. -->
+    <icon src="icon.png"/>
+
+    <!-- Define app splash screen for each platform. -->
+    <gap:splash src="res/android/ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
+    <gap:splash src="res/android/mdpi.png" gap:platform="android" gap:qualifier="mdpi"/>
+    <gap:splash src="res/android/hdpi.png" gap:platform="android" gap:qualifier="hdpi"/>
+    <gap:splash src="res/android/xhdpi.png" gap:platform="android" gap:qualifier="xhdpi"/>
+
+    <!-- iPhone and iPod touch -->
+    <gap:splash src="res/ios/Default.png" gap:platform="ios" width="320" height="480"/>
+    <gap:splash src="res/ios/Default@2x.png" gap:platform="ios" width="640" height="960"/>
+
+    <!-- iPhone 5 / iPod Touch (5th Generation) -->
+    <gap:splash src="res/ios/Default-568h@2x.png" gap:platform="ios" width="640" height="1136"/>
+
+    <!-- iPad -->
+    <gap:splash src="res/ios/Default-Portrait.png" gap:platform="ios" width="768" height="1024"/>
+
+    <!-- Retina iPad -->
+    <gap:splash src="res/ios/Default-Portrait@2x.png" gap:platform="ios" width="1536" height="2048"/>
+
+
+    <!-- iPhone 6 -->
+    <!--
+    <gap:splash src="Default-667h@2x.png" gap:platform="ios" width="750" height="1334" />
+    <gap:splash src="Default-Portrait-736h@3x.png" gap:platform="ios" width="1242" height="2208" />
+    <gap:splash src="Default-Landscape-736h@3x.png" gap:platform="ios" width="2208" height="1242" />
+    -->
+
+    <!--
+        Define access to external domains.
+
+        <access />            - a blank access tag denies access to all external resources.
+        <access origin="*" /> - a wildcard access tag allows access to all external resource.
+
+        Otherwise, you can specify specific domains:
+    -->
+    <access origin="*"/>
+    <!-- allow local pages -->
+    <!--
+        <access origin="http://phonegap.com" />                    - allow any secure requests to http://phonegap.com/
+        <access origin="http://phonegap.com" subdomains="true" />  - same as above, but including subdomains, such as http://build.phonegap.com/
+    -->
+
 </widget>
