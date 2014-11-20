@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="cz.initedsolutions.iLiteratura" version="0.0.1" xmlns="http://www.w3.org/ns/widgets"
+        xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>iLiteratura</name>
+    <description>
+        iLiteratura.cz - Recenze knih, články, rozhovory, literární scéna.
+    </description>
+    <author href="http://inited.cz" email="info@inited.cz">INITED Solutions s.r.o.</author>
+    <content src="index.html"/>
+    <access origin="*"/>
+    <preference name="Fullscreen" value="false"/>
+    <preference name="target-device" value="universal"/>
+    <preference name="prerendered-icon" value="true"/>
+    <preference name="ios-statusbarstyle" value="black-opaque"/>
+    <preference name="detect-data-types" value="true"/>
+    <preference name="exit-on-suspend" value="false"/>
+    <preference name="EnableViewportScale" value="true"/>
+    <preference name="disable-cursor" value="false"/>
+    <preference name="android-minSdkVersion" value="7"/>
+    <preference name="android-installLocation" value="auto"/>
+    <preference name="orientation" value="portrait"/>
+    <preference name="AutoHideSplashScreen" value="false"/>
+    <preference name="SplashScreen" value="screen"/>
+    <preference name="SplashScreenDelay" value="5000"/>
+
+    <!-- ICON and SPLASHSCREENS -->
+    <icon src="splashscreens/icon.png"/>
+
+    <platform name="android">
+        <splash src="splashscreens/devices_240x320.png" density="port-ldpi"/>
+        <splash src="splashscreens/devices_320x480.png" density="port-mdpi"/>
+        <splash src="splashscreens/devices_480x800.png" density="port-hdpi"/>
+        <splash src="splashscreens/devices_640x960.png" density="port-xhdpi"/>
+    </platform>
+
+    <platform name="ios">
+        <!-- iPad -->
+        <!-- non-retina -->
+        <splash src="splashscreens/devices_768x1024.png" width="768" height="1024"/>
+        <!-- retina -->
+        <splash src="splashscreens/devices_1536x2048.png" width="1536" height="2048"/>
+
+        <!-- iPhone -->
+        <!-- non-retina -->
+        <splash src="splashscreens/devices_320x480.png" width="320" height="480"/>
+        <!-- retina -->
+        <splash src="splashscreens/devices_640x960.png" width="640" height="960"/>
+
+        <!-- iPhone5 -->
+        <splash src="splashscreens/devices_640x1136.png" width="640" height="1136"/>
+
+        <!-- iPhone6 -->
+        <splash src="" width="750" height="1334"/>
+
+        <!-- iPhone6+ -->
+        <splash src="" width="1242" height="2208"/>
+    </platform>
+</widget>

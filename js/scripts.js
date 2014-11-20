@@ -23,6 +23,9 @@ function clickInit() {
             showWindow("article");
         }, 300);
 
+        // Resetting error highlighting
+        removeInputErrorHighlighting();
+
         var idArticle = $(this).attr("data-article-id");
         console.log("Selected article ID:", idArticle);
         getArticle(idArticle);
@@ -36,6 +39,24 @@ function clickInit() {
     });
 }
 
+function clickSortInit() {
+    $('.tab_link').on('click', 'li', function () {
+        $(this).parent().find('span').removeClass('active');
+        $(this).find('span').addClass('active');
+    });
+}
+
+/**
+ * Initialize focusOut listener on search input.
+ */
+function focusOutInit() {
+    $('div[data-cont-id="search"] .search-input input').focusout(function () {
+        var input = $('div[data-cont-id="search"] .search-input input').val();
+        if (input !== "") {
+            searchArticles(input, input, input, input, 1, 10);
+        }
+    });
+}
 /**
  * Initialize transition futures like swiper, and special exceptions
  */
@@ -50,17 +71,6 @@ function dataManagerLoad() {
 
 }
 
-/**
- * Initialize focusOut listener on search input.
- */
-function focusOutInit() {
-    $('div[data-cont-id="search"] .search-input input').focusout(function () {
-        var input = $('div[data-cont-id="search"] .search-input input').val();
-        if (input !== "") {
-            searchArticles(input, input, input, input, 1, 10);
-        }
-    });
-}
 
 /**
  * Funcion show window by its name.
@@ -424,24 +434,25 @@ function sendDiscussionPost() {
     email = $('.artical_form input[name="mail"]');
     text = $('.artical_form textarea[name="message"]');
     if (name.val() === "") {
+        name.before('<p class="error">Jméno musí být vyplněno.</p>');
         name.css('border', '1px solid red');
         error = true;
     }
 
     if (validateEmail(email.val())) {
+        email.before('<p class="error">E-mail musí být vyplněn a ve správné formě.</p>');
         email.css('border', '1px solid red');
         error = true;
     }
 
     if (text.val() === "") {
+        text.before('<p class="error">Text příspěvku musí být vyplněn.</p>');
         text.css('border', '1px solid red');
         error = true;
     }
     if (!error) {
         postDiscussion(articleID, name.val(), email.val(), text.val());
-        name.val("").css('border', 0);
-        email.val("").css('border', 0);
-        text.val("").css('border', 0);
+        removeInputErrorHighlighting();
         alertG("Příspěvek odeslán.", "Info");
     }
 }
@@ -455,4 +466,42 @@ function sendDiscussionPost() {
 function validateEmail(email) {
     var emailReg = new RegExp("^[\\w\\d._%+-]+@[\\w\\d.-]+\\.[\\w]{2,4}$");
     return !emailReg.test(email);
+}
+
+/**
+ * Function removes error highlighting and values of inputs and textareas.
+ */
+function removeInputErrorHighlighting() {
+    $('input').val("").css('border', 0);
+    $('textarea').val("").css('border', 0);
+    $('p.error').remove();
+}
+
+/**
+ * Makes barcode scan.
+ */
+function scanBarcode() {
+    console.log('SCANNER: scanning');
+
+    var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+
+    scanner.scan(function (result) {
+        searchArticles("", "", "", result.text, 1, 10);
+        $('.search-input input').val(result.text);
+        showWindow("search");
+
+        /*alert("We got a barcode\n" +
+         "Result: " + result.text + "\n" +
+         "Format: " + result.format + "\n" +
+         "Cancelled: " + result.cancelled);
+         */
+        console.log("SCANNER result: \n" +
+            "text: " + result.text + "\n" +
+            "format: " + result.format + "\n" +
+            "cancelled: " + result.cancelled + "\n");
+        console.log("SCANNER:", result);
+
+    }, function (error) {
+        console.log("SCANNER failed: ", error);
+    });
 }

@@ -149,6 +149,8 @@ input[type=button]:active {
 }
 
 .container.content {
+    width: 100%;
+    height: auto;
     position: absolute;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
@@ -169,6 +171,10 @@ input[type=button]:active {
 .recArticles .content, .articles .content {
     top: 91px;
     bottom: 72px;
+}
+
+.recCateg .next_link {
+    margin-right:15px;
 }
 
 .search .content {
@@ -243,3 +249,8 @@ input[type=button]:active {
     font-size: 16px;
 }
 
+.error {
+    color: red;
+    font-style: italic;
+    font-size: 14px;
+}

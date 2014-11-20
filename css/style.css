@@ -221,22 +221,16 @@ h1, h2, h3, h4, h5 {
     font-size: 13px;
 }
 
-.tab_link ul li a {
+.tab_link ul li span {
     text-decoration: none;
     color: #7aa0c2;
     display: block;
     padding: 5px 12px;
 }
 
-.tab_link ul li a.active {
+.tab_link ul li span.active, .tab_link ul li span:hover {
     background: #7aa0c2;
     color: #fff;
-}
-
-.tab_link ul li a:hover {
-    text-decoration: none;
-    color: #fff;
-    background: #7aa0c2;
 }
 
 .book_list {
@@ -294,7 +288,7 @@ h1, h2, h3, h4, h5 {
     float: left;
     margin: 0px;
     padding: 0px;
-    position: relative;
+    position: absolute;
     bottom: 0;
 }
 

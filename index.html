@@ -4,11 +4,11 @@
     <meta charset="utf-8"/>
     <meta name="format-detection" content="telephone=no"/>
     <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-    <meta name="viewport"
-          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <title>iLiteratura</title>
     <script type="text/javascript" charset="utf-8" src="js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="phonegap.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/inited_utils.js"></script>
     <script type="text/javascript" src="js/scriptsDefault.js"></script>
     <script type="text/javascript" src="js/scripts.js"></script>
@@ -23,8 +23,6 @@
     var local = true;
 
     // hacks
-
-
     if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
         document.addEventListener("deviceready", onDeviceReady, false);
     }
@@ -108,8 +106,8 @@
 
             <div class="tab_link">
                 <ul>
-                    <li><a href="#_">podle data</a></li>
-                    <li><a href="#_" class="active">hodnoceni</a></li>
+                    <li class="_buttonClick"><span>podle data</span></li>
+                    <li class="_buttonClick"><span class="active">hodnoceni</span></li>
                 </ul>
             </div>
         </div>
@@ -168,7 +166,7 @@
             <li class="_buttonClick" data-click="showWindow('search')">
                 <span><i class="fa fa-search"></i>Search</span>
             </li>
-            <li class="_buttonClick" data-click="showWindow('scan')">
+            <li class="_buttonClick" data-click="scanBarcode()">
                 <span><i class="fa fa-barcode"></i>Scan ISBN</span>
             </li>
         </ul>
@@ -212,7 +210,7 @@
             <li class="_buttonClick" data-click="showWindow('search')">
                 <span><i class="fa fa-search"></i>Search</span>
             </li>
-            <li class="_buttonClick" data-click="showWindow('scan')">
+            <li class="_buttonClick" data-click="scanBarcode()">
                 <span><i class="fa fa-barcode"></i>Scan ISBN</span>
             </li>
         </ul>
@@ -230,8 +228,8 @@
 
             <div class="tab_link">
                 <ul>
-                    <li><a href="#_">podle data</a></li>
-                    <li><a href="#_" class="active">hodnoceni</a></li>
+                    <li class="_buttonClick"><span>podle data</span></li>
+                    <li class="_buttonClick"><span class="active">hodnoceni</span></li>
                 </ul>
             </div>
         </div>
@@ -274,7 +272,7 @@
             <li class="_buttonClick" data-click="showWindow('search')">
                 <span><i class="fa fa-search"></i>Search</span>
             </li>
-            <li class="_buttonClick" data-click="showWindow('scan')">
+            <li class="_buttonClick" data-click="scanBarcode()">
                 <span><i class="fa fa-barcode"></i>Scan ISBN</span>
             </li>
         </ul>
@@ -334,7 +332,7 @@
             <li class="_buttonClick" data-click="showWindow('search')">
                 <span><i class="fa fa-search"></i>Search</span>
             </li>
-            <li class="_buttonClick" data-click="showWindow('scan')">
+            <li class="_buttonClick" data-click="scanBarcode()">
                 <span><i class="fa fa-barcode"></i>Scan ISBN</span>
             </li>
         </ul>
@@ -371,34 +369,7 @@
             <li class="_buttonClick" data-click="showWindow('search')">
                 <span><i class="fa fa-search"></i>Search</span>
             </li>
-            <li class="_buttonClick" data-click="showWindow('scan')">
-                <span><i class="fa fa-barcode"></i>Scan ISBN</span>
-            </li>
-        </ul>
-    </div>
-</div>
-<div data-cont-id="scan" class="mainContent scan">
-    <div class="header">
-        <div class="container">
-            <span class="title_content">Scan ISBN</span>
-        </div>
-    </div>
-
-    <div class="footer">
-        <ul>
-            <li class="_buttonClick" data-click="showWindow('index')">
-                <span><i class="fa fa-star"></i>Novinky</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('recCateg')">
-                <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('articles')">
-                <span><i class="fa fa-reorder"></i>Články</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('search')">
-                <span><i class="fa fa-search"></i>Search</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('scan')">
+            <li class="_buttonClick" data-click="scanBarcode()">
                 <span><i class="fa fa-barcode"></i>Scan ISBN</span>
             </li>
         </ul>
@@ -468,7 +439,7 @@
             <li class="_buttonClick" data-click="showWindow('search')">
                 <span><i class="fa fa-search"></i>Search</span>
             </li>
-            <li class="_buttonClick" data-click="showWindow('scan')">
+            <li class="_buttonClick" data-click="scanBarcode()">
                 <span><i class="fa fa-barcode"></i>Scan ISBN</span>
             </li>
         </ul>
@@ -537,7 +508,7 @@
             <li class="_buttonClick" data-click="showWindow('search')">
                 <span><i class="fa fa-search"></i>Search</span>
             </li>
-            <li class="_buttonClick" data-click="showWindow('scan')">
+            <li class="_buttonClick" data-click="scanBarcode()">
                 <span><i class="fa fa-barcode"></i>Scan ISBN</span>
             </li>
         </ul>
@@ -561,7 +532,7 @@
             <li class="_buttonClick" data-click="showWindow('search')">
                 <span><i class="fa fa-search"></i>Search</span>
             </li>
-            <li class="_buttonClick" data-click="showWindow('scan')">
+            <li class="_buttonClick" data-click="scanBarcode()">
                 <span><i class="fa fa-barcode"></i>Scan ISBN</span>
             </li>
         </ul>
