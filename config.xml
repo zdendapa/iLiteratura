@@ -23,6 +23,13 @@
     <preference name="SplashScreen" value="screen"/>
     <preference name="SplashScreenDelay" value="5000"/>
 
+    <plugin name="com.phonegap.plugins.PushPlugin"></plugin>
+    <plugin name="com.phonegap.plugins.barcodescanner"></plugin>
+    <plugin name="org.apache.cordova.device"></plugin>
+    <plugin name="org.apache.cordova.network-information"></plugin>
+    <plugin name="org.apache.cordova.splashscreen"></plugin>
+    <plugin name="org.apache.cordova.statusbar"></plugin>
+
     <!-- ICON and SPLASHSCREENS -->
     <icon src="splscreen/icon.png"/>
 
