@@ -31,15 +31,12 @@ function clickInit() {
         getArticle(idArticle);
         getDiscussion(idArticle, null, null);
         $('div[data-cont-id="article"] .header .container .next').attr('data-article-detail-id', idArticle);
-        $('div[data-cont-id="article"] .header .container .next[data-article-detail-id]').on('click', function () {
-            var idArticle = $(this).attr("data-article-detail-id");
-            console.log("Selected article detail ID:", idArticle);
-            getArticleDetail(idArticle);
-        });
     });
-}
-
-function clickSortInit() {
+    $(document).on('click', '._buttonClick[data-article-detail-id]', function () {
+        var idArticle = $(this).attr("data-article-detail-id");
+        console.log("Selected article detail ID:", idArticle);
+        getArticleDetail(idArticle);
+    });
     $('.tab_link').on('click', 'li', function () {
         $(this).parent().find('span').removeClass('active');
         $(this).find('span').addClass('active');
@@ -166,8 +163,18 @@ function getArticleDetail(idArticle) {
         url: url,
         dataType: 'json',
         crossDomain: true,
+        beforeSend: function () {
+            var page = $('.articleDetail .container.content');
+            page.find('.book_list').remove();
+            page.find('.gusetbook').remove();
+            page.find('.rating .bs_title:eq(1)').remove();
+            addLoadingImg(page.find('.related-articles'));
+        },
         success: processArticleDetail,
-        error: ajaxError
+        error: ajaxError,
+        complete: function () {
+            removeLoadingImg($('.articleDetail .container.content').find('.related-articles'));
+        }
     });
 }
 
@@ -183,10 +190,7 @@ function processArticleDetail(data, textStatus, jqXHR) {
     console.log("AJAX Article Detail:", jqXHR.status, textStatus);
 
     // Elements for putting content
-    var page = $('.mainContent.articleDetail');
-    page.find('.book_list').remove();
-    page.find('.gusetbook').remove();
-    page.find('.rating .bs_title:eq(1)').remove();
+    var page = $('.articleDetail .container.content');
 
 
     // Creating dynamic html element
@@ -265,8 +269,16 @@ function getDiscussion(idArticle, page, pageSize) {
         url: url,
         dataType: 'json',
         crossDomain: true,
+        beforeSend: function () {
+            var page = $("div[data-cont-id='article']");
+            page.find(".discuss_content").remove();
+            addLoadingImg($("div[data-cont-id='article'] .discuss"));
+        },
         success: processDiscussion,
-        error: ajaxError
+        error: ajaxError,
+        complete: function () {
+            removeLoadingImg($("div[data-cont-id='article']").find(".discuss"));
+        }
     });
 }
 
@@ -281,8 +293,6 @@ function processDiscussion(data, textStatus, jqXHR) {
     // Console info
     console.log("AJAX Discussion:", jqXHR.status, textStatus);
     // Creating html element and putting data
-    var page = $("div[data-cont-id='article']");
-    page.find(".discuss_content").remove();
 
     $.each(data, function (key, value) {
         var discussionBox = $('<div class="discuss_content"></div>');
@@ -339,13 +349,20 @@ function searchArticles(author, title, authorArticle, isbn, page, pageSize) {
     pageSize = pageSize || 10;
     var url = queryURL + "/articles/search?" +
         "{" + author + "}&{" + title + "}&{" + authorArticle + "}&{" + isbn + "}&{" + page + "}&{" + pageSize + "}";
-    addLoadingImg($('.search .container.content'));
+
     $.ajax({
         url: url,
         dataType: 'json',
         crossDomain: true,
+        beforeSend: function () {
+            $('.container.content .articlesList').remove();
+            addLoadingImg($('.search .container.content'));
+        },
         success: processSearch,
-        error: ajaxError
+        error: ajaxError,
+        complete: function () {
+            removeLoadingImg($('.search .container.content'));
+        }
     });
 }
 
@@ -359,7 +376,7 @@ function searchArticles(author, title, authorArticle, isbn, page, pageSize) {
 function processSearch(data, textStatus, jqXHR) {
     // Console info
     console.log("AJAX Search:", jqXHR.status, textStatus);
-    removeLoadingImg();
+    //removeLoadingImg();
 
     var page = $("div[data-cont-id='search'] .container.content");
     page.find('.articlesList').remove();
@@ -405,7 +422,6 @@ function processSearch(data, textStatus, jqXHR) {
  */
 function ajaxError(jqXHR, textStatus, errThrown) {
     console.log("AJAX:", textStatus, jqXHR.status, errThrown);
-    removeLoadingImg();
 }
 
 /**
@@ -419,8 +435,14 @@ function addLoadingImg(jQueryEl) {
         .attr('alt', 'Nahrávám data ...');
     jQueryEl.append(img);
 }
-function removeLoadingImg() {
-    $('.loading-image').remove();
+
+/**
+ * Function removes loading image.
+ *
+ * @param jQueryEl
+ */
+function removeLoadingImg(jQueryEl) {
+    jQueryEl.find('.loading-image').remove();
 }
 
 /**
