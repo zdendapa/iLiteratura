@@ -41,33 +41,33 @@
     <!-- ICON and SPLASHSCREENS -->
     <icon src="splscreen/icon.png"/>
 
-    <platform name="android">
-        <splash src="splscreen/devices_240x320.png" density="port-ldpi"/>
-        <splash src="splscreen/devices_320x480.png" density="port-mdpi"/>
-        <splash src="splscreen/devices_480x800.png" density="port-hdpi"/>
-        <splash src="splscreen/devices_640x960.png" density="port-xhdpi"/>
-    </platform>
+    <gap:platform name="android">
+        <gap:splash src="splscreen/devices_240x320.png" density="port-ldpi"/>
+        <gap:splash src="splscreen/devices_320x480.png" density="port-mdpi"/>
+        <gap:splash src="splscreen/devices_480x800.png" density="port-hdpi"/>
+        <gap:splash src="splscreen/devices_640x960.png" density="port-xhdpi"/>
+    </gap:platform>
 
-    <platform name="ios">
+    <gap:platform name="ios">
         <!-- iPad -->
         <!-- non-retina -->
-        <splash src="splscreen/devices_768x1024.png" width="768" height="1024"/>
+        <gap:splash src="splscreen/devices_768x1024.png" width="768" height="1024"/>
         <!-- retina -->
-        <splash src="splscreen/devices_1536x2048.png" width="1536" height="2048"/>
+        <gap:splash src="splscreen/devices_1536x2048.png" width="1536" height="2048"/>
 
         <!-- iPhone -->
         <!-- non-retina -->
-        <splash src="splscreen/devices_320x480.png" width="320" height="480"/>
+        <gap:splash src="splscreen/devices_320x480.png" width="320" height="480"/>
         <!-- retina -->
-        <splash src="splscreen/devices_640x960.png" width="640" height="960"/>
+        <gap:splash src="splscreen/devices_640x960.png" width="640" height="960"/>
 
         <!-- iPhone5 -->
-        <splash src="splscreen/devices_640x1136.png" width="640" height="1136"/>
+        <gap:splash src="splscreen/devices_640x1136.png" width="640" height="1136"/>
 
         <!-- iPhone6 -->
-        <splash src="" width="750" height="1334"/>
+        <gap:splash src="" width="750" height="1334"/>
 
         <!-- iPhone6+ -->
-        <splash src="" width="1242" height="2208"/>
-    </platform>
+        <gap:splash src="" width="1242" height="2208"/>
+    </gap:platform>
 </widget>
