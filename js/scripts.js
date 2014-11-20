@@ -41,6 +41,12 @@ function clickInit() {
         $(this).parent().find('span').removeClass('active');
         $(this).find('span').addClass('active');
     });
+
+    $('.footer').on('click', 'span', function () {
+        $('.footer').find("span").removeClass('active');
+        var name = $(this).parent().attr('data-click');
+        $('.footer').find('li[data-click="' + name + '"] span').addClass('active');
+    });
 }
 
 /**

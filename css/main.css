@@ -254,3 +254,8 @@ input[type=button]:active {
     font-style: italic;
     font-size: 14px;
 }
+
+.footer ul li.highlight span, .footer .active {
+    display: block;
+    color: #d8e3e7;
+}
