@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="cz.initedsolutions.iLiteratura" version="0.0.1" xmlns="http://www.w3.org/ns/widgets"
-        xmlns:cdv="http://cordova.apache.org/ns/1.0">
+        xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>iLiteratura</name>
     <description>
         iLiteratura.cz - Recenze knih, články, rozhovory, literární scéna.
@@ -23,12 +23,20 @@
     <preference name="SplashScreen" value="screen"/>
     <preference name="SplashScreenDelay" value="5000"/>
 
-    <plugin name="com.phonegap.plugins.PushPlugin"></plugin>
-    <plugin name="com.phonegap.plugins.barcodescanner"></plugin>
-    <plugin name="org.apache.cordova.device"></plugin>
-    <plugin name="org.apache.cordova.network-information"></plugin>
-    <plugin name="org.apache.cordova.splashscreen"></plugin>
-    <plugin name="org.apache.cordova.statusbar"></plugin>
+    <gap:plugin name="com.phonegap.plugins.PushPlugin"/>
+    <gap:plugin name="com.phonegap.plugins.barcodescanner"/>
+    <gap:plugin name="org.apache.cordova.device"/>
+    <gap:plugin name="org.apache.cordova.network-information"/>
+    <gap:plugin name="org.apache.cordova.splashscreen"/>
+    <gap:plugin name="org.apache.cordova.statusbar"/>
+
+    <gap:config-file platform="ios" parent="UIStatusBarHidden">
+        <true/>
+    </gap:config-file>
+
+    <gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance">
+        <false/>
+    </gap:config-file>
 
     <!-- ICON and SPLASHSCREENS -->
     <icon src="splscreen/icon.png"/>
