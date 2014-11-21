@@ -18,7 +18,7 @@ function onDeviceReady() {
  * Initialize button click on data-article-id buttons, call AJAX functions for content of article and discussion.
  */
 function clickInit() {
-    $(document).on('click', '._buttonClick[data-article-id]', function () {
+    $(document).on('click', '._buttonClick[data-article-id]', function (e) {
         setTimeout(function () {
             showWindow("article");
         }, 300);
@@ -41,11 +41,10 @@ function clickInit() {
         $(this).parent().find('span').removeClass('active');
         $(this).find('span').addClass('active');
     });
-
     $('.footer').on('click', 'span', function () {
         $('.footer').find("span").removeClass('active');
-        var name = $(this).parent().attr('data-click');
-        $('.footer').find('li[data-click="' + name + '"] span').addClass('active');
+        var pageName = $(this).parent().attr('data-animation');
+        $('.footer').find('li[data-animation="' + pageName + '"] span').addClass('active');
     });
 }
 
@@ -83,6 +82,8 @@ function dataManagerLoad() {
 function showWindow(windowName) {
     hideAll();
 
+    // -------
+
     if (windowName === "index") {
         containerVisibilitySet("index", true);
     }
@@ -98,9 +99,6 @@ function showWindow(windowName) {
     if (windowName === "search") {
         containerVisibilitySet("search", true);
     }
-    if (windowName === "scan") {
-        containerVisibilitySet("scan", true);
-    }
     if (windowName === "article") {
         containerVisibilitySet("article", true);
     }
@@ -111,6 +109,11 @@ function showWindow(windowName) {
         containerVisibilitySet("recList", true);
     }
 
+    // Animace
+    var prevWindow = pageSys.pageCurrent;
+    if (prevWindow && (prevWindow !== windowName)) {
+        animateWindow(prevWindow, windowName, "l");
+    }
 
     // vlozeni do page historie
     pageSys.addCurrent(windowName);
@@ -533,4 +536,41 @@ function scanBarcode() {
     }, function (error) {
         console.log("SCANNER failed: ", error);
     });
+}
+
+/**
+ *
+ * @param leavingWindow
+ * @param comingWindow
+ * @param side
+ */
+function animateWindow(leavingWindow, comingWindow, side) {
+    var time = 500; //miliseconds
+    var leave, from = "";
+
+    switch (side) {
+        case "l" :
+            from = "from-left";
+            leave = "leave-right";
+            break;
+        case "r" :
+            from = "from-right";
+            leave = "leave-left";
+            break;
+        default :
+            from = "from-right";
+            leave = "leave-left";
+            break;
+    }
+
+    containerVisibilitySet(leavingWindow, true);
+    containerVisibilitySet(comingWindow, true);
+    $('.mainContent.' + leavingWindow).addClass(leave).delay(time).queue(function () {
+        containerVisibilitySet(leavingWindow, false);
+        $(this).removeClass(leave).dequeue();
+    });
+    $('.mainContent.' + comingWindow).addClass(from).delay(time).queue(function () {
+        $(this).removeClass(from).dequeue();
+    });
+
 }

@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 /* ---------------table */
 td {
     white-space: nowrap;
@@ -174,7 +178,7 @@ input[type=button]:active {
 }
 
 .recCateg .next_link {
-    margin-right:15px;
+    margin-right: 15px;
 }
 
 .search .content {
@@ -260,6 +264,122 @@ input[type=button]:active {
     color: #d8e3e7;
 }
 
+.mainContent {
+    overflow-y: hidden;
+}
+
 ._buttonClick {
     cursor: pointer;
+}
+
+.leave-left {
+    -webkit-animation-name: toLeft;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-timing-function: ease;
+
+    animation-name: toLeft;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+}
+
+.leave-right {
+    -webkit-animation-name: toRight;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-timing-function: ease;
+
+    animation-name: toRight;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+}
+
+.from-left {
+    -webkit-animation-name: fromLeft;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-timing-function: ease;
+
+    animation-name: fromLeft;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+}
+
+.from-right {
+    -webkit-animation-name: fromRight;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-timing-function: ease;
+
+    animation-name: fromRight;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+}
+
+@-webkit-keyframes toLeft {
+    from {
+        left: 0px;
+    }
+    to {
+        left: -100%;
+    }
+}
+
+@keyframes toLeft {
+    from {
+        left: 0px;
+    }
+    to {
+        left: -100%;
+    }
+}
+
+@-webkit-keyframes toRight {
+    from {
+        left: 0px;
+    }
+    to {
+        left: 100%;
+    }
+}
+
+@keyframes toRight {
+    from {
+        left: 0px;
+    }
+    to {
+        left: 100%;
+    }
+}
+
+@-webkit-keyframes fromLeft {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0px;
+    }
+}
+
+@keyframes fromLeft {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0px;
+    }
+}
+
+@-webkit-keyframes fromRight {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 0px;
+    }
+}
+
+@keyframes fromRight {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 0px;
+    }
 }
