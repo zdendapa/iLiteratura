@@ -361,7 +361,7 @@ function searchArticles(author, title, authorArticle, isbn, page, pageSize) {
         dataType: 'json',
         crossDomain: true,
         beforeSend: function () {
-            $('.container.content .articlesList').remove();
+            $('.search .container.content .articlesList').remove();
             addLoadingImg($('.search .container.content'));
         },
         success: processSearch,
@@ -455,6 +455,7 @@ function removeLoadingImg(jQueryEl) {
  * Take data from discussion form and make check. If everything is OK, then call AJAX post.
  */
 function sendDiscussionPost() {
+    removeInputErrorHighlighting();
     var name, email, text, error, articleID;
     articleID = $('div[data-cont-id="article"] .header .container .next[data-article-detail-id]').attr('data-article-detail-id');
     error = false;
