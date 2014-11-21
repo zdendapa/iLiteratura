@@ -259,3 +259,7 @@ input[type=button]:active {
     display: block;
     color: #d8e3e7;
 }
+
+._buttonClick {
+    cursor: pointer;
+}
