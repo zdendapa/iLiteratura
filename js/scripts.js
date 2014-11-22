@@ -591,13 +591,15 @@ function scanBarcode() {
         msg();
         return;
     }
-    if(typeof cordova.plugin == "undefined")
+    if(typeof cordova.plugins == "undefined")
     {
         msg();
+        return;
     }
-    if(typeof cordova.plugin.BarcodeScanner == "undefined")
+    if(typeof cordova.plugins.BarcodeScanner == "undefined")
     {
         msg();
+        return;
     }
 
     var scanner = cordova.require("cordova/plugin/BarcodeScanner");
