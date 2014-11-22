@@ -4,6 +4,7 @@
  */
 var queryURL = "http://private-anon-49613b467-iliteratura.apiary-mock.com";
 
+
 /**
  * Function call init function and show default window
  */
@@ -12,6 +13,7 @@ function onDeviceReady() {
     scripDefaultInit();
 
     showWindow("index");
+    $('.footer li[data-animation="index"] span').addClass("active");
 }
 
 /**
@@ -32,6 +34,7 @@ function clickInit() {
         getDiscussion(idArticle, null, null);
         $('div[data-cont-id="article"] .header .container .next').attr('data-article-detail-id', idArticle);
     });
+
     $(document).on('click', '._buttonClick[data-article-detail-id]', function () {
         var idArticle = $(this).attr("data-article-detail-id");
         console.log("Selected article detail ID:", idArticle);
@@ -41,10 +44,53 @@ function clickInit() {
         $(this).parent().find('span').removeClass('active');
         $(this).find('span').addClass('active');
     });
-    $('.footer').on('click', 'span', function () {
-        $('.footer').find("span").removeClass('active');
-        var pageName = $(this).parent().attr('data-animation');
-        $('.footer').find('li[data-animation="' + pageName + '"] span').addClass('active');
+
+    $('.header .container').on('touchstart', 'span.back', function () {
+        var el = $(this)
+        $(el).css("color","#FFFFFF");
+
+        setTimeout(function () {
+            pageSys.goBack();
+            console.log("sad");
+            $(el).css("color","#244d80");
+            console.log(el);
+        }, 100);
+
+    });
+
+    $('.footer').on('touchstart', 'span', function () {
+        var elAnimPrevSpan = $('.footer').find("span.active").first();
+        if($(elAnimPrevSpan).length==0)
+        {
+            elAnimPrevSpan = $('.footer').find("li").first().find("span");
+        }
+        var elAnimPrev = $(elAnimPrevSpan).parent();
+        var animIndexPrev = $(elAnimPrev).index();
+
+        var elAnimSpan = $(this);
+        var elAnim = $(elAnimSpan).parent();
+        var animIndex = $(elAnim).index();
+        var animPage = $(elAnim).attr("data-animation");
+
+        var smer;
+        /*
+        console.log(animIndexPrev);
+        console.log(animIndex);
+        */
+        if(animIndexPrev>animIndex)
+        {
+            smer = "smer-l";
+        }
+
+        // vizual
+        $('.footer').find('span.active').removeClass('active');
+        $('.footer').find('li[data-animation="' + animPage + '"] span').addClass('active');
+        if(animIndex==4) {
+            scanBarcode();
+            return;
+        }
+        showWindow(animPage,smer);
+
     });
 }
 
@@ -64,6 +110,7 @@ function focusOutInit() {
  */
 function transitionInit() {
     pageSys.pageExceptionsAdd("articleDetail");
+    $("#selHodnoceni").width($(".rating_box .rating_button").width()+"px");
 }
 
 /**
@@ -78,10 +125,10 @@ function dataManagerLoad() {
  * Funcion show window by its name.
  *
  * @param windowName name of window class
+ * @param par parameter
  */
-function showWindow(windowName) {
+function showWindow(windowName, par) {
     hideAll();
-
     // -------
 
     if (windowName === "index") {
@@ -109,10 +156,32 @@ function showWindow(windowName) {
         containerVisibilitySet("recList", true);
     }
 
+
+
+
+
     // Animace
+    var smer = "r";
+    if(par == "smer-l")
+    {
+        smer = "l";
+
+    }
     var prevWindow = pageSys.pageCurrent;
+    if(par == "back")
+    {
+        smer = "l";
+        prevWindow = pageSys.pageBack;
+
+    }
+    /*
+    console.log(prevWindow);
+    console.log(windowName);
+    */
     if (prevWindow && (prevWindow !== windowName)) {
-        animateWindow(prevWindow, windowName, "l");
+
+        animateWindow(prevWindow, windowName, smer);
+
     }
 
     // vlozeni do page historie
@@ -513,7 +582,23 @@ function removeInputErrorHighlighting() {
  * Makes barcode scan.
  */
 function scanBarcode() {
-    console.log('SCANNER: scanning');
+    var scannerSupport = true;
+    var msg = function() {
+        alertG("Scaner nelze připojit");
+    };
+    if(typeof cordova == "undefined")
+    {
+        msg();
+        return;
+    }
+    if(typeof cordova.plugin == "undefined")
+    {
+        msg();
+    }
+    if(typeof cordova.plugin.BarcodeScanner == "undefined")
+    {
+        msg();
+    }
 
     var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
@@ -534,6 +619,7 @@ function scanBarcode() {
         console.log("SCANNER:", result);
 
     }, function (error) {
+        alertG("Chyba scanneru")
         console.log("SCANNER failed: ", error);
     });
 }
@@ -545,7 +631,7 @@ function scanBarcode() {
  * @param side
  */
 function animateWindow(leavingWindow, comingWindow, side) {
-    var time = 500; //miliseconds
+    var time = 300; //miliseconds
     var leave, from = "";
 
     switch (side) {

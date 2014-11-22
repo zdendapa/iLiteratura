@@ -16,15 +16,16 @@ var pageSys = {
             this.pageBackArr = this.pageBackArr.slice(1,this.countMemorizedPages+1);
     },
     goBack : function() {
+        this.pageBack = this.pageCurrent;
         this.pageBackArr.pop();
         this.pageCurrent = this.pageBackArr.pop();
-        this.pageBack = this.pageBackArr[this.pageBackArr.length-1];
+        //this.pageBack = this.pageBackArr[this.pageBackArr.length-1];
         var goback = true;
         for (i = 0; i < this.pageExceptions.length; i++) {
             if(this.pageExceptions[i]==this.pageCurrent)
                 goback = false;
         }
-        if(goback) showWindow(this.pageCurrent);
+        if(goback) showWindow(this.pageCurrent,"back");
     },
     reset : function(currenPage) {
         this.pageCurrent = currenPage;

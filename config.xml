@@ -28,6 +28,8 @@
     <gap:plugin name="org.apache.cordova.device"/>
     <gap:plugin name="org.apache.cordova.network-information"/>
     <gap:plugin name="org.apache.cordova.statusbar"/>
+    <gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.0.0" />
+    <gap:plugin name="org.apache.cordova.dialogs" />
 
 
     <gap:config-file platform="ios" parent="UIStatusBarHidden">

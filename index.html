@@ -19,7 +19,7 @@
 <body>
 <script type="text/javascript">
 
-    var local = true;
+    var local = false;
 
     // hacks
     if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
@@ -151,25 +151,7 @@
         </div>
         <!--**booksectionrow**-->
     </div>
-    <div class="footer">
-        <ul>
-            <li class="_buttonClick" data-click="showWindow('index')" data-animation="index">
-                <span><i class="fa fa-star"></i>Novinky</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('recCateg')" data-animation="recCateg">
-                <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('articles')" data-animation="articles">
-                <span><i class="fa fa-reorder"></i>Články</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('search')" data-animation="search">
-                <span><i class="fa fa-search"></i>Search</span>
-            </li>
-            <li class="_buttonClick" data-click="scanBarcode()">
-                <span><i class="fa fa-barcode"></i>Scan ISBN</span>
-            </li>
-        </ul>
-    </div>
+
 </div>
 <div data-cont-id="recCateg" class="mainContent recCateg">
     <div class="header">
@@ -195,25 +177,7 @@
         </div>
     </div>
 
-    <div class="footer">
-        <ul>
-            <li class="_buttonClick" data-click="showWindow('index')" data-animation="index">
-                <span><i class="fa fa-star"></i>Novinky</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('recCateg')" data-animation="recCateg">
-                <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('articles')" data-animation="articles">
-                <span><i class="fa fa-reorder"></i>Články</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('search')" data-animation="search">
-                <span><i class="fa fa-search"></i>Search</span>
-            </li>
-            <li class="_buttonClick" data-click="scanBarcode()">
-                <span><i class="fa fa-barcode"></i>Scan ISBN</span>
-            </li>
-        </ul>
-    </div>
+
 </div>
 <div data-cont-id="recArticles" class="mainContent recArticles">
     <div class="header">
@@ -257,25 +221,6 @@
         </div>
     </div>
 
-    <div class="footer">
-        <ul>
-            <li class="_buttonClick" data-click="showWindow('index')" data-animation="index">
-                <span><i class="fa fa-star"></i>Novinky</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('recCateg')" data-animation="recCateg">
-                <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('articles')" data-animation="articles">
-                <span><i class="fa fa-reorder"></i>Články</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('search')" data-animation="search">
-                <span><i class="fa fa-search"></i>Search</span>
-            </li>
-            <li class="_buttonClick" data-click="scanBarcode()">
-                <span><i class="fa fa-barcode"></i>Scan ISBN</span>
-            </li>
-        </ul>
-    </div>
 </div>
 <div data-cont-id="articles" class="mainContent articles">
     <div class="header">
@@ -292,6 +237,12 @@
             <h2>BELETRIE ČESKÁ</h2>
             <i class="fa fa-angle-right"></i>
         </div>
+        <select id="selBeletrie" onchange="$('.articles .select h2').html($('#selBeletrie').val());">
+            <option>žánr 1</option>
+            <option>žánr 2</option>
+            <option>žánr 3</option>
+            <option>žánr 4</option>
+        </select>
     </div>
 
     <div class="container content">
@@ -317,25 +268,6 @@
         </div>
     </div>
 
-    <div class="footer">
-        <ul>
-            <li class="_buttonClick" data-click="showWindow('index')" data-animation="index">
-                <span><i class="fa fa-star"></i>Novinky</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('recCateg')" data-animation="recCateg">
-                <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('articles')" data-animation="articles">
-                <span><i class="fa fa-reorder"></i>Články</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('search')" data-animation="search">
-                <span><i class="fa fa-search"></i>Search</span>
-            </li>
-            <li class="_buttonClick" data-click="scanBarcode()">
-                <span><i class="fa fa-barcode"></i>Scan ISBN</span>
-            </li>
-        </ul>
-    </div>
 </div>
 <div data-cont-id="search" class="mainContent search">
     <!--*********headsection***********-->
@@ -354,31 +286,12 @@
 
     </div>
 
-    <div class="footer">
-        <ul>
-            <li class="_buttonClick" data-click="showWindow('index')" data-animation="index">
-                <span><i class="fa fa-star"></i>Novinky</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('recCateg')" data-animation="recCateg">
-                <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('articles')" data-animation="articles">
-                <span><i class="fa fa-reorder"></i>Články</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('search')" data-animation="search">
-                <span><i class="fa fa-search"></i>Search</span>
-            </li>
-            <li class="_buttonClick" data-click="scanBarcode()">
-                <span><i class="fa fa-barcode"></i>Scan ISBN</span>
-            </li>
-        </ul>
-    </div>
 </div>
 <div data-cont-id="article" class="mainContent article">
     <!--*********headsection***********-->
     <div class="header">
         <div class="container">
-            <span class="back _buttonClick" data-click="pageSys.goBack()"><i class="fa fa-angle-left"></i>zpět</span>
+            <span class="back"><i class="fa fa-angle-left"></i>zpět</span>
             <span class="title_content">Článek</span>
             <span class="next _buttonClick" data-click="showWindow('articleDetail')"><i class="fa fa-plus"></i></span>
         </div>
@@ -407,6 +320,20 @@
 
         <div class="rating_box">
             <div class="rating_button _buttonClick">Hodnotit knihu</div>
+            <div>
+                <select id="selHodnoceni" onchange="alertG('Hodnocení vloženo','Potvrzení');$(this).attr('disabled', true)">
+                    <option>10%</option>
+                    <option>20%</option>
+                    <option>30%</option>
+                    <option>40%</option>
+                    <option>50%</option>
+                    <option>60%</option>
+                    <option>70%</option>
+                    <option>80%</option>
+                    <option>90%</option>
+                    <option>100%</option>
+                </select>
+            </div>
         </div>
 
         <div class="discuss">
@@ -423,33 +350,13 @@
         </div>
     </div>
     <!--*********midsection***********-->
-    <!--*********footersection***********-->
-    <div class="footer">
-        <ul>
-            <li class="_buttonClick" data-click="showWindow('index')" data-animation="index">
-                <span><i class="fa fa-star"></i>Novinky</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('recCateg')" data-animation="recCateg">
-                <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('articles')" data-animation="articles">
-                <span><i class="fa fa-reorder"></i>Články</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('search')" data-animation="search">
-                <span><i class="fa fa-search"></i>Search</span>
-            </li>
-            <li class="_buttonClick" data-click="scanBarcode()">
-                <span><i class="fa fa-barcode"></i>Scan ISBN</span>
-            </li>
-        </ul>
-    </div>
-    <!--*********footersection***********-->
+
 </div>
 <div data-cont-id="articleDetail" class="mainContent articleDetail">
     <!--*********headsection***********-->
     <div class="header">
         <div class="container">
-            <span class="back _buttonClick" data-click="pageSys.goBack()"><i class="fa fa-angle-left"></i>zpět</span>
+            <span class="back"><i class="fa fa-angle-left"></i>zpět</span>
             <span class="title_content">Více k článku</span>
         </div>
     </div>
@@ -493,50 +400,37 @@
             </div>
         </div>
     </div>
-    <div class="footer">
-        <ul>
-            <li class="_buttonClick" data-click="showWindow('index')" data-animation="index">
-                <span><i class="fa fa-star"></i>Novinky</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('recCateg')" data-animation="recCateg">
-                <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('articles')" data-animation="articles">
-                <span><i class="fa fa-reorder"></i>Články</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('search')" data-animation="search">
-                <span><i class="fa fa-search"></i>Search</span>
-            </li>
-            <li class="_buttonClick" data-click="scanBarcode()">
-                <span><i class="fa fa-barcode"></i>Scan ISBN</span>
-            </li>
-        </ul>
-    </div>
+
     <!--*********midsection***********-->
 </div>
 <div data-cont-id="recList" class="mainContent recList">
     <h1>Doporucene clanky v kategorii</h1>
 
-    <div class="footer">
-        <ul>
-            <li class="_buttonClick" data-click="showWindow('index')" data-animation="index">
-                <span><i class="fa fa-star"></i>Novinky</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('recCateg')" data-animation="recCateg">
-                <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('articles')" data-animation="articles">
-                <span><i class="fa fa-reorder"></i>Články</span>
-            </li>
-            <li class="_buttonClick" data-click="showWindow('search')" data-animation="search">
-                <span><i class="fa fa-search"></i>Search</span>
-            </li>
-            <li class="_buttonClick" data-click="scanBarcode()">
-                <span><i class="fa fa-barcode"></i>Scan ISBN</span>
-            </li>
-        </ul>
-    </div>
+
 </div>
+
+
+<div class="footer">
+    <ul>
+        <li data-click="showWindow('index')" data-animation="index">
+            <span><i class="fa fa-star"></i>Novinky</span>
+        </li>
+        <li data-click="showWindow('recCateg')" data-animation="recCateg">
+            <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
+        </li>
+        <li data-click="showWindow('articles')" data-animation="articles">
+            <span><i class="fa fa-reorder"></i>Články</span>
+        </li>
+        <li data-click="showWindow('search')" data-animation="search">
+            <span><i class="fa fa-search"></i>Search</span>
+        </li>
+        <li data-click="scanBarcode()">
+            <span><i class="fa fa-barcode"></i>Scan ISBN</span>
+        </li>
+    </ul>
+</div>
+
+
 <div id="verzeApp">v0.1</div>
 
 <!-------------------------------------------------- menu -->
