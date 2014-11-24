@@ -90,7 +90,7 @@ function clickInit() {
             return;
         }
         showWindow(animPage,smer);
-        console.log(animPage);
+        //console.log(animPage);
 
     });
 }
@@ -129,6 +129,7 @@ function dataManagerLoad() {
  * @param par parameter
  */
 function showWindow(windowName, par) {
+    console.log(par);
     // -------
     var direction = "r";
     var oldPage = pageSys.pageCurrent;
@@ -606,6 +607,7 @@ function removeInputErrorHighlighting() {
  * Makes barcode scan.
  */
 function scanBarcode() {
+    /*
     var scannerSupport = true;
     var msg = function() {
         alertG("Scaner nelze připojit");
@@ -625,6 +627,7 @@ function scanBarcode() {
         msg();
         return;
     }
+    */
 
     var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
