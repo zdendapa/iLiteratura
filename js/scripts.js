@@ -12,6 +12,7 @@ function onDeviceReady() {
 
     scripDefaultInit();
 
+    hideAll();
     showWindow("index");
     $('.footer li[data-animation="index"] span').addClass("active");
 }
@@ -128,7 +129,6 @@ function dataManagerLoad() {
  * @param par parameter
  */
 function showWindow(windowName, par) {
-    hideAll();
     // -------
 
     if (windowName === "index") {
@@ -661,4 +661,12 @@ function animateWindow(leavingWindow, comingWindow, side) {
         $(this).removeClass(from).dequeue();
     });
 
+}
+
+function test()
+{
+    //$("div.mainContent.index").addClass("left")
+    //$("div.mainContent.index").css("-webkit-transform", "translate3d(-100%, 0, 0)");
+    //$("div.mainContent.index").css("transform", "translate3d(-100%, 0, 0)");
+    containerSlide("index", "article","r")
 }

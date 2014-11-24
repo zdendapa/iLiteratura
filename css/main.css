@@ -428,3 +428,19 @@ input[type=button]:active {
         left: 0px;
     }
 }
+
+
+.left {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+}
+
+
+.aaa .index {
+    transform: translate3d(-100%, 0, 0) !important;
+    -webkit-transform: translate3d(-100%, 0, 0) !important;
+}
+.aaa .article {
+    transform: translate3d(0px, 0, 0) !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+}
