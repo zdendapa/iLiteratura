@@ -9,7 +9,7 @@ var pageSys = {
     pageBack:"",
     // page right now
     pageCurrent:"",
-    countMemorizedPages:5,
+    countMemorizedPages:10,
     addCurrent: function(c){
         this.pageBack = this.pageCurrent;
         this.pageCurrent = c;

@@ -54,7 +54,6 @@ function clickInit() {
             pageSys.goBack();
             console.log("sad");
             $(el).css("color","#244d80");
-            console.log(el);
         }, 100);
     });
 
@@ -110,7 +109,7 @@ function focusOutInit() {
  * Initialize transition futures like swiper, and special exceptions
  */
 function transitionInit() {
-    pageSys.pageExceptionsAdd("articleDetail");
+    //pageSys.pageExceptionsAdd("articleDetail");
     $("#selHodnoceni").width($(".rating_box .rating_button").width()+"px");
 }
 
@@ -129,7 +128,6 @@ function dataManagerLoad() {
  * @param par parameter
  */
 function showWindow(windowName, par) {
-    console.log(par);
     // -------
     var direction = "r";
     var oldPage = pageSys.pageCurrent;
@@ -305,7 +303,7 @@ function processArticleDetail(data, textStatus, jqXHR) {
     // Cycle for related articles
     $.each(data.RelatedArticles, function (key, val) {
         var relArticle = $('<div class="book_list _buttonClick"></div>')
-            .attr("data-click", "showWindow('article')")
+            //.attr("data-click", "showWindow('article')")
             .attr("data-article-id", val.Id);
         var bookListLeft = $('<div class="book_list_left"></div>')
             .append($('<h3></h3>').text(val.Title))
@@ -607,7 +605,7 @@ function removeInputErrorHighlighting() {
  * Makes barcode scan.
  */
 function scanBarcode() {
-    /*
+
     var scannerSupport = true;
     var msg = function() {
         alertG("Scaner nelze připojit");
@@ -617,6 +615,7 @@ function scanBarcode() {
         msg();
         return;
     }
+    /*
     if(typeof cordova.plugins == "undefined")
     {
         msg();

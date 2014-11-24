@@ -19,7 +19,7 @@
 <body>
 <script type="text/javascript">
 
-    var local = false;
+    var local = true;
 
     // hacks
     if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
@@ -425,7 +425,7 @@
         <li data-click="showWindow('search')" data-animation="search">
             <span><i class="fa fa-search"></i>Search</span>
         </li>
-        <li data-click="scanBarcode()">
+        <li data-click="scanBarcode()" data-animation="barcode">
             <span><i class="fa fa-barcode"></i>Scan ISBN</span>
         </li>
     </ul>
