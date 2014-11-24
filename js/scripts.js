@@ -56,7 +56,6 @@ function clickInit() {
             $(el).css("color","#244d80");
             console.log(el);
         }, 100);
-
     });
 
     $('.footer').on('touchstart', 'span', function () {
@@ -80,7 +79,7 @@ function clickInit() {
         */
         if(animIndexPrev>animIndex)
         {
-            smer = "smer-l";
+            smer = "l";
         }
 
         // vizual
@@ -91,6 +90,7 @@ function clickInit() {
             return;
         }
         showWindow(animPage,smer);
+        console.log(animPage);
 
     });
 }
@@ -130,33 +130,57 @@ function dataManagerLoad() {
  */
 function showWindow(windowName, par) {
     // -------
+    var direction = "r";
+    var oldPage = pageSys.pageCurrent;
+    if(typeof par != "undefined")
+    {
+        if(par=="back-l")
+        {
+            direction = "l";
+            oldPage = pageSys.pageBack;
+        }
+        if(par=="l")
+        {
+            direction = "l";
+        }
+    }
 
     if (windowName === "index") {
-        containerVisibilitySet("index", true);
+        //containerVisibilitySet("index", true);
+        containerSlide(oldPage,windowName,direction);
     }
     if (windowName === "recCateg") {
-        containerVisibilitySet("recCateg", true);
+        //containerVisibilitySet("recCateg", true);
+        containerSlide(oldPage,windowName,direction);
     }
     if (windowName === "recArticles") {
-        containerVisibilitySet("recArticles", true);
+        //containerVisibilitySet("recArticles", true);
+        containerSlide(oldPage,windowName,direction);
     }
     if (windowName === "articles") {
-        containerVisibilitySet("articles", true);
+        //containerVisibilitySet("articles", true);
+        containerSlide(oldPage,windowName,direction);
     }
     if (windowName === "search") {
-        containerVisibilitySet("search", true);
+        //containerVisibilitySet("search", true);
+        containerSlide(oldPage,windowName,direction);
     }
     if (windowName === "article") {
-        containerVisibilitySet("article", true);
+        //containerVisibilitySet("article", true);
+        containerSlide(oldPage,windowName,direction);
     }
     if (windowName === "articleDetail") {
-        containerVisibilitySet("articleDetail", true);
+        //containerVisibilitySet("articleDetail", true);
+        containerSlide(oldPage,windowName,direction);
     }
     if (windowName === "recList") {
-        containerVisibilitySet("recList", true);
+        //containerVisibilitySet("recList", true);
+        containerSlide(oldPage,windowName,direction);
     }
 
-
+    // vlozeni do page historie
+    pageSys.addCurrent(windowName);
+    return;
 
 
 
@@ -668,5 +692,6 @@ function test()
     //$("div.mainContent.index").addClass("left")
     //$("div.mainContent.index").css("-webkit-transform", "translate3d(-100%, 0, 0)");
     //$("div.mainContent.index").css("transform", "translate3d(-100%, 0, 0)");
-    containerSlide("index", "article","r")
+    ///containerSlide("articleDetail", "article","r");
+    containerSlide("index", "article","r");
 }

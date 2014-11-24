@@ -3,8 +3,11 @@
  */
 var pageSys = {
     pageBackArr:[],
+    // pages thats are ignored
     pageExceptions:[],
+    // always keep page before!
     pageBack:"",
+    // page right now
     pageCurrent:"",
     countMemorizedPages:5,
     addCurrent: function(c){
@@ -25,7 +28,7 @@ var pageSys = {
             if(this.pageExceptions[i]==this.pageCurrent)
                 goback = false;
         }
-        if(goback) showWindow(this.pageCurrent,"back");
+        if(goback) showWindow(this.pageCurrent,"back-l");
     },
     reset : function(currenPage) {
         this.pageCurrent = currenPage;
