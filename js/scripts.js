@@ -655,6 +655,9 @@ function scanBarcode() {
         console.log("SCANNER:", result);
 
     }, function (error) {
+        showWindow("search");
+        $('.footer').find('span.active').removeClass('active');
+        $('.footer').find('li[data-animation="search"] span').addClass('active');
         alertG("Chyba scanneru")
         console.log("SCANNER failed: ", error);
     });

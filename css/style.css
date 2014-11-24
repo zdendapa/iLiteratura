@@ -315,10 +315,7 @@ h1, h2, h3, h4, h5 {
     font-size: 28px;
 }
 
-.footer ul li span:hover {
-    display: block;
-    color: #d8e3e7;
-}
+
 
 /*--*************************moretoartical******************************--*/
 .back {
@@ -346,9 +343,8 @@ h1, h2, h3, h4, h5 {
 .next i {
     float: right;
     font-size: 25px;
-    margin: 0 10px 0 0px;
     color: #244d80;
-    margin: 10px 15px 0 0;
+    padding: 10px 15px 10px 15px;
     position: relative;
     z-index: 9999;
 }
