@@ -52,7 +52,6 @@ function clickInit() {
 
         setTimeout(function () {
             pageSys.goBack();
-            console.log("sad");
             $(el).css("color","#244d80");
         }, 100);
     });
@@ -81,6 +80,10 @@ function clickInit() {
             smer = "l";
         }
 
+        if(animPage==pageSys.pageCurrent)
+        {
+            return;
+        }
         // vizual
         $('.footer').find('span.active').removeClass('active');
         $('.footer').find('li[data-animation="' + animPage + '"] span').addClass('active');
@@ -249,6 +252,8 @@ function processArticle(data, textStatus, jqXHR) {
         .append(title)
         .append(author)
         .append(text);
+
+
 }
 
 /**
@@ -523,6 +528,7 @@ function processSearch(data, textStatus, jqXHR) {
  */
 function ajaxError(jqXHR, textStatus, errThrown) {
     console.log("AJAX:", textStatus, jqXHR.status, errThrown);
+    $(".article .container.content").scrollTop(0);
 }
 
 /**
@@ -634,6 +640,8 @@ function scanBarcode() {
         searchArticles("", "", "", result.text, 1, 10);
         $('.search-input input').val(result.text);
         showWindow("search");
+        $('.footer').find('span.active').removeClass('active');
+        $('.footer').find('li[data-animation="search"] span').addClass('active');
 
         /*alert("We got a barcode\n" +
          "Result: " + result.text + "\n" +
