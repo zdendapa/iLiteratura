@@ -1,4 +1,8 @@
 /* ---------------table */
+body, html {
+    overflow: hidden;
+}
+
 td {
     white-space: nowrap;
     padding-right: 1em;
@@ -44,7 +48,7 @@ input[type=button]:active {
     background-repeat: no-repeat;
     background-position: 20px 20px;
     background: rgb(255, 255, 255) !important;
-    background: transparent\9 !important;
+    background: transparent \9 !important;
     background: rgba(0, 0, 0, 0.5) !important;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4cFFFFFF, endColorstr=#4cFFFFFF);
 }
@@ -66,6 +70,11 @@ input[type=button]:active {
     left: 0px;
     background: rgba(128, 128, 128, 0.5);
     z-index: 1500;
+}
+
+.special.info.left {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
 }
 
 .special.info h1 {
@@ -144,8 +153,32 @@ input[type=button]:active {
 }
 
 .mainContent {
+    width: 100%;
     height: 100%;
     margin: 0px;
+    overflow: hidden;
+}
+
+.mainContent.left {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+}
+
+.mainContent.center {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.mainContent.right {
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+}
+
+.mainContent.transition {
+    -webkit-transition-timing-function: linear;
+    transition-timing-function: linear;
+    -webkit-transition-duration: 0.15s;
+    transition-duration: 0.15s;
 }
 
 .container.content {
@@ -163,7 +196,7 @@ input[type=button]:active {
     bottom: 72px;
 }
 
-.article .content, .articleDetail .content, .recCateg .content, .scan .content {
+.article .content, .articleDetail .content, .recCateg .content {
     top: 45px;
     bottom: 72px;
 }
@@ -174,7 +207,7 @@ input[type=button]:active {
 }
 
 .recCateg .next_link {
-    margin-right:15px;
+    margin-right: 15px;
 }
 
 .search .content {
@@ -262,4 +295,8 @@ input[type=button]:active {
 
 ._buttonClick {
     cursor: pointer;
+}
+
+.footer {
+    overflow: hidden;
 }

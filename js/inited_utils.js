@@ -2,37 +2,41 @@
  * page history system
  */
 var pageSys = {
-    pageBackArr:[],
-    pageExceptions:[],
-    pageBack:"",
-    pageCurrent:"",
-    countMemorizedPages:5,
-    addCurrent: function(c){
+    pageBackArr: [],
+    pageExceptions: [],
+    pageBack: "",
+    pageCurrent: "",
+    countMemorizedPages: 5,
+    addCurrent: function (c) {
         this.pageBack = this.pageCurrent;
         this.pageCurrent = c;
         //console.log(c);
         this.pageBackArr.push(c);
-        if(this.pageBackArr.length>this.countMemorizedPages)
-            this.pageBackArr = this.pageBackArr.slice(1,this.countMemorizedPages+1);
+        if (this.pageBackArr.length > this.countMemorizedPages)
+            this.pageBackArr = this.pageBackArr.slice(1, this.countMemorizedPages + 1);
     },
-    goBack : function() {
-        this.pageBackArr.pop();
-        this.pageCurrent = this.pageBackArr.pop();
-        this.pageBack = this.pageBackArr[this.pageBackArr.length-1];
-        var goback = true;
-        for (i = 0; i < this.pageExceptions.length; i++) {
-            if(this.pageExceptions[i]==this.pageCurrent)
-                goback = false;
+    goBack: function () {
+        for (var i = 0; i < this.pageExceptions.length; i++) {
+            if (this.pageExceptions[i] == this.pageBack) {
+                return;
+            }
         }
-        if(goback) showWindow(this.pageCurrent);
+        if (this.pageBack == "undefined") {
+            return;
+        }
+        this.pageBackArr.pop();
+        showWindow(this.pageBack, "right");
+        this.pageBackArr.pop();
+        this.pageBack = this.pageBackArr[this.pageBackArr.length - 2];
+
     },
-    reset : function(currenPage) {
+    reset: function (currenPage) {
         this.pageCurrent = currenPage;
         this.pageBackArr = [];
         this.pageBackArr.push(currenPage);
         this.pageBack = "";
     },
-    pageExceptionsAdd : function(windowName) {
+    pageExceptionsAdd: function (windowName) {
         this.pageExceptions.push(windowName);
     }
 };

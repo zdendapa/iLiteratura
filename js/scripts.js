@@ -80,7 +80,11 @@ function dataManagerLoad() {
  *
  * @param windowName name of window class
  */
-function showWindow(windowName) {
+function showWindow(windowName, animationSide) {
+    if (pageSys.pageCurrent == windowName) {
+        return;
+    }
+
     hideAll();
 
     if (windowName === "index") {
@@ -98,9 +102,6 @@ function showWindow(windowName) {
     if (windowName === "search") {
         containerVisibilitySet("search", true);
     }
-    if (windowName === "scan") {
-        containerVisibilitySet("scan", true);
-    }
     if (windowName === "article") {
         containerVisibilitySet("article", true);
     }
@@ -111,9 +112,60 @@ function showWindow(windowName) {
         containerVisibilitySet("recList", true);
     }
 
+    if (pageSys.pageCurrent != "") {
+        switch (animationSide) {
+            case "left" :
+                break;
+            case "right" :
+                break;
+            default:
+                animationSide = "left";
+                break;
+        }
+        animate(pageSys.pageCurrent, windowName, animationSide);
+    }
 
     // vlozeni do page historie
     pageSys.addCurrent(windowName);
+}
+
+
+function animate(currPage, nextPage, side) {
+    var currPageName = currPage,
+        nextPageName = nextPage;
+    var currPageClasses = "mainContent " + currPageName,
+        nextPageClasses = "mainContent " + nextPageName;
+
+    currPage = document.getElementsByClassName(currPageClasses)[0];
+    nextPage = document.getElementsByClassName(nextPageClasses)[0];
+
+    if (side === "left") {
+        // pripravit stranky
+        currPage.className = currPageClasses + " center";
+        nextPage.className = nextPageClasses + " right";
+        $(currPage).hide().show(0);
+        $(nextPage).hide().show(0);
+
+        // Posunout stranky
+        currPage.className = currPageClasses + " transition left";
+        nextPage.className = nextPageClasses + " transition center";
+    } else {
+        // pripravit stranky
+        currPage.className = currPageClasses + " center";
+        nextPage.className = nextPageClasses + " left";
+        $(currPage).hide().show(0);
+        $(nextPage).hide().show(0);
+
+        // Posunout stranky
+        currPage.className = currPageClasses + " transition right";
+        nextPage.className = nextPageClasses + " transition center";
+    }
+
+    // Odstranit transition
+    setTimeout(function () {
+        $(currPage).removeClass("transition").hide().show(0);
+        $(nextPage).removeClass("transition").hide().show(0);
+    }, 150);
 
 }
 
@@ -201,9 +253,9 @@ function processArticleDetail(data, textStatus, jqXHR) {
 
     // Creating dynamic html element
     var rating = $('<div class="gusetbook"><ul>' +
-        '<li><span>' + data.RatingAuthorArticle + '</span>autor článku</li>' +
-        '<li><span>' + data.RatingUsers + '</span>čtenáři</li>' +
-        '</ul></div>');
+    '<li><span>' + data.RatingAuthorArticle + '</span>autor článku</li>' +
+    '<li><span>' + data.RatingUsers + '</span>čtenáři</li>' +
+    '</ul></div>');
     var views = $('<div class="bs_title"><h2>zhlédnuto: ' + data.Views + 'x</h2></div>');
     // Cycle for related articles
     $.each(data.RelatedArticles, function (key, val) {
@@ -525,9 +577,9 @@ function scanBarcode() {
          "Cancelled: " + result.cancelled);
          */
         console.log("SCANNER result: \n" +
-            "text: " + result.text + "\n" +
-            "format: " + result.format + "\n" +
-            "cancelled: " + result.cancelled + "\n");
+        "text: " + result.text + "\n" +
+        "format: " + result.format + "\n" +
+        "cancelled: " + result.cancelled + "\n");
         console.log("SCANNER:", result);
 
     }, function (error) {
