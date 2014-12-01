@@ -143,8 +143,9 @@ function animate(currPage, nextPage, side) {
         // pripravit stranky
         currPage.className = currPageClasses + " center";
         nextPage.className = nextPageClasses + " right";
-        $(currPage).hide().show(0);
-        $(nextPage).hide().show(0);
+        // prekresleni
+        currPage.offsetWidth;
+        nextPage.offsetWidth;
 
         // Posunout stranky
         currPage.className = currPageClasses + " transition left";
@@ -153,8 +154,8 @@ function animate(currPage, nextPage, side) {
         // pripravit stranky
         currPage.className = currPageClasses + " center";
         nextPage.className = nextPageClasses + " left";
-        $(currPage).hide().show(0);
-        $(nextPage).hide().show(0);
+        currPage.offsetWidth;
+        nextPage.offsetWidth;
 
         // Posunout stranky
         currPage.className = currPageClasses + " transition right";
@@ -163,8 +164,10 @@ function animate(currPage, nextPage, side) {
 
     // Odstranit transition
     setTimeout(function () {
-        $(currPage).removeClass("transition").hide().show(0);
-        $(nextPage).removeClass("transition").hide().show(0);
+        $(currPage).removeClass("transition");
+        $(nextPage).removeClass("transition");
+        currPage.offsetWidth;
+        nextPage.offsetWidth;
     }, 150);
 
 }

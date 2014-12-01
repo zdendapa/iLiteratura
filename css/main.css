@@ -295,6 +295,7 @@ input[type=button]:active {
 
 ._buttonClick {
     cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .footer {
