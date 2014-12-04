@@ -191,19 +191,28 @@ input[type=button]:active {
 }
 
 .rating_box {
-    padding: 40px 15px 40px 15px;
+    height: 30px;
+    padding: 0px 15px 40px 15px;
     position: relative;
 }
 
 .rating_button {
     font-family: "Arial";
+    font-weight: bold;
     border: 1px solid #7aa0c2;
     color: #7aa0c2;
     border-radius: 5px;
-    width: 100%;
-    font-size: 20px;
+    width: 136px;
+    font-size: 14px;
     padding: 6px 0px 6px 0px;
     text-align: center;
+}
+
+.rating_button:nth-child(0) {
+    float: left;
+}
+.rating_button:nth-child(1) {
+    float: right;
 }
 
 /* --------- specificke ------------------ */
@@ -231,7 +240,7 @@ input[type=button]:active {
 
 /* --------- index */
 .index .header {
-    height: 80px;
+    height: 79px;
 }
 
 .index .header .logo {
@@ -240,22 +249,24 @@ input[type=button]:active {
 
 .index .content {
     width: 100%;
-    top: 80px;
-    bottom: 72px;
+    top: 79px;
+    bottom: 60px;
+}
+
+.article .content, .articleDetail .content, .recCateg .content, .scan .content {
+    width: 100%;
+    top: 45px;
+    bottom: 60px;
+}
+
+.recArticles .content, .articles .content {
+    width: 100%;
+    top: 91px;
+    bottom: 60px;
 }
 
 .tab_link {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-.article .content, .articleDetail .content, .recCateg .content, .scan .content {
-    top: 45px;
-    bottom: 72px;
-}
-
-.recArticles .content, .articles .content {
-    top: 91px;
-    bottom: 72px;
 }
 
 .recCateg .next_link {
@@ -342,10 +353,26 @@ input[type=button]:active {
     appearance: button;
     -moz-appearance: button;
     -webkit-appearance: button;
-    top: 40px;
-    width: 90%;
+    top: 0px;
+    width: 136px;
     font-size: 22px;
-    padding: 6px 0px 6px 0px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    -webkit-appearance: none;
+}
+
+#selSocial {
+    position: absolute;
+    background: transparent;
+    border: 0px;
+    color: transparent;
+    appearance: button;
+    -moz-appearance: button;
+    -webkit-appearance: button;
+    top: 0px;
+    right: 15px;
+    width: 136px;
+    font-size: 22px;
     border: 1px solid transparent;
     border-radius: 5px;
     -webkit-appearance: none;

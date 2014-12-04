@@ -307,7 +307,7 @@ h1, h2, h3, h4, h5 {
     text-decoration: none;
     display: block;
     color: #798898;
-    padding: 14px 0;
+    padding: 8px 0 5px 0px;
 }
 
 .footer ul li span i {
@@ -315,6 +315,7 @@ h1, h2, h3, h4, h5 {
     clear: both;
     text-align: center;
     font-size: 28px;
+    padding: 2px;
 }
 
 
