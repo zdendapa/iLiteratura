@@ -1,3 +1,32 @@
+@font-face {
+    font-family: 'ScalaCondensed';
+    src: url('../fonts/scalawebpro-condbold.eot');
+    src: url('../fonts/scalawebpro-condbold.eot') format('embedded-opentype'), url('../fonts/scalawebpro-condbold.woff') format('woff');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'ScalaWebPro';
+    src: url('../fonts/scalawebpro-ita.eot');
+    src: url('../fonts/scalawebpro-ita.eot') format('embedded-opentype'), url('../fonts/scalawebpro-ita.woff') format('woff');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'ScalaWebPro';
+    src: url('../fonts/scalawebpro-boldita.eot');
+    src: url('../fonts/scalawebpro-boldita.eot') format('embedded-opentype'), url('../fonts/scalawebpro-boldita.woff') format('woff');
+    font-style: italic;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'ScalaWebPro';
+    src: url('../fonts/scalawebpro-bold.eot');
+    src: url('../fonts/scalawebpro-bold.eot') format('embedded-opentype'), url('../fonts/scalawebpro-bold.woff') format('woff');
+    font-weight: bold;
+}
+
 body {
     overflow-x: hidden;
 }
@@ -34,6 +63,11 @@ th {
     background: rgba(0, 0, 0, 0.37);
 }
 
+.book_list_left p {
+    font-family: "ScalaWebPro";
+    font-style: italic;
+}
+
 input[type=button]:active {
     background: rgba(0, 0, 0, 0.39);
 }
@@ -48,7 +82,7 @@ input[type=button]:active {
     background-repeat: no-repeat;
     background-position: 20px 20px;
     background: rgb(255, 255, 255) !important;
-    background: transparent\9 !important;
+    background: transparent \9 !important;
     background: rgba(0, 0, 0, 0.5) !important;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4cFFFFFF, endColorstr=#4cFFFFFF);
 }
@@ -127,18 +161,47 @@ input[type=button]:active {
     margin: 20px 0px 20px -16px;
 }
 
+.article-author {
+    font: italic bold 14px "ScalaWebPro";
+    color: #969696;
+    float: left;
+    clear: both;
+    margin: 14px 0 20px 0;
+}
+
+.literature {
+    margin-bottom: 4px;
+    font: italic bold 14px "ScalaWebPro";
+    color: #969696;
+    float: left;
+    clear: both;
+}
+
+.article-type {
+    margin: 20px 0px 50px 0px;
+    font: bold 16px "ScalaWebPro";
+    float: left;
+    clear: both;
+    color: #234f80;
+    text-transform: uppercase;
+}
+
+.artical p:first-of-type {
+    font-size: 17px;
+}
+
 .rating_box {
-    padding: 0px 15px 50px 15px;
+    padding: 40px 15px 40px 15px;
     position: relative;
 }
 
 .rating_button {
+    font-family: "Arial";
     border: 1px solid #7aa0c2;
     color: #7aa0c2;
     border-radius: 5px;
     width: 100%;
-    font-size: 22px;
-    font-weight: bold;
+    font-size: 20px;
     padding: 6px 0px 6px 0px;
     text-align: center;
 }
@@ -148,7 +211,6 @@ input[type=button]:active {
     min-height: 45px;
 
 }
-
 
 .mainContent {
     height: 100%;
@@ -163,21 +225,29 @@ input[type=button]:active {
     -webkit-overflow-scrolling: touch;
 }
 
+.discuss h3 {
+    font-family: "ScalaCondensed";
+}
+
 /* --------- index */
 .index .header {
     height: 80px;
 }
+
 .index .header .logo {
     margin-top: 23px;
 }
+
 .index .content {
     width: 100%;
     top: 80px;
     bottom: 72px;
 }
+
 .tab_link {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
 .article .content, .articleDetail .content, .recCateg .content, .scan .content {
     top: 45px;
     bottom: 72px;
@@ -224,6 +294,18 @@ input[type=button]:active {
     margin-left: 15px;
 }
 
+.related-articles .book_list_left {
+    margin-top: 10px;
+}
+
+.related-articles .book_list_right {
+    margin-top: 13.5px;
+}
+
+.related-articles .book_list {
+    padding-bottom: 10px;
+}
+
 .header .bs_title {
     margin: 0;
 }
@@ -238,6 +320,7 @@ input[type=button]:active {
 }
 
 .header .select h2 {
+    font-size: 1.2em;
     float: left;
     padding: 4px 0px 4px 20px;
     color: #ffffff;
@@ -250,6 +333,7 @@ input[type=button]:active {
     float: right;
     margin: 11px 10px 0px 0px;
 }
+
 #selHodnoceni {
     position: absolute;
     background: transparent;
@@ -258,7 +342,7 @@ input[type=button]:active {
     appearance: button;
     -moz-appearance: button;
     -webkit-appearance: button;
-    top: 0px;
+    top: 40px;
     width: 90%;
     font-size: 22px;
     padding: 6px 0px 6px 0px;
@@ -266,6 +350,7 @@ input[type=button]:active {
     border-radius: 5px;
     -webkit-appearance: none;
 }
+
 #selBeletrie {
     position: absolute;
     background: transparent;
@@ -304,8 +389,9 @@ input[type=button]:active {
     display: block;
     color: #d8e3e7;
 }
-.footer  {
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+.footer {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .mainContent {
@@ -314,119 +400,10 @@ input[type=button]:active {
 
 ._buttonClick {
     cursor: pointer;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-.leave-left {
-    -webkit-animation-name: toLeft;
-    -webkit-animation-duration: 0.5s;
-    -webkit-animation-timing-function: ease;
-
-    animation-name: toLeft;
-    animation-duration: 0.5s;
-    animation-timing-function: ease;
+.artical h3 {
+    font-family: 'MmnzkkpohmarruujbvcfyufncxpRegular';
+    font-size: 22px;
 }
-
-.leave-right {
-    -webkit-animation-name: toRight;
-    -webkit-animation-duration: 0.5s;
-    -webkit-animation-timing-function: ease;
-
-    animation-name: toRight;
-    animation-duration: 0.5s;
-    animation-timing-function: ease;
-}
-
-.from-left {
-    -webkit-animation-name: fromLeft;
-    -webkit-animation-duration: 0.5s;
-    -webkit-animation-timing-function: ease;
-
-    animation-name: fromLeft;
-    animation-duration: 0.5s;
-    animation-timing-function: ease;
-}
-
-.from-right {
-    -webkit-animation-name: fromRight;
-    -webkit-animation-duration: 0.5s;
-    -webkit-animation-timing-function: ease;
-
-    animation-name: fromRight;
-    animation-duration: 0.5s;
-    animation-timing-function: ease;
-}
-
-@-webkit-keyframes toLeft {
-    from {
-        left: 0px;
-    }
-    to {
-        left: -100%;
-    }
-}
-
-@keyframes toLeft {
-    from {
-        left: 0px;
-    }
-    to {
-        left: -100%;
-    }
-}
-
-@-webkit-keyframes toRight {
-    from {
-        left: 0px;
-    }
-    to {
-        left: 100%;
-    }
-}
-
-@keyframes toRight {
-    from {
-        left: 0px;
-    }
-    to {
-        left: 100%;
-    }
-}
-
-@-webkit-keyframes fromLeft {
-    from {
-        left: -100%;
-    }
-    to {
-        left: 0px;
-    }
-}
-
-@keyframes fromLeft {
-    from {
-        left: -100%;
-    }
-    to {
-        left: 0px;
-    }
-}
-
-@-webkit-keyframes fromRight {
-    from {
-        left: 100%;
-    }
-    to {
-        left: 0px;
-    }
-}
-
-@keyframes fromRight {
-    from {
-        left: 100%;
-    }
-    to {
-        left: 0px;
-    }
-}
-
-

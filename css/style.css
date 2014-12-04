@@ -62,6 +62,7 @@ h1, h2, h3, h4, h5 {
     margin: 0px;
     padding: 0px;
     background: transparent url("../img/head_bg.jpg") center repeat-x;
+    background-size: 100%;
 }
 
 .container {
@@ -110,7 +111,8 @@ h1, h2, h3, h4, h5 {
 }
 
 .bs_title h2 {
-    font-size: 19.5px;
+    font-family: "ScalaCondensed";
+    font-size: 22px;
     color: #333333;
     float: left;
     margin: 5px 0 1px 15px;
@@ -180,7 +182,7 @@ h1, h2, h3, h4, h5 {
     color: #7aa0c2;
     text-align: center;
     font-size: 12px;
-    line-height: 35px;
+    line-height: 33px;
 }
 
 .next_link {
@@ -268,7 +270,7 @@ h1, h2, h3, h4, h5 {
     color: #969696;
     display: block;
     font-style: italic;
-    line-height: 22px;
+    line-height: 19px;
     margin: 0px;
     float: left;
 }
@@ -295,7 +297,7 @@ h1, h2, h3, h4, h5 {
 .footer ul li {
     list-style: none;
     float: left;
-    font-family: 'CkotbmkojeuljxgmtqpyowwwfgoRegular';
+    font-family: "Arial";
     font-size: 13px;
     text-align: center;
     width: 20%;
@@ -319,7 +321,7 @@ h1, h2, h3, h4, h5 {
 
 /*--*************************moretoartical******************************--*/
 .back {
-    font-family: 'CkotbmkojeuljxgmtqpyowwwfgoRegular';
+    font-family: "Arial";
     color: #244d80;
     text-decoration: none;
     line-height: 35px;
@@ -342,9 +344,9 @@ h1, h2, h3, h4, h5 {
 
 .next i {
     float: right;
-    font-size: 25px;
+    font-size: 30px;
     color: #244d80;
-    padding: 10px 15px 10px 15px;
+    padding: 7.5px 15px 7.5px 15px;
     position: relative;
     z-index: 9999;
 }
@@ -356,7 +358,7 @@ h1, h2, h3, h4, h5 {
 .title_content {
     color: #244d80;
     display: block;
-    font-family: "CkotbmkojeuljxgmtqpyowwwfgoRegular";
+    font-family: "Arial";
     font-size: 18px;
     left: 0;
     margin: 0;
@@ -447,9 +449,9 @@ h1, h2, h3, h4, h5 {
 .artical p {
     font-size: 15px;
     color: #333333;
-    line-height: 24px;
+    line-height: 22px;
     margin: 0px;
-    padding: 24px 0px;
+    padding-bottom: 15px;
     display: block;
     clear: both;
 }
@@ -521,7 +523,7 @@ h1, h2, h3, h4, h5 {
 
 .discuss h3 {
     color: #333333;
-    font-size: 15px;
+    font-size: 18px;
     line-height: 21px;
     border-bottom: solid 1px #cececd;
     padding: 0 0 8px 0;
@@ -613,9 +615,9 @@ h1, h2, h3, h4, h5 {
     text-align: center;
     border: none;
     display: block;
-    font-family: 'CkotbmkojeuljxgmtqpyowwwfgoRegular';
+    font-family: 'Arial';
     color: #fff;
-    font-size: 22px;
+    font-size: 20px;
     padding: 6px 0;
     cursor: pointer;
 }

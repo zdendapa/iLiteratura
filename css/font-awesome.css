@@ -592,7 +592,7 @@
 }
 
 .fa-plus:before {
-    content: "\f067";
+    content: "+";
 }
 
 .fa-minus:before {

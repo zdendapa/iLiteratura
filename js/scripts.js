@@ -319,7 +319,7 @@ function processArticleDetail(data, textStatus, jqXHR) {
         if (val.Type.Rating) {
             var rating = $('<div class="rate"></div>').text(val.Type.Rating);
         } else {
-            var rating = $('<div class="rate"></div>').text('API - Chybí');
+            var rating = $('<div class="rate"></div>').text('0%');
         }
         rateDiv
             .append(rating)
