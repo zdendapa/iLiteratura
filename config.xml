@@ -109,6 +109,9 @@
 
     <!-- Define app icon for each platform. -->
     <icon src="icon.png"/>
+    <platform name="ios">
+        <icon src="res/ios/icon.png"/>
+    </platform>
     <!-- Ikona je zatim jenom jedna
     <icon src="res/icon/android/drawable-hdpi/appicon.png" gap:platform="android" gap:density="hdpi"/>
     <icon src="res/icon/android/drawable-ldpi/appicon.png" gap:platform="android" gap:density="ldpi"/>
