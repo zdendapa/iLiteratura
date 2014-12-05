@@ -9,13 +9,17 @@ var queryURL = "http://private-anon-49613b467-iliteratura.apiary-mock.com";
  * Function call init function and show default window
  */
 function onDeviceReady() {
-    navigator.splashscreen.show();
+    if (!local) {
+        navigator.splashscreen.show();
+    }
     scripDefaultInit();
 
     hideAll();
     showWindow("index");
     $('.footer li[data-animation="index"] span').addClass("active");
-    navigator.splashscreen.hide();
+    if (!local) {
+        navigator.splashscreen.hide();
+    }
 }
 
 /**
@@ -211,6 +215,17 @@ function showWindow(windowName, par) {
     // vlozeni do page historie
     pageSys.addCurrent(windowName);
 
+}
+
+function getArticles(page, pageSize) {
+    var url = "http://iliteratura-api-test.azurewebsites.net/api/articles/Get?page={" + page + "}&pageSize={" + pageSize + "}";
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        crossDomain: true,
+        success: processArticles,
+        error: ajaxError
+    });
 }
 
 /**
@@ -521,23 +536,6 @@ function processSearch(data, textStatus, jqXHR) {
     });
 }
 
-function getArticles(page, pageSize) {
-    var url = "http://iliteratura-api-test.azurewebsites.net/api/articles/Get?page={" + page + "}&pageSize={" + pageSize + "}";
-
-    $.ajax({
-        url: url,
-        type: 'GET',
-        dataType: 'json',
-        crossDomain: true,
-        processData: false,
-        success: function (data, textStatus, jqXHR) {
-            console.log("AJAX Get Articles:", jqXHR.status, textStatus);
-            console.log(data);
-        },
-        error: ajaxError
-    });
-}
-
 /**
  * Function output error message into console.
  *
@@ -547,7 +545,6 @@ function getArticles(page, pageSize) {
  */
 function ajaxError(jqXHR, textStatus, errThrown) {
     console.log("AJAX:", textStatus, jqXHR.status, errThrown);
-    $(".article .container.content").scrollTop(0);
 }
 
 /**
