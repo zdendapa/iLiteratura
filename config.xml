@@ -4,7 +4,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="cz.initedsolutions.iliteratura"
-        version="0.1">
+        version="0.1.0">
     <!--
         0.1
 
@@ -28,8 +28,9 @@
     <gap:plugin name="org.apache.cordova.device"/>
     <gap:plugin name="org.apache.cordova.network-information"/>
     <gap:plugin name="org.apache.cordova.statusbar"/>
-    <gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.0.0" />
-    <gap:plugin name="org.apache.cordova.dialogs" />
+    <gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.0.0"/>
+    <gap:plugin name="org.apache.cordova.dialogs"/>
+    <gap:plugin name="org.apache.cordova.splashscreen"/>
 
 
     <gap:config-file platform="ios" parent="UIStatusBarHidden">

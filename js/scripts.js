@@ -48,18 +48,22 @@ function clickInit() {
 
     $('.header .container').on('touchstart', 'span.back', function () {
         var el = $(this)
-        $(el).css("color","#FFFFFF");
+        $(el).css("color", "#FFFFFF");
 
         setTimeout(function () {
             pageSys.goBack();
-            $(el).css("color","#244d80");
+            $(el).css("color", "#244d80");
         }, 100);
+    });
+
+    $('.mainContent .header').on('touchstart', function () {
+        var $container = $(this).parent().find('.container.content');
+        $container.animate({scrollTop: 0}, '300', 'swing');
     });
 
     $('.footer').on('touchstart', 'span', function () {
         var elAnimPrevSpan = $('.footer').find("span.active").first();
-        if($(elAnimPrevSpan).length==0)
-        {
+        if ($(elAnimPrevSpan).length == 0) {
             elAnimPrevSpan = $('.footer').find("li").first().find("span");
         }
         var elAnimPrev = $(elAnimPrevSpan).parent();
@@ -72,26 +76,24 @@ function clickInit() {
 
         var smer;
         /*
-        console.log(animIndexPrev);
-        console.log(animIndex);
-        */
-        if(animIndexPrev>animIndex)
-        {
+         console.log(animIndexPrev);
+         console.log(animIndex);
+         */
+        if (animIndexPrev > animIndex) {
             smer = "l";
         }
 
-        if(animPage==pageSys.pageCurrent)
-        {
+        if (animPage == pageSys.pageCurrent) {
             return;
         }
         // vizual
         $('.footer').find('span.active').removeClass('active');
         $('.footer').find('li[data-animation="' + animPage + '"] span').addClass('active');
-        if(animIndex==4) {
+        if (animIndex == 4) {
             scanBarcode();
             return;
         }
-        showWindow(animPage,smer);
+        showWindow(animPage, smer);
         //console.log(animPage);
 
     });
@@ -108,12 +110,13 @@ function focusOutInit() {
         }
     });
 }
+
 /**
  * Initialize transition futures like swiper, and special exceptions
  */
 function transitionInit() {
     //pageSys.pageExceptionsAdd("articleDetail");
-    $("#selHodnoceni").width($(".rating_box .rating_button").width()+"px");
+    $("#selHodnoceni").width($(".rating_box .rating_button").width() + "px");
 }
 
 /**
@@ -134,50 +137,47 @@ function showWindow(windowName, par) {
     // -------
     var direction = "r";
     var oldPage = pageSys.pageCurrent;
-    if(typeof par != "undefined")
-    {
-        if(par=="back-l")
-        {
+    if (typeof par != "undefined") {
+        if (par == "back-l") {
             direction = "l";
             oldPage = pageSys.pageBack;
         }
-        if(par=="l")
-        {
+        if (par == "l") {
             direction = "l";
         }
     }
 
     if (windowName === "index") {
         //containerVisibilitySet("index", true);
-        containerSlide(oldPage,windowName,direction);
+        containerSlide(oldPage, windowName, direction);
     }
     if (windowName === "recCateg") {
         //containerVisibilitySet("recCateg", true);
-        containerSlide(oldPage,windowName,direction);
+        containerSlide(oldPage, windowName, direction);
     }
     if (windowName === "recArticles") {
         //containerVisibilitySet("recArticles", true);
-        containerSlide(oldPage,windowName,direction);
+        containerSlide(oldPage, windowName, direction);
     }
     if (windowName === "articles") {
         //containerVisibilitySet("articles", true);
-        containerSlide(oldPage,windowName,direction);
+        containerSlide(oldPage, windowName, direction);
     }
     if (windowName === "search") {
         //containerVisibilitySet("search", true);
-        containerSlide(oldPage,windowName,direction);
+        containerSlide(oldPage, windowName, direction);
     }
     if (windowName === "article") {
         //containerVisibilitySet("article", true);
-        containerSlide(oldPage,windowName,direction);
+        containerSlide(oldPage, windowName, direction);
     }
     if (windowName === "articleDetail") {
         //containerVisibilitySet("articleDetail", true);
-        containerSlide(oldPage,windowName,direction);
+        containerSlide(oldPage, windowName, direction);
     }
     if (windowName === "recList") {
         //containerVisibilitySet("recList", true);
-        containerSlide(oldPage,windowName,direction);
+        containerSlide(oldPage, windowName, direction);
     }
 
     // vlozeni do page historie
@@ -185,25 +185,22 @@ function showWindow(windowName, par) {
     return;
 
 
-
     // Animace
     var smer = "r";
-    if(par == "smer-l")
-    {
+    if (par == "smer-l") {
         smer = "l";
 
     }
     var prevWindow = pageSys.pageCurrent;
-    if(par == "back")
-    {
+    if (par == "back") {
         smer = "l";
         prevWindow = pageSys.pageBack;
 
     }
     /*
-    console.log(prevWindow);
-    console.log(windowName);
-    */
+     console.log(prevWindow);
+     console.log(windowName);
+     */
     if (prevWindow && (prevWindow !== windowName)) {
 
         animateWindow(prevWindow, windowName, smer);
@@ -301,9 +298,9 @@ function processArticleDetail(data, textStatus, jqXHR) {
 
     // Creating dynamic html element
     var rating = $('<div class="gusetbook"><ul>' +
-        '<li><span>' + data.RatingAuthorArticle + '</span>autor článku</li>' +
-        '<li><span>' + data.RatingUsers + '</span>čtenáři</li>' +
-        '</ul></div>');
+    '<li><span>' + data.RatingAuthorArticle + '</span>autor článku</li>' +
+    '<li><span>' + data.RatingUsers + '</span>čtenáři</li>' +
+    '</ul></div>');
     var views = $('<div class="bs_title"><h2>zhlédnuto: ' + data.Views + 'x</h2></div>');
     // Cycle for related articles
     $.each(data.RelatedArticles, function (key, val) {
@@ -453,11 +450,16 @@ function searchArticles(author, title, authorArticle, isbn, page, pageSize) {
     isbn = isbn || "";
     page = page || 1;
     pageSize = pageSize || 10;
-    var url = queryURL + "/articles/search?" +
-        "{" + author + "}&{" + title + "}&{" + authorArticle + "}&{" + isbn + "}&{" + page + "}&{" + pageSize + "}";
+    /*var url = queryURL + "/articles/search?" +
+     "{" + author + "}&{" + title + "}&{" + authorArticle + "}&{" + isbn + "}&{" + page + "}&{" + pageSize + "}";*/
+    var url =
+        "http://iliteratura-api-test.azurewebsites.net/api/articles/" +
+        "Search?author={" + author + "}&title={" + title + "}&authorArticle={" + authorArticle + "}&" +
+        "isbn={" + isbn + "}&page={" + page + "}&pageSize={" + pageSize + "}";
 
     $.ajax({
         url: url,
+        type: 'POST',
         dataType: 'json',
         crossDomain: true,
         beforeSend: function () {
@@ -516,7 +518,23 @@ function processSearch(data, textStatus, jqXHR) {
         articlesList.append(articleBox);
         page.append(articlesList);
     });
+}
 
+function getArticles(page, pageSize) {
+    var url = "http://iliteratura-api-test.azurewebsites.net/api/articles/Get?page={" + page + "}&pageSize={" + pageSize + "}";
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        crossDomain: true,
+        processData: false,
+        success: function (data, textStatus, jqXHR) {
+            console.log("AJAX Get Articles:", jqXHR.status, textStatus);
+            console.log(data);
+        },
+        error: ajaxError
+    });
 }
 
 /**
@@ -613,26 +631,25 @@ function removeInputErrorHighlighting() {
 function scanBarcode() {
 
     var scannerSupport = true;
-    var msg = function() {
+    var msg = function () {
         alertG("Scaner nelze připojit");
     };
-    if(typeof cordova == "undefined")
-    {
+    if (typeof cordova == "undefined") {
         msg();
         return;
     }
     /*
-    if(typeof cordova.plugins == "undefined")
-    {
-        msg();
-        return;
-    }
-    if(typeof cordova.plugins.BarcodeScanner == "undefined")
-    {
-        msg();
-        return;
-    }
-    */
+     if(typeof cordova.plugins == "undefined")
+     {
+     msg();
+     return;
+     }
+     if(typeof cordova.plugins.BarcodeScanner == "undefined")
+     {
+     msg();
+     return;
+     }
+     */
 
     var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
@@ -649,9 +666,9 @@ function scanBarcode() {
          "Cancelled: " + result.cancelled);
          */
         console.log("SCANNER result: \n" +
-            "text: " + result.text + "\n" +
-            "format: " + result.format + "\n" +
-            "cancelled: " + result.cancelled + "\n");
+        "text: " + result.text + "\n" +
+        "format: " + result.format + "\n" +
+        "cancelled: " + result.cancelled + "\n");
         console.log("SCANNER:", result);
 
     }, function (error) {
@@ -698,13 +715,4 @@ function animateWindow(leavingWindow, comingWindow, side) {
         $(this).removeClass(from).dequeue();
     });
 
-}
-
-function test()
-{
-    //$("div.mainContent.index").addClass("left")
-    //$("div.mainContent.index").css("-webkit-transform", "translate3d(-100%, 0, 0)");
-    //$("div.mainContent.index").css("transform", "translate3d(-100%, 0, 0)");
-    ///containerSlide("articleDetail", "article","r");
-    containerSlide("index", "article","r");
 }

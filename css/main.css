@@ -83,7 +83,7 @@ input[type=button]:active {
     background-position: 20px 20px;
     background: rgb(255, 255, 255) !important;
     background: transparent \9 !important;
-    background: rgba(0, 0, 0, 0.5) !important;
+    background: rgba(19, 46, 83, 0.5) !important;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4cFFFFFF, endColorstr=#4cFFFFFF);
 }
 
@@ -211,6 +211,7 @@ input[type=button]:active {
 .rating_button:nth-child(0) {
     float: left;
 }
+
 .rating_button:nth-child(1) {
     float: right;
 }
@@ -355,6 +356,24 @@ input[type=button]:active {
     -webkit-appearance: button;
     top: 0px;
     width: 136px;
+    font-size: 22px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    -webkit-appearance: none;
+}
+
+#selSort {
+    position: absolute;
+    background: transparent;
+    border: 0px;
+    color: transparent;
+    appearance: button;
+    -moz-appearance: button;
+    -webkit-appearance: button;
+    top: 0px;
+    right: 0px;
+    width: 120px;
+    height: 45px;
     font-size: 22px;
     border: 1px solid transparent;
     border-radius: 5px;
