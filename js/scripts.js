@@ -9,11 +9,13 @@ var queryURL = "http://private-anon-49613b467-iliteratura.apiary-mock.com";
  * Function call init function and show default window
  */
 function onDeviceReady() {
+    navigator.splashscreen.show();
     scripDefaultInit();
 
     hideAll();
     showWindow("index");
     $('.footer li[data-animation="index"] span').addClass("active");
+    navigator.splashscreen.hide();
 }
 
 /**
