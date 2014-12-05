@@ -30,7 +30,7 @@
     <gap:plugin name="org.apache.cordova.statusbar"/>
     <gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.0.0"/>
     <gap:plugin name="org.apache.cordova.dialogs"/>
-    <gap:plugin name="org.apache.cordova.splashscreen"/>
+    <gap:plugin name="org.apache.cordova.splashscreen" version="0.3.4"/>
 
 
     <gap:config-file platform="ios" parent="UIStatusBarHidden">

@@ -14,7 +14,6 @@ function onDeviceReady() {
     hideAll();
     showWindow("index");
     $('.footer li[data-animation="index"] span').addClass("active");
-    navigator.splashcreen.hide();
 }
 
 /**
