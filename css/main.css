@@ -266,17 +266,18 @@ input[type=button]:active {
     bottom: 60px;
 }
 
+.search .content {
+    width: 100%;
+    top: 115px;
+    bottom: 60px;
+}
+
 .tab_link {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .recCateg .next_link {
     margin-right: 15px;
-}
-
-.search .content {
-    top: 115px;
-    bottom: 72px;
 }
 
 .search-input {
@@ -452,4 +453,32 @@ input[type=button]:active {
 .artical h3 {
     font-family: 'MmnzkkpohmarruujbvcfyufncxpRegular';
     font-size: 22px;
+}
+
+.search-by-tags {
+    height: 100%;
+    -webkit-transition: height 0.25s;
+    transition: height 0.25s;
+    overflow-y: auto;
+}
+
+.search-by-tags.reduced {
+    height: 40px;
+}
+
+.search-by-tags h3 {
+    padding-left: 10px;
+    background-color: #e9e7db;
+}
+
+.search-by-tags ul li {
+    list-style-type: none;
+    padding: 10px 00px 10px 15px;
+    color: #666666;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.search-by-tags ul li.selected {
+    color: #333333;
+    font-weight: bold;
 }

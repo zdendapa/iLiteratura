@@ -51,6 +51,22 @@ function clickInit() {
         $(this).find('span').addClass('active');
     });
 
+    $('.search-by-tags li').on('touchstart', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        } else {
+            $(this).addClass('selected');
+        }
+    });
+
+    $('.search-by-tags h3').on('touchstart', function () {
+        if ($(this).closest('div').hasClass('reduced')) {
+            $(this).closest('div').removeClass('reduced');
+        } else {
+            $(this).closest('div').addClass('reduced');
+        }
+    });
+
     $('.header .container').on('touchstart', 'span.back', function () {
         var el = $(this)
         $(el).css("color", "#FFFFFF");
