@@ -49,7 +49,7 @@
     <preference name="fullscreen" value="false"/>
     <!-- when is true, keyboard hide input -->
 
-    <preference name="EnableViewportScale" value="true"/>
+    <preference name="EnableViewportScale" value="no"/>
     <preference name="phonegap-version" value=""/>
     <!-- all: current version of PhoneGap -->
     <preference name="orientation" value="portrait"/>

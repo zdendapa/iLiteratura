@@ -410,11 +410,21 @@ function clickInit() {
     /**
      * Initialize focusOut listener on search input.
      */
-    $('div[data-cont-id="search"] .search-input input').focusout(function () {
-        var input = $('div[data-cont-id="search"] .search-input input').val();
+    $('#inputSearch').focusout(function () {
+        var input = $(this).val();
         if (input !== "") {
             //searchArticles(input, input, input, input, 1, 10);
             ajaxSearch();
+        }
+    });
+
+    $("#inputSearch").keypress(function (e) {
+        if (e.keyCode == 13) {
+            var input = $(this).val();
+            if (input !== "") {
+                //searchArticles(input, input, input, input, 1, 10);
+                ajaxSearch();
+            }
         }
     });
 
@@ -430,6 +440,8 @@ function transitionInit() {
     $("#selHodnoceni").width($(".rating_box .rating_button").width() + "px");
 
     waiter.element = $(".special.wait");
+
+    $("body").height($(window).height());
 }
 
 /**
@@ -1453,11 +1465,16 @@ function scanBarcode() {
     var scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
     scanner.scan(function (result) {
-        searchArticles("", "", "", result.text, 1, 10);
-        $('.search-input input').val(result.text);
+        //searchArticles("", "", "", result.text, 1, 10);
+        $('#inputSearch').val(result.text);
         showWindow("search");
         $('.footer').find('span.active').removeClass('active');
         $('.footer').find('li[data-animation="search"] span').addClass('active');
+
+        setTimeout(function () {
+            ajaxSearch();
+        }, 100);
+
 
         /*alert("We got a barcode\n" +
          "Result: " + result.text + "\n" +
