@@ -359,6 +359,13 @@ function clickInit() {
         }, 100);
     });
 
+    // back button -zpet
+    $(document).on(support.supportedTouchStartEven, '.next._buttonClick', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        showWindow('articleDetail')
+    });
+
     $('.mainContent .header').on(support.supportedTouchStartEven, function () {
         var $container = $(this).parent().find('.container.content');
         $container.animate({scrollTop: 0}, '300', 'swing');
@@ -399,8 +406,10 @@ function clickInit() {
             return;
         }
         // vizual
+        if(scriptDef.transition.transitionInAction) return;
         $('.footer').find('span.active').removeClass('active');
         $('.footer').find('li[data-animation="' + animPage + '"] span').addClass('active');
+
 
         showWindow(animPage, smer);
         //console.log(animPage);
@@ -464,7 +473,6 @@ function dataManagerLoad() {
  * @param par parameter
  */
 function showWindow(windowName, par) {
-    if(scriptDef.transition.transitionInAction) return;
     // -------
     var direction = "r";
     var oldPage = pageSys.pageCurrent;
