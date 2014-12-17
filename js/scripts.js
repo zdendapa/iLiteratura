@@ -396,6 +396,7 @@ function clickInit() {
                 return;
             }
             scanBarcode();
+            return;
         }
         // vizual
         $('.footer').find('span.active').removeClass('active');
