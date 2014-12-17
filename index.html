@@ -11,7 +11,6 @@
     <script type="text/javascript" src="js/inited_utils.js"></script>
     <script type="text/javascript" src="js/scriptsDefault.js"></script>
     <script type="text/javascript" src="js/scripts.js"></script>
-    <script type="text/javascript" src="js/fastclick.js"></script>
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/main.css"/>
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
@@ -19,7 +18,7 @@
 <body>
 <script type="text/javascript">
 
-    var local = true;
+    var local = false;
 
     // hacks
     if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/)) {
@@ -53,6 +52,16 @@
     <h1>Načítám...</h1>
 </div>
 
+
+<div class="special wait">
+    <div class="table">
+        <div class="tableCellMiddle">
+            <img class="wait" src="img/wait.gif" alt="Wait"/>
+        </div>
+    </div>
+</div>
+
+
 <!-------------------------------------------------- tops -->
 
 <!-------------------------------------------------- main content -->
@@ -63,6 +72,14 @@
     </div>
 
     <div class="container content">
+
+        <div class="waiter table">
+            <div class="tableCellMiddle">
+                <img class="wait" src="img/wait.gif" alt="Wait"/>
+            </div>
+        </div>
+
+
         <div class="bs_title">
             <h2>Kniha týdne</h2>
         </div>
@@ -112,7 +129,7 @@
         </div>
         <div class="book_seciton _buttonClick" data-article-id="2">
             <!--****bookleft****-->
-            <div class="book_seciton_left"><img src="img/book/2.jpg" alt="book"> <span>RECENZE</span>
+            <div class="book_seciton_left"><img src="img/book/2.jpg" alt="book"><span>RECENZE</span>
 
                 <p>Petr Nagy<Br>
                     11.7.2010</p>
@@ -153,6 +170,8 @@
     </div>
 
 </div>
+
+
 <div data-cont-id="recCateg" class="mainContent recCateg">
     <div class="header">
         <div class="header">
@@ -163,22 +182,43 @@
     </div>
 
     <div class="container content">
-        <div class="_buttonClick rec-categ" data-click="showWindow('recArticles')">
-            <h2>Vánoce</h2>
+        <div class="_buttonClick rec-categ" data-article-id="34041">
+            <h2>Nejlepší knihy roku 2014</h2>
             <span class="next_link"><i class="fa fa-angle-right"></i></span>
         </div>
-        <div class="_buttonClick rec-categ" data-click="showWindow('recArticles')">
-            <h2>Rodiče</h2>
+        <div class="_buttonClick rec-categ" data-article-id="33857">
+            <h2>Nejlepší české komiksy</h2>
             <span class="next_link"><i class="fa fa-angle-right"></i></span>
         </div>
-        <div class="_buttonClick rec-categ" data-click="showWindow('recArticles')">
-            <h2>Děti</h2>
+        <div class="_buttonClick rec-categ" data-article-id="33951">
+            <h2>25 nej českých knih posledních 25 let</h2>
+            <span class="next_link"><i class="fa fa-angle-right"></i></span>
+        </div>
+        <div class="_buttonClick rec-categ" data-article-id="32449">
+            <h2>Nejlepší knihy roku 2013</h2>
+            <span class="next_link"><i class="fa fa-angle-right"></i></span>
+        </div>
+        <div class="_buttonClick rec-categ" data-article-id="30951">
+            <h2>Nejlepší knihy roku 2012</h2>
             <span class="next_link"><i class="fa fa-angle-right"></i></span>
         </div>
     </div>
-
-
 </div>
+
+<div data-cont-id="recList" class="mainContent recList">
+    <div class="header">
+        <div class="header">
+            <div class="container">
+                <span class="title_content">Doporučené</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container content">
+
+    </div>
+</div>
+
 <div data-cont-id="recArticles" class="mainContent recArticles">
     <div class="header">
         <div class="header">
@@ -222,6 +262,8 @@
     </div>
 
 </div>
+
+
 <div data-cont-id="articles" class="mainContent articles">
     <div class="header">
         <div class="header">
@@ -240,38 +282,60 @@
             <h2>žánr:</h2>
         </div>
         <div class="select">
-            <h2>BELETRIE ČESKÁ</h2>
+            <h2>beletrie zahraniční</h2>
             <i class="fa fa-angle-right"></i>
-            <select id="selBeletrie" onchange="$('.articles .select h2').html($('#selBeletrie').val());">
-                <option>žánr 1</option>
-                <option>žánr 2</option>
-                <option>žánr 3</option>
-                <option>žánr 4</option>
+            <select id="selBeletrie" onchange="$('.articles .select h2').html($('#selBeletrie option:selected').text());clankyZanrChange()">
+                <option value="1">Žánry</option>
+                <option value="4">beletrie</option>
+                <option value="5" selected>beletrie zahraniční</option>
+                <option value="6">beletrie česká</option>
+                <option value="7">dětská</option>
+                <option value="8">non fiction</option>
+                <option value="9">přírodní vědy</option>
+                <option value="10">komparatistika</option>
+                <option value="11">literární věda</option>
+                <option value="12">komiks/film</option>
+                <option value="13">komiks</option>
+                <option value="14">film</option>
+                <option value="15">relax</option>
+                <option value="16">krimi</option>
+                <option value="17">sci-fi</option>
+                <option value="18">humor</option>
+                <option value="19">historický román</option>
+                <option value="20">fantasy</option>
+                <option value="21">romance</option>
+                <option value="22">kultura</option>
+                <option value="23">sociologie</option>
+                <option value="24">filozofie</option>
+                <option value="25">historie</option>
+                <option value="26">náboženství</option>
+                <option value="27">překlad</option>
             </select>
         </div>
 
     </div>
 
     <div class="container content">
-        <div class="articlesList">
-            <div class="book_list _buttonClick" data-article-id="28077">
-                <div class="book_list_right">
-                    <div class="rate_div">
-                        <div class="rate">60 %</div>
-                        <span class="next_link"><i class="fa fa-angle-right"></i></span></div>
+        <div class="book_list _buttonClick" data-article-id="28077">
+            <div class="book_list_right">
+                <div class="rate_div">
+                    <div class="rate">60 %</div>
+                    <span class="next_link"><i class="fa fa-angle-right"></i></span>
                 </div>
-                <div class="book_list_left"><h3>Andjelkovski, Tašo: Mirny</h3><span>recenze</span>
-
-                    <p>Tašo Andjelkovski 28.3.2011 10:19:00</p></div>
             </div>
-            <div class="book_list _buttonClick" data-article-id="9461">
-                <div class="book_list_right">
-                    <div class="rate_div"><span class="next_link"><i class="fa fa-angle-right"></i></span></div>
-                </div>
-                <div class="book_list_left"><h3>Auster, Paul: Leviatan</h3><span>recenze</span>
-
-                    <p>Paul Auster 9.4.2003</p></div>
+            <div class="book_list_left">
+                <h3>Andjelkovski, Tašo: Mirny</h3>
+                <span>recenze</span>
+                <p>Tašo Andjelkovski 28.3.2011 10:19:00</p>
             </div>
+        </div>
+        <div class="book_list _buttonClick" data-article-id="9461">
+            <div class="book_list_right">
+                <div class="rate_div"><span class="next_link"><i class="fa fa-angle-right"></i></span></div>
+            </div>
+            <div class="book_list_left"><h3>Auster, Paul: Leviatan</h3><span>recenze</span>
+
+                <p>Paul Auster 9.4.2003</p></div>
         </div>
     </div>
 
@@ -283,7 +347,7 @@
             <span class="title_content">Vyhledávání</span>
         </div>
         <div class="search-input">
-            <input name="search" type="text" class="artical_text_field" placeholder="Hledat"/>
+            <input id="inputSearch" name="search" type="text" class="artical_text_field" placeholder="Hledat"/>
         </div>
     </div>
 
@@ -410,7 +474,7 @@
         </div>
         <!--**article**-->
 
-        <div class="rating_box">
+        <div class="rating_box" style="display: none">
             <div class="rating_button">Sdílet článek</div>
             <div class="rating_button">Hodnotit knihu</div>
             <div>
@@ -439,10 +503,10 @@
             </div>
         </div>
 
-        <div class="discuss">
+        <div class="discuss" style="display: none">
             <h3>Diskuze:</h3>
         </div>
-        <div class="artical_form">
+        <div class="artical_form" style="display: none;">
             <label>Přidat komentář do diskuze</label>
             <input name="name" type="text" class="artical_text_field" placeholder="Vaše jméno">
             <input name="mail" type="text" class="artical_text_field" placeholder="Váš e-mail">
@@ -469,7 +533,22 @@
     <div class="mid_section">
         <div class="container content">
             <div class="related-articles">
-                <div class="bs_title"><h2>související clánky:</h2></div>
+                <div class="bs_title"><h2>související články:</h2>
+
+                    <div class="book_list">
+                        <div class="book_list_left">
+                            <h3>Leo Spitzer: Stylistické studie z románských literatur</h3>
+                            <span>RECENZE</span>
+
+                            <p>Petr Nagy 11.7.2010</p>
+                        </div>
+                        <div class="book_list_right">
+                            <div class="rate_div">
+                                <div class="rate"> 30%</div>
+                                <a href="#_" class="next_link"><i class="fa fa-angle-right"></i></a></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="rating">
                 <div class="bs_title"><h2>hodnocení knihy:</h2></div>
@@ -506,11 +585,7 @@
 
     <!--*********midsection***********-->
 </div>
-<div data-cont-id="recList" class="mainContent recList">
-    <h1>Doporucene clanky v kategorii</h1>
 
-
-</div>
 
 
 <div class="footer">
@@ -534,7 +609,7 @@
 </div>
 
 
-<div id="verzeApp">v0.1</div>
+<div id="verzeApp">v0.2</div>
 
 <!-------------------------------------------------- menu -->
 

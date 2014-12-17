@@ -46,6 +46,14 @@ table {
     font-size: 120%;
 }
 
+.table {
+    display: table;
+}
+.tableCellMiddle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
 th {
     border: 1px solid;
     border-bottom: 2px solid;
@@ -158,7 +166,8 @@ input[type=button]:active {
     border: 0;
     position: relative;
     left: 50%;
-    margin: 20px 0px 20px -16px;
+    margin: 20px 0px 20px -32px;
+    width: 64px;
 }
 
 .article-author {
@@ -254,7 +263,7 @@ input[type=button]:active {
     bottom: 60px;
 }
 
-.article .content, .articleDetail .content, .recCateg .content, .scan .content {
+.article .content, .articleDetail .content, .recCateg .content, .scan .content, .recList .content {
     width: 100%;
     top: 45px;
     bottom: 60px;
@@ -463,6 +472,7 @@ input[type=button]:active {
 }
 
 .search-by-tags.reduced {
+    display: none;
     overflow-y: hidden;
     height: 40px;
 }
@@ -482,4 +492,20 @@ input[type=button]:active {
 .search-by-tags ul li.selected {
     color: #333333;
     font-weight: bold;
+}
+
+/*------------------- symbols and special characters*/
+.special.wait {
+    display: none;
+    position: absolute;
+    width: 100%;
+    top: 79px;
+    bottom: 60px;
+}
+.waiter.table {
+    width: 100%;
+    height: 100%;
+}
+.waiter .tableCellMiddle {
+    text-align: center;
 }

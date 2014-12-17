@@ -112,3 +112,89 @@ function alertG(msg, title) {
         alert(msg);
     }
 }
+
+var inited = {
+
+    /*
+     reads properties of object. If doesnt exist, return ""
+     example inited.propertyGet(data,"AuthorArticle.NameFirst")
+      */
+    propertyGet : function(obj,prop)
+    {
+        var props = prop.split(".");
+        var objProps = "";
+        var valReturn = "";
+        for(var i=0;i<props.length;i++)
+        {
+
+            var o = eval("obj" + objProps);
+            if(o== null) return "";
+
+            if(o.hasOwnProperty(props[i]))
+            {
+                objProps = "." + props[i];
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+
+        return eval("o" + objProps);
+    }
+};
+
+var iniDate = {
+    // "2014-12-08T10:00:00", "2014-12-08"
+    //
+    // do 8.12.2014
+
+    conv1 : function (dateStr)
+    {
+        if(dateStr.length==0) return "";
+
+        var str = dateStr;
+        if(dateStr.indexOf("T")>-1)
+            str = dateStr.split("T")[0];
+
+        if(dateStr.indexOf("-")>-1)
+        {
+            var arr = str.split("-");
+            str = this.zerosLeadRemove(arr[2]) + "." + this.zerosLeadRemove(arr[1]) + "." + arr[0];
+        }
+
+        return str;
+    },
+    // z "0000test" udela "test"
+    zerosLeadRemove : function(s)
+    {
+        while(s.charAt(0) === '0')
+            s = s.substr(1);
+        return s;
+    }
+};
+
+/*
+ when scroll bottom -300px occurs, scrollBottomFunction is called (and loadStart = true)
+ You must set loadStart to false when your action is complete!!
+ */
+function scrollLoad(scrollerEl){
+    this.scrollerEl = scrollerEl;
+    this.loadStart = false;
+
+    this.scrollerEl.addEventListener('scroll', function(e) {
+        // OPTIMALIZOVAT! na javascript
+        if ($(this.scrollerEl).scrollTop() + $(this.scrollerEl).height() > $(this.scrollerEl).get(0).scrollHeight - 300) {
+            if(this.loadStart) return;
+            this.loadStart = true;
+            logging("Scrolled to bottom - start load another data");
+            this.scrollBottomFunction()
+        }
+
+    }.bind(this), false);
+
+    this.scrollBottomFunction = function (){
+
+    }
+};
