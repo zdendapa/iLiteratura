@@ -24,7 +24,6 @@
         The "device" permission is required for the 'deviceready' event.
     -->
 
-    <gap:plugin name="com.phonegap.plugins.pushplugin"/>
     <gap:plugin name="org.apache.cordova.device"/>
     <gap:plugin name="org.apache.cordova.network-information"/>
     <gap:plugin name="org.apache.cordova.statusbar"/>

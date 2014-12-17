@@ -454,6 +454,8 @@ function transitionInit() {
     $("body").css("position","relative");
     $("body").css("height",$(window).height()+"px");
     $(".mainContent").css("height",$(window).height()+"px");
+    $(".footer").css("position","absolute");
+    $(".footer").css("bottom","0px");
     //$("body").height($(window).height());
     //$(".mainContent").height($(window).height());
 }
