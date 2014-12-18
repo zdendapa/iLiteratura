@@ -533,7 +533,7 @@ function transitionInit() {
 
     } else
     {
-        //$("body").css("height",$(window).height()+"px");
+        $("body").css("height",$(window).height()+"px");
     }
     //$("body").css("width",$(window).width()+"px");
     //$(".mainContent").css("height",$(window).height()-20+"px");
