@@ -227,6 +227,7 @@ function onDeviceReady() {
 
     if (!local) {
         navigator.splashscreen.hide();
+        StatusBar.show();
     }
 
 }
