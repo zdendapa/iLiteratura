@@ -50,7 +50,7 @@
     <!-- all: hides the status bar at the top of the screen -->
     <preference name="prerendered-icon" value="true"/>
     <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
-    <preference name="ios-statusbarstyle" value="black-opaque"/>
+    <!--<preference name="ios-statusbarstyle" value="black-opaque"/>-->
     <!-- ios: black-translucent will appear black because the PhoneGap webview doesn't go beneath the status bar -->
     <preference name="detect-data-types" value="true"/>
     <!-- ios: controls whether data types (such as phone no. and dates) are automatically turned into links by the system -->
@@ -69,7 +69,7 @@
     <preference name="SplashScreenDelay" value="5000"/>
 
     <!-- (boolean, defaults to true). On iOS 7, make the statusbar overlay or not overlay the WebView during startup. -->
-    <preference name="StatusBarOverlaysWebView" value="false" />
+    <!--<preference name="StatusBarOverlaysWebView" value="false" />-->
 
     <!-- Plugins -->
 
