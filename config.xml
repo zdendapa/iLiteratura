@@ -4,7 +4,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="cz.iniapps.iliteratura"
-        version="0.23">
+        version="0.2">
     <!--
         0.1
 
@@ -39,7 +39,7 @@
 
 
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="fullscreen" value="false"/>
+    <preference name="fullscreen" value="true"/>
     <!-- when is true, keyboard hide input -->
 
     <preference name="EnableViewportScale" value="no"/>
