@@ -32,14 +32,20 @@
     <gap:plugin name="org.apache.cordova.splashscreen" version="0.3.4"/>
 
 
+    <gap:config-file platform="ios" parent="UIStatusBarHidden">
+        <true/>
+    </gap:config-file>
 
+    <gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance">
+        <false/>
+    </gap:config-file>
 
 
     <feature name="http://api.phonegap.com/1.0/device"/>
 
 
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="fullscreen" value="true"/>
+    <preference name="fullscreen" value="false"/>
     <!-- when is true, keyboard hide input -->
 
     <preference name="EnableViewportScale" value="no"/>
