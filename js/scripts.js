@@ -518,11 +518,22 @@ function transitionInit() {
 
     waiter.element = $(".special.wait");
 
+    var ios = navigator.userAgent.match(/iphone|ipad|ipod/i) &&
+        parseInt(navigator.appVersion.match(/OS (\d)/)[1], 10) >= 7;
+    if (ios) {
+        document.body.style.webkitTransform = 'translate3d(0, 20px, 0)';
+    }
 
     $("body").css("position","relative");
 
 
-    $("body").css("height",$(window).height()-20+"px");
+    if(ios)
+    {
+        $("body").css("height",$(window).height()-20+"px");
+    } else
+    {
+        $("body").css("height",$(window).height()+"px");
+    }
     $("body").css("width",$(window).width()+"px");
     $(".mainContent").css("height",$(window).height()-20+"px");
     $(".footer").css("position","absolute");
@@ -531,11 +542,7 @@ function transitionInit() {
     //$("body").height($(window).height());
     //$(".mainContent").height($(window).height());
 
-    var updateStatusBar = navigator.userAgent.match(/iphone|ipad|ipod/i) &&
-        parseInt(navigator.appVersion.match(/OS (\d)/)[1], 10) >= 7;
-    if (updateStatusBar) {
-        document.body.style.webkitTransform = 'translate3d(0, 20px, 0)';
-    }
+
 }
 
 /**
