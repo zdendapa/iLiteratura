@@ -45,6 +45,7 @@ h1, h2, h3, h4, h5 {
     width: 100%;
     height: auto;
     margin-bottom: 72px;
+    z-index: 1;
 }
 
 .clear {
@@ -299,7 +300,7 @@ h1, h2, h3, h4, h5 {
     list-style: none;
     float: left;
     font-family: "Arial";
-    font-size: 13px;
+    font-size: 10px;
     text-align: center;
     width: 20%;
 }
@@ -442,7 +443,7 @@ h1, h2, h3, h4, h5 {
 
 .artical h3 {
     font-size: 15px;
-    line-height: 21px;
+    line-height: 27px;
     color: #333333;
     float: left;
     margin: 0 0 0 10px;

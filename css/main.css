@@ -86,13 +86,16 @@ input[type=button]:active {
     -webkit-tap-highlight-color: transparent; /* For some Androids */
 }
 
-.highlight {
+.highlight_old {
     background-repeat: no-repeat;
     background-position: 20px 20px;
     background: rgb(255, 255, 255) !important;
     background: transparent \9 !important;
     background: rgba(19, 46, 83, 0.5) !important;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4cFFFFFF, endColorstr=#4cFFFFFF);
+}
+.highlight{
+    background: white;
 }
 
 .highlightOpacity {
@@ -143,7 +146,7 @@ input[type=button]:active {
     right: 0px;
     bottom: 0px;
     left: 0px;
-    background: grey;
+    background: white;
     z-index: 1500;
 }
 
@@ -166,8 +169,8 @@ input[type=button]:active {
     border: 0;
     position: relative;
     left: 50%;
-    margin: 20px 0px 20px -32px;
-    width: 64px;
+    margin: 20px 0px 20px -16px;
+    width: 32px;
 }
 
 .article-author {
@@ -187,7 +190,7 @@ input[type=button]:active {
 }
 
 .article-type {
-    margin: 20px 0px 50px 0px;
+    margin: 0px 0px 10px 0px;
     font: bold 16px "ScalaWebPro";
     float: left;
     clear: both;
@@ -260,25 +263,25 @@ input[type=button]:active {
 .index .content {
     width: 100%;
     top: 79px;
-    bottom: 60px;
+    bottom: 50px;
 }
 
 .article .content, .articleDetail .content, .recCateg .content, .scan .content, .recList .content {
     width: 100%;
     top: 45px;
-    bottom: 60px;
+    bottom: 50px;
 }
 
 .recArticles .content, .articles .content {
     width: 100%;
     top: 91px;
-    bottom: 60px;
+    bottom: 50px;
 }
 
 .search .content {
     width: 100%;
     top: 115px;
-    bottom: 60px;
+    bottom: 50px;
 }
 
 .tab_link {
@@ -448,6 +451,7 @@ input[type=button]:active {
 
 .footer {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    z-index: 10;
 }
 
 .mainContent {
@@ -495,12 +499,22 @@ input[type=button]:active {
 }
 
 /*------------------- symbols and special characters*/
+img.wait {
+    width: 32px;
+}
 .special.wait {
-    display: none;
     position: absolute;
     width: 100%;
     top: 79px;
-    bottom: 60px;
+    bottom: 50px;
+    z-index: 2000;
+}
+.special.wait .table{
+    width: 100%;
+    height: 100%;
+}
+.special.wait .tableCellMiddle{
+    text-align: center;
 }
 .waiter.table {
     width: 100%;

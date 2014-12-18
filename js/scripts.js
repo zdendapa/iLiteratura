@@ -5,23 +5,9 @@ var urlSite = "http://iliteratura.cz";
 // whole page waiter
 var waiter = {
     element : "",
-    visibility : false
+    visibility : true
 };
 
-
-var articlesClanky = {
-    page : 1,
-    loadIfEmpty : function()
-    {
-        if(articles.clanky.data.length==0)
-        {
-            $(".articles .content").empty();
-            imgLoadingAdd($('.articles .content'));
-            ajaxClanky(1);
-        }
-    },
-  data : []
-};
 
 var articles = {
     // vyhledavani
@@ -37,9 +23,19 @@ var articles = {
     // clanky
     clanky : {
         data : [],
+        page : 1,
         getDataByID : function (id)
         {
             return articles.getDataByID(id,this.data);
+        },
+        loadIfEmpty : function()
+        {
+            if(this.data.length==0)
+            {
+                $(".articles .content").empty();
+                imgLoadingAdd($('.articles .content'));
+                ajaxClanky(1);
+            }
         }
     },
 
@@ -95,19 +91,67 @@ var articles = {
     }
 };
 
-/*
-because I cannot run more details ajax (it will flood server) I must run them synchronous by batch
- so when it goes one batch I waiting for end
 
-if details ajax is call
+var article = {
+    archiv : {
+        data :[],
+        dataItem : function(id,container,data){
+            this.id = id,
+            this.container = container,
+            this.data = data
+        },
+        add : function(id,container,data)
+        {
+            var o = new article.archiv.dataItem(id,container,data);
+            this.data.push(o);
+
+        },
+        get : function(idArticle)
+        {
+            var dataIndex = -1;
+            var res;
+            for(var i=0;i<this.data.length;i++)
+            {
+                var idin = this.data[i].id;
+                if(idin==idArticle)
+                {
+                    res = this.data[i];
+                }
+            }
+            return res;
+        },
+        getDataByID : function(idIndex)
+        {
+            var dataIndex = -1;
+            for(var i=0;i<this.data.length;i++)
+            {
+                var idin = inited.propertyGet(this.data[i],"Id");
+                if(idin==idIndex)
+                {
+                    dataIndex = i;
+                }
+            }
+            if(dataIndex>-1)
+            {
+                return this.data[dataIndex];
+            } else
+                return null;
+        }
+
+    },
+    data : "",
+
+    /*
+     because I cannot run more details ajax (it will flood server) I must run them synchronous by batch
+     so when it goes one batch I waiting for end
+
+     if details ajax is call
      detailsAjaxInAction = true
      when another is call detailsAjaxRunNew = true
- when finish
-    when detailsAjaxRunNew is true, run again
-    else render result
-  */
-var article = {
-    data : "",
+     when finish
+     when detailsAjaxRunNew is true, run again
+     else render result
+     */
     ajaxInAction : false,
     ajaxRunNew : false,
     ajaxRunNewId : "",
@@ -174,6 +218,10 @@ function onDeviceReady() {
     showWindow("index");
 
 
+
+    waiterShow(false);
+
+
     $('.footer li[data-animation="index"] span').addClass("active");
     if (!local) {
         navigator.splashscreen.hide();
@@ -201,20 +249,14 @@ function clickInit() {
     $(document).on('click', '._buttonClick[data-article-id]', function (e) {
 
         var idArticle = $(this).attr("data-article-id");
+        var windowName = $(this).attr("data-showWindow");
+        windowName = windowName==null?"article":windowName;
 
         setTimeout(function () {
 
-            /*
-            if(idArticle.indexOf(".json")>-1)
-            {
-                showWindow("recList");
-            } else
-            {
-             showWindow("article");
-            }
-            */
 
-            showWindow("article");
+            showWindow(windowName);
+
 
             setTimeout(function () {
                 // Resetting coments input fields
@@ -244,9 +286,9 @@ function clickInit() {
         }
 */
 
-
         // -------------- do you have already in memory?
         var dataClanku;
+        var container;
         // for clanky
         if(pageSys.pageCurrent=="articles")
         {
@@ -257,7 +299,7 @@ function clickInit() {
                 return;
             } else
             {
-                imgLoadingAdd($('.articles .container.content'));
+                //imgLoadingAdd($('.articles .container.content'));
                 getArticle(idArticle);
                 return;
             }
@@ -272,7 +314,7 @@ function clickInit() {
                 return;
             } else
             {
-                imgLoadingAdd($('.articles .container.content'));
+                //imgLoadingAdd($('.articles .container.content'));
                 getArticle(idArticle);
                 return;
             }
@@ -288,9 +330,9 @@ function clickInit() {
                 return;
             } else
             {
-                imgLoadingAdd($('.articles .container.content'));
-                getArticle(idArticle,"novinky");
-                return;
+                //imgLoadingAdd($('.articles .container.content'));
+                //getArticle(idArticle,"recList");
+                container = "recList";
             }
         }
         else
@@ -307,24 +349,23 @@ function clickInit() {
         }
 
 
-        logging("Article is not in memmory, lets load!")
 
-
-
-        getArticle(idArticle);
+        var o = article.archiv.get(idArticle);
+        if(o!=null)
+        {
+            processArticle(o.data, o.container);
+        } else
+        {
+            logging("Article is not in memmory, lets load!");
+            getArticle(idArticle,container);
+        }
 
 
         //getDiscussion(idArticle, null, null);
         $('div[data-cont-id="article"] .header .container .next').attr('data-article-detail-id', idArticle);
     });
 
-    $(document).on('click', '._buttonClick[data-article-detail-id]', function () {
-        var idArticle = $(this).attr("data-article-detail-id");
-        console.log("Selected article detail ID:", idArticle);
 
-        //processArticleDetail(articles.getDataByID(idArticle));
-        //getArticleDetail(idArticle);
-    });
     $('.tab_link').on('click', 'li', function () {
         $(this).parent().find('span').removeClass('active');
         $(this).find('span').addClass('active');
@@ -363,7 +404,16 @@ function clickInit() {
     $(document).on(support.supportedTouchStartEven, '.next._buttonClick', function (e) {
         e.preventDefault();
         e.stopPropagation();
+
+        var el = $(this).find("i").first();
+        $(el).css("color", "#FFFFFF");
+
+        setTimeout(function () {
+            $(el).css("color", "#244d80");
+        }, 100);
+
         showWindow('articleDetail')
+
     });
 
     $('.mainContent .header').on(support.supportedTouchStartEven, function () {
@@ -419,7 +469,7 @@ function clickInit() {
 
     /**
      * Initialize focusOut listener on search input.
-     */
+
     $('#inputSearch').focusout(function () {
         var input = $(this).val();
         if (input !== "") {
@@ -427,14 +477,41 @@ function clickInit() {
             ajaxSearch();
         }
     });
-
+     */
     $("#inputSearch").keypress(function (e) {
+
         if (e.keyCode == 13) {
             var input = $(this).val();
             if (input !== "") {
                 //searchArticles(input, input, input, input, 1, 10);
                 ajaxSearch();
             }
+        }
+    });
+
+
+    $('.recList .container').on("click", 'a', function (e) {
+        e.preventDefault();
+        var url = $(this).attr("href");
+        var container = "article";
+        if(url.indexOf("/Clanek/")>-1)
+        {
+            var idArticle = url.substr(url.indexOf("/Clanek/")+8,5);
+
+            showWindow("article");
+
+            var o = article.archiv.get(idArticle);
+            if(o!=null)
+            {
+                processArticle(o.data, o.container);
+            } else
+            {
+                logging("Article is not in memmory, lets load!");
+                getArticle(idArticle,container);
+            }
+
+            //getArticle(idArticle);
+
         }
     });
 
@@ -502,7 +579,7 @@ function showWindow(windowName, par) {
     }
     if (windowName === "articles") {
         //containerVisibilitySet("articles", true);
-        articlesClanky.loadIfEmpty();
+        articles.clanky.loadIfEmpty();
         containerSlide(oldPage, windowName, direction);
     }
     if (windowName === "search") {
@@ -518,7 +595,6 @@ function showWindow(windowName, par) {
         containerSlide(oldPage, windowName, direction);
     }
     if (windowName === "recList") {
-        console.log(oldPage+ windowName+ direction)
         //containerVisibilitySet("recList", true);
         containerSlide(oldPage, windowName, direction);
     }
@@ -557,9 +633,9 @@ function showWindow(windowName, par) {
 
 function clankyZanrChange()
 {
-    articlesClanky.page =1;
+    articles.clanky.page =1;
     articles.clanky.data = [];
-    articlesClanky.loadIfEmpty();
+    articles.clanky.loadIfEmpty();
 }
 
 function ajaxClanky(page) {
@@ -636,14 +712,14 @@ function articlesPreRender(data)
         var artText = inited.propertyGet(dataArt,"Annotation");
         var artRating = inited.propertyGet(dataArt,"RatingAuthorArticle");
         if(artRating !="") artRating += "0%";
-        else artRating = "0%";
+        if(artRating=="" || artRating=="0") artRating = "";
         var type = inited.propertyGet(dataArt,"Type.Name").toUpperCase();
 
 
         htmlString += '<div class="book_list _buttonClick" data-article-id="'+dataArt.Id+'">';
         htmlString += '<div class="book_list_right">';
         htmlString += '<div class="rate_div">';
-        htmlString += '<div class="rate">'+artRating+'</div>'
+        if(artRating!="") htmlString += '<div class="rate">'+artRating+'</div>'
         htmlString += '<span class="next_link"><i class="fa fa-angle-right"></i></span>';
         htmlString += '</div>';
         htmlString += '</div>';
@@ -728,8 +804,9 @@ function getArticles_nepouzivane(page, pageSize) {
  *
  * @param id of article
  */
-function getArticle(id, type) {
+function getArticle(id, container) {
 
+    logging("getArticle id:"+ id + " container:" + container);
     if(article.ajaxInAction)
     {
         article.ajaxInAction = true;
@@ -739,10 +816,10 @@ function getArticle(id, type) {
         return;
     }
 
-    type = type==null?"":type;
+    container = container==null?"article":container;
 
-    $("div[data-cont-id='article'] .artical").empty();
-    imgLoadingAdd($('.article .container.content'));
+    $("."+container+" .artical").empty();
+    imgLoadingAdd($('.'+container+' .container.content'));
 
     article.ajaxInAction = true;
     article.ajaxStopRender = false;
@@ -754,13 +831,17 @@ function getArticle(id, type) {
         crossDomain: true,
         /*beforeSend: imgLoadingAdd($("div[data-cont-id='article'] .artical")),*/
         success: function(data) {
-            if(type=="novinky")
+            if(container=="recList")
             {
                 articles.doporucene.data[articles.doporucene.data.length] = data;
+            } else
+            {
+                article.archiv.add(id,container,data);
             }
+
             if(!article.ajaxStopRender)
             {
-                processArticle(data);
+                processArticle(data,container);
             }
 
         },
@@ -821,7 +902,7 @@ function processArticles(data, textStatus, jqXHR) {
         var artText = inited.propertyGet(dataArt,"Annotation");
         var artRating = inited.propertyGet(dataArt,"RatingAuthorArticle");
         if(artRating !="") artRating += "0%";
-            else artRating = "0%";
+        if(artRating=="" || artRating=="0") artRating = "";
 
 
         htmlString += '<div class="book_seciton _buttonClick" data-article-id="'+dataArt.Id+'">';
@@ -835,8 +916,8 @@ function processArticles(data, textStatus, jqXHR) {
         htmlString += '<div class="book_seciton_right">';
 
         htmlString += '<h3>'+artTitle+'</h3>';
-
-        htmlString += '<div class="rate_div"><div class="rate">'+artRating+'</div>';
+        htmlString += '<div class="rate_div">';
+        if(artRating!="") htmlString += '<div class="rate">'+artRating+'</div>';
         htmlString += '<a href="artical.html" class="next_link"><i class="fa fa-angle-right"></i></a></div>';
         htmlString += '<p>'+artText+'<p>';
         htmlString += '</div></div>';
@@ -877,10 +958,10 @@ function processArticles(data, textStatus, jqXHR) {
  * @param textStatus from AJAX request
  * @param jqXHR javascipt XMLHttpRequest
  */
-function processArticle(data, textStatus, jqXHR) {
+function processArticle(data, container) {
 
     article.data = data;
-
+    container = container==null?"article":container;
 
     // Console info
     //console.log("AJAX Article Detail:", jqXHR.status, textStatus);
@@ -898,6 +979,7 @@ function processArticle(data, textStatus, jqXHR) {
     var artDate = inited.propertyGet(data,"Date");
     var artText = inited.propertyGet(data,"Text");
     artText = stringUrlImageFix(artText);
+    //artText = stringUrlLinks(artText);
     var artTitle = inited.propertyGet(data,"Title");
     var type = inited.propertyGet(data,"Type.Name").toUpperCase();
     /*
@@ -906,7 +988,7 @@ function processArticle(data, textStatus, jqXHR) {
     var author = $('<div class="author"></div>').text("Autor článku: " + artAuthor + " - " + data.Date);
     var text = $('<div class="text"></div>').text(data.Text);
     */
-     htmlString = "";
+     htmlString = '<div class="artical">';
     htmlString += '<img src="'+imgUrl+'" alt="Článek">';
     htmlString += '<h3>'+artTitle+'</h3>';
     htmlString += '<div class="article-author"><span>Autor článku: </span>';
@@ -922,12 +1004,13 @@ function processArticle(data, textStatus, jqXHR) {
     htmlString += artText;
     htmlString += '</p>';
     htmlString += '</div>';
+    htmlString += '</div>';
 
-    imgLoadingRemove($('.article .container.content'))
+    imgLoadingRemove($('.'+container+' .container.content'))
 
-    $("div[data-cont-id='article'] .artical").html(htmlString)
+    $('.'+container+' .container.content').html(htmlString)
         .attr("data-article-id",data.Id);
-    $(".article .container.content").scrollTop(0,0);
+    $("."+container+" .container.content").scrollTop(0,0);
 
 
     if(article.data.RelatedArticleIds.length>0)
@@ -944,6 +1027,11 @@ function stringUrlImageFix(data)
 {
     var regex = new RegExp('src="', 'g');
     return data.replace(regex, 'src="http://iliteratura.cz');
+}
+function stringUrlLinks(data)
+{
+    var regex = new RegExp('<a href', 'g');
+    return data.replace(regex, '<a old-href');
 }
 
 // prepare ajax calls for details. When you go back from article, they will be aborted

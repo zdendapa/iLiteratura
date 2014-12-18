@@ -45,7 +45,7 @@
 <div class="special cover">
 </div>
 
-<div data-cont-id="specInfo" class="special info">
+<div data-cont-id="specInfo" class="special info" style="display: none">
     <div class="symbolLoading">
         <i class="fa fa-refresh fa-spin"></i>
     </div>
@@ -182,23 +182,23 @@
     </div>
 
     <div class="container content">
-        <div class="_buttonClick rec-categ" data-article-id="34041">
+        <div class="_buttonClick rec-categ" data-article-id="34041" data-showWindow="recList">
             <h2>Nejlepší knihy roku 2014</h2>
             <span class="next_link"><i class="fa fa-angle-right"></i></span>
         </div>
-        <div class="_buttonClick rec-categ" data-article-id="33857">
+        <div class="_buttonClick rec-categ" data-article-id="33857" data-showWindow="recList">
             <h2>Nejlepší české komiksy</h2>
             <span class="next_link"><i class="fa fa-angle-right"></i></span>
         </div>
-        <div class="_buttonClick rec-categ" data-article-id="33951">
+        <div class="_buttonClick rec-categ" data-article-id="33951" data-showWindow="recList">
             <h2>25 nej knih posledních 25 let</h2>
             <span class="next_link"><i class="fa fa-angle-right"></i></span>
         </div>
-        <div class="_buttonClick rec-categ" data-article-id="32449">
+        <div class="_buttonClick rec-categ" data-article-id="32449" data-showWindow="recList">
             <h2>Nejlepší knihy roku 2013</h2>
             <span class="next_link"><i class="fa fa-angle-right"></i></span>
         </div>
-        <div class="_buttonClick rec-categ" data-article-id="30951">
+        <div class="_buttonClick rec-categ" data-article-id="30951" data-showWindow="recList">
             <h2>Nejlepší knihy roku 2012</h2>
             <span class="next_link"><i class="fa fa-angle-right"></i></span>
         </div>
@@ -209,6 +209,7 @@
     <div class="header">
         <div class="header">
             <div class="container">
+                <span class="back"><i class="fa fa-angle-left"></i>zpět</span>
                 <span class="title_content">Doporučené</span>
             </div>
         </div>
@@ -285,31 +286,28 @@
             <h2>beletrie zahraniční</h2>
             <i class="fa fa-angle-right"></i>
             <select id="selBeletrie" onchange="$('.articles .select h2').html($('#selBeletrie option:selected').text());clankyZanrChange()">
-                <option value="1">Žánry</option>
-                <option value="4">beletrie</option>
-                <option value="5" selected>beletrie zahraniční</option>
-                <option value="6">beletrie česká</option>
-                <option value="7">dětská</option>
-                <option value="8">non fiction</option>
-                <option value="9">přírodní vědy</option>
-                <option value="10">komparatistika</option>
-                <option value="11">literární věda</option>
-                <option value="12">komiks/film</option>
-                <option value="13">komiks</option>
-                <option value="14">film</option>
-                <option value="15">relax</option>
-                <option value="16">krimi</option>
-                <option value="17">sci-fi</option>
-                <option value="18">humor</option>
-                <option value="19">historický román</option>
-                <option value="20">fantasy</option>
-                <option value="21">romance</option>
-                <option value="22">kultura</option>
-                <option value="23">sociologie</option>
-                <option value="24">filozofie</option>
-                <option value="25">historie</option>
-                <option value="26">náboženství</option>
-                <option value="27">překlad</option>
+                <option value="6" selected>BELETRIE ČESKÁ</option>
+                <option value="5">BELETRIE ZAHRANIČNÍ</option>
+                <option value="7">DĚTSKÁ</option>
+                <option value="20">FANTASY</option>
+                <option value="14">FILM</option>
+                <option value="24">FILOZOFIE</option>
+                <option value="19">HISTORICKÝ ROMÁN</option>
+                <option value="25">HISTORIE</option>
+                <option value="18">HUMOR</option>
+                <option value="13">KOMIKS</option>
+                <option value="10">KOMPARATISTIKA</option>
+                <option value="16">KRIMI</option>
+                <option value="22">KULTURA</option>
+                <option value="11">LITERÁRNÍ VĚDA</option>
+                <option value="26">NÁBOŽENSTVÍ</option>
+                <option value="9">PŘÍRODNÍ VĚDY</option>
+                <option value="21">ROMANCE</option>
+                <option value="17">SCI - FI</option>
+                <option value="23">SOFIOLOGIE</option>
+
+
+
             </select>
         </div>
 
@@ -609,7 +607,7 @@
 </div>
 
 
-<div id="verzeApp">v0.2</div>
+<div id="verzeApp">v0.22</div>
 
 <!-------------------------------------------------- menu -->
 
