@@ -75,7 +75,8 @@
     <preference name="webviewbounce" value="false"/>
     <preference name="DisallowOverscroll" value="true"/>
     <preference name="SplashScreenDelay" value="5000"/>
-
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#000000" />
     <!-- (boolean, defaults to true). On iOS 7, make the statusbar overlay or not overlay the WebView during startup. -->
     <!--<preference name="StatusBarOverlaysWebView" value="false" />-->
 

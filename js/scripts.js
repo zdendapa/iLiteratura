@@ -524,18 +524,19 @@ function transitionInit() {
         document.body.style.webkitTransform = 'translate3d(0, 20px, 0)';
     }
 
-    $("body").css("position","relative");
+    //$("body").css("position","relative");
 
 
     if(ios)
     {
         $("body").css("height",$(window).height()-20+"px");
+
     } else
     {
-        $("body").css("height",$(window).height()+"px");
+        //$("body").css("height",$(window).height()+"px");
     }
-    $("body").css("width",$(window).width()+"px");
-    $(".mainContent").css("height",$(window).height()-20+"px");
+    //$("body").css("width",$(window).width()+"px");
+    //$(".mainContent").css("height",$(window).height()-20+"px");
     $(".footer").css("position","absolute");
     $(".footer").css("left","0px");
     $(".footer").css("bottom","0px");
