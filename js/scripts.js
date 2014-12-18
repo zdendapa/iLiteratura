@@ -175,16 +175,7 @@ var waiterInner = '<div class="waiter table">  <div class="tableCellMiddle">  <i
 
 function onDeviceReady() {
 
-    //jsonGet.ajaxStart();
-    /*
-    var fileName = "nejlepsi-knihy-roku-2014.json";
-
-    $.getJSON("data/"+fileName, function(json) {
-
-        console.log(JSON.stringify(json));
-    });
-
-*/
+    navigator.splashscreen.show();
 
     if (!local) {
         navigator.splashscreen.show();
@@ -223,9 +214,7 @@ function onDeviceReady() {
 
 
     $('.footer li[data-animation="index"] span').addClass("active");
-    if (!local) {
-        navigator.splashscreen.hide();
-    }
+
 
 
 
@@ -238,7 +227,9 @@ function onDeviceReady() {
         ajaxGetNovinky(articles.novinky.page+1);
     };
 
-
+    if (!local) {
+        navigator.splashscreen.hide();
+    }
 
 }
 
