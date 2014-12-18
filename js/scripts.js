@@ -521,7 +521,7 @@ function transitionInit() {
     var ios = navigator.userAgent.match(/iphone|ipad|ipod/i) &&
         parseInt(navigator.appVersion.match(/OS (\d)/)[1], 10) >= 7;
     if (ios) {
-        document.body.style.webkitTransform = 'translate3d(0, 20px, 0)';
+        //document.body.style.webkitTransform = 'translate3d(0, 20px, 0)';
     }
 
     //$("body").css("position","relative");
@@ -529,12 +529,13 @@ function transitionInit() {
 
     if(ios)
     {
-        $("body").css("height",$(window).height()-20+"px");
+        //$("body").css("height",$(window).height()-20+"px");
 
     } else
     {
         //$("body").css("height",$(window).height()+"px");
     }
+    $("body").css("height",$(window).height()+"px")
     //$("body").css("width",$(window).width()+"px");
     //$(".mainContent").css("height",$(window).height()-20+"px");
     $(".footer").css("position","absolute");
