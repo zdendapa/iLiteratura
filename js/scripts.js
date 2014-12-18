@@ -175,8 +175,6 @@ var waiterInner = '<div class="waiter table">  <div class="tableCellMiddle">  <i
 
 function onDeviceReady() {
 
-    navigator.splashscreen.show();
-
     if (!local) {
         navigator.splashscreen.show();
     }
