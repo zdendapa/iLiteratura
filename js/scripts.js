@@ -170,9 +170,6 @@ var waiterInner = '<div class="waiter table">  <div class="tableCellMiddle">  <i
 /**
  * Function call init function and show default window
  */
-
-
-
 function onDeviceReady() {
 
     if (!local) {
@@ -182,52 +179,17 @@ function onDeviceReady() {
 
     hideAll();
 
-
-
-    //showWait(false);
-
-
-    // articlesClanky initialize---------------
-    $(".articles .content").empty();
-    // set scroll function
-    var el = document.getElementsByClassName("mainContent articles")[0].getElementsByClassName("content")[0];
-    scrollLoadClanky = new scrollLoad(el);
-    scrollLoadClanky.scrollBottomFunction = function()
-    {
-        imgLoadingAdd($(".articles .container.content"))
-        ajaxClanky(articles.novinky.page+1);
-    };
-
-
     // index initialize  ---------------
     $(".index .container.content").empty();
     waiterInject($(".index .container.content"));
 
     ajaxGetNovinky(1);
     showWindow("index");
-
-
-
     waiterShow(false);
 
 
-    $('.footer li[data-animation="index"] span').addClass("active");
-
-
-
-
-    // set scroll function
-    el = document.getElementsByClassName("mainContent index")[0].getElementsByClassName("content")[0];
-    scrollLoadIndex = new scrollLoad(el);
-    scrollLoadIndex.scrollBottomFunction = function()
-    {
-        imgLoadingAdd($(".index .container.content"))
-        ajaxGetNovinky(articles.novinky.page+1);
-    };
-
     if (!local) {
         navigator.splashscreen.hide();
-        StatusBar.show();
     }
 
 }
@@ -236,6 +198,8 @@ function onDeviceReady() {
  * Initialize button click on data-article-id buttons, call AJAX functions for content of article and discussion.
  */
 function clickInit() {
+
+
     $(document).on('click', '._buttonClick[data-article-id]', function (e) {
 
         var idArticle = $(this).attr("data-article-id");
@@ -390,7 +354,7 @@ function clickInit() {
         }, 100);
     });
 
-    // back button -zpet
+    // button "+"
     $(document).on(support.supportedTouchStartEven, '.next._buttonClick', function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -402,7 +366,9 @@ function clickInit() {
             $(el).css("color", "#244d80");
         }, 100);
 
-        showWindow('articleDetail')
+        showWindow('articleDetail');
+
+        return false;
 
     });
 
@@ -514,37 +480,37 @@ function clickInit() {
  */
 function transitionInit() {
     //pageSys.pageExceptionsAdd("articleDetail");
-    $("#selHodnoceni").width($(".rating_box .rating_button").width() + "px");
+    //$("#selHodnoceni").width($(".rating_box .rating_button").width() + "px");
 
+
+    // articlesClanky initialize---------------
+    $(".articles .content").empty();
+
+    // set waiter object
     waiter.element = $(".special.wait");
 
-    var ios = navigator.userAgent.match(/iphone|ipad|ipod/i) &&
-        parseInt(navigator.appVersion.match(/OS (\d)/)[1], 10) >= 7;
-    if (ios) {
-        document.body.style.webkitTransform = 'translate3d(0, 20px, 0)';
-    }
-
-    //$("body").css("position","relative");
-
-
-    if(ios)
+    // set scroll load function---------------
+    var el = document.getElementsByClassName("mainContent articles")[0].getElementsByClassName("content")[0];
+    scrollLoadClanky = new scrollLoad(el);
+    scrollLoadClanky.scrollBottomFunction = function()
     {
-        $("body").css("height",$(window).height()-20+"px");
-
-    } else
+        imgLoadingAdd($(".articles .container.content"))
+        ajaxClanky(articles.clanky.page+1);
+    };
+    el = document.getElementsByClassName("mainContent index")[0].getElementsByClassName("content")[0];
+    scrollLoadIndex = new scrollLoad(el);
+    scrollLoadIndex.scrollBottomFunction = function()
     {
-        $("body").css("height",$(window).height()+"px");
-    }
-    //$("body").css("width",$(window).width()+"px");
-    //$(".mainContent").css("height",$(window).height()-20+"px");
-    $(".footer").css("position","absolute");
-    $(".footer").css("left","0px");
-    $(".footer").css("bottom","0px");
-    //$("body").height($(window).height());
-    //$(".mainContent").height($(window).height());
+        imgLoadingAdd($(".index .container.content"))
+        ajaxGetNovinky(articles.novinky.page+1);
+    };
 
+    // show status bar for ios
+    scriptDef.iosStatusBarShow();
 
 }
+
+
 
 /**
  * Initialize data, like localStorage...
@@ -648,7 +614,7 @@ function clankyZanrChange()
 }
 
 function ajaxClanky(page) {
-    articles.novinky.page = page;
+    articles.clanky.page = page;
     logging("ajaxClanky");
     var zanrId = $("#selBeletrie").val();
     var url = urlQuery + "/api/articles/GetByGenre?genreId="+zanrId+"&page="+page+"&pageSize=10";

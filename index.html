@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <title>iLiteratura</title>
@@ -277,7 +278,7 @@
             <div class="container">
                 <span class="title_content">Články</span>
                 <span style="display: none;" class="next text">řadit podle</span>
-                <select id="selSort" onchange="">
+                <select style="display: none" id="selSort" onchange="">
                     <option>Rad 1</option>
                     <option>Rad 2</option>
                     <option>Rad 3</option>
@@ -289,7 +290,7 @@
             <h2>žánr:</h2>
         </div>
         <div class="select">
-            <h2>beletrie zahraniční</h2>
+            <h2>BELETRIE ČESKÁ</h2>
             <i class="fa fa-angle-right"></i>
             <select id="selBeletrie" onchange="$('.articles .select h2').html($('#selBeletrie option:selected').text());clankyZanrChange()">
                 <option value="6" selected>BELETRIE ČESKÁ</option>
@@ -302,7 +303,6 @@
                 <option value="25">HISTORIE</option>
                 <option value="18">HUMOR</option>
                 <option value="13">KOMIKS</option>
-                <option value="10">KOMPARATISTIKA</option>
                 <option value="16">KRIMI</option>
                 <option value="22">KULTURA</option>
                 <option value="11">LITERÁRNÍ VĚDA</option>
@@ -310,7 +310,7 @@
                 <option value="9">PŘÍRODNÍ VĚDY</option>
                 <option value="21">ROMANCE</option>
                 <option value="17">SCI - FI</option>
-                <option value="23">SOFIOLOGIE</option>
+                <option value="23">SOCIOLOGIE</option>
 
 
 
@@ -595,7 +595,7 @@
 <div class="footer">
     <ul>
         <li data-click="showWindow('index')" data-animation="index">
-            <span><i class="fa fa-star"></i>Novinky</span>
+            <span><i class="fa fa-star active"></i>Novinky</span>
         </li>
         <li data-click="showWindow('recCateg')" data-animation="recCateg">
             <span><i class="fa fa-thumbs-o-up"></i>Doporučené</span>
