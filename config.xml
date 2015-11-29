@@ -26,9 +26,11 @@
 
     <gap:plugin name="org.apache.cordova.device"/>
     <gap:plugin name="org.apache.cordova.network-information"/>
-    <gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.0.0"/>
+    <gap:plugin name="com.phonegap.plugins.barcodescanner"/>
     <gap:plugin name="org.apache.cordova.dialogs"/>
-    <gap:plugin name="org.apache.cordova.splashscreen" version="0.3.4"/>
+    <gap:plugin name="org.apache.cordova.splashscreen"/>
+    <gap:plugin name="com.indigoway.cordova.whitelist.whitelistplugin"/>
+
 
     <gap:plugin name="org.apache.cordova.statusbar"/>
 
@@ -192,6 +194,7 @@
 
         Otherwise, you can specify specific domains:
     -->
+    <allow-navigation href="*" />
     <access origin="*"/>
     <!-- allow local pages -->
     <!--

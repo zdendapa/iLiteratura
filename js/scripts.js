@@ -183,6 +183,8 @@ var defaultCategoryName = "Publicistika";
  */
 function onDeviceReady() {
 
+    logging("onDeviceReady");
+
     if (!local) {
         navigator.splashscreen.show();
     }
