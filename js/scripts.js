@@ -8,7 +8,6 @@ var waiter = {
     visibility : true
 };
 
-
 var articles = {
     // vyhledavani
     search : {
@@ -24,6 +23,7 @@ var articles = {
     clanky : {
         data : [],
         page : 1,
+        categoryListLoaded : false,
         getDataByID : function (id)
         {
             return articles.getDataByID(id,this.data);
@@ -55,6 +55,15 @@ var articles = {
         getDataByID : function (id)
         {
             return articles.getDataByID(id,this.data);
+        },
+        loadIfEmpty : function()
+        {
+            if(this.data.length==0)
+            {
+                $(".articles .content").empty();
+                imgLoadingAdd($('.articles .content'));
+                ajaxDoporucene();
+            }
         }
     },
 
@@ -166,6 +175,8 @@ var article = {
 
 // waiter in page (for scrollable effect must be in page wher you go)
 var waiterInner = '<div class="waiter table">  <div class="tableCellMiddle">  <img class="wait" src="img/wait.gif" alt="Wait"/>  </div>  </div>';
+var defaultCategoryId = 48;
+var defaultCategoryName = "Publicistika";
 
 /**
  * Function call init function and show default window
@@ -214,7 +225,7 @@ function clickInit() {
 
             setTimeout(function () {
                 // Resetting coments input fields
-                removeInputErrorHighlighting();
+                discussionRemoveInputErrorHighlighting();
             }, 300);
         }, 300);
 
@@ -228,6 +239,7 @@ function clickInit() {
             logging("article is already rendered :)");
             return;
         }
+
 
 
 
@@ -276,6 +288,10 @@ function clickInit() {
         // doporucene
         if(pageSys.pageCurrent=="recCateg")
         {
+
+            doporuceneRenderList(idArticle);
+            return;
+            /*
             dataClanku = articles.doporucene.getDataByID(idArticle);
             if(dataClanku!=null)
             {
@@ -288,6 +304,7 @@ function clickInit() {
                 //getArticle(idArticle,"recList");
                 container = "recList";
             }
+            */
         }
         else
         {
@@ -515,8 +532,13 @@ function transitionInit() {
 /**
  * Initialize data, like localStorage...
  */
-function dataManagerLoad() {
+function dataManagerLoad()
+{
 
+    ls.checkAvaibility();
+
+    $("#selCategory").empty();
+    $('.articles .select h2').html(defaultCategoryName);
 }
 
 
@@ -546,6 +568,7 @@ function showWindow(windowName, par) {
     }
     if (windowName === "recCateg") {
         //containerVisibilitySet("recCateg", true);
+        articles.doporucene.loadIfEmpty();
         containerSlide(oldPage, windowName, direction);
     }
     if (windowName === "recArticles") {
@@ -613,16 +636,103 @@ function clankyZanrChange()
     articles.clanky.loadIfEmpty();
 }
 
-function ajaxClanky(page) {
-    articles.clanky.page = page;
+function ajaxClanky(page)
+{
     logging("ajaxClanky");
-    var zanrId = $("#selBeletrie").val();
+    articles.clanky.page = page;
+    var zanrId;
+
+    if (articles.clanky.categoryListLoaded == false)
+    {
+        zanrId = defaultCategoryId;
+        ajaxCategoryListLoad();
+
+    } else
+    {
+        zanrId = $("#selCategory").val();
+    }
+
+    logging("ajaxClanky genreId="+zanrId+"&page="+page+"&pageSize=10");
     var url = urlQuery + "/api/articles/GetByGenre?genreId="+zanrId+"&page="+page+"&pageSize=10";
     $.ajax({
         url: url,
         dataType: 'json',
         crossDomain: true,
         success: ajaxClankyProcess,
+        error: ajaxError
+    });
+}
+
+
+function ajaxCategoryListLoad()
+{
+    logging("ajaxCategoryListLoad");
+    var url = urlQuery + "/api/Category/GetCategories";
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        crossDomain: true,
+        success: ajaxCategoryListProcess,
+        error: ajaxError
+    });
+}
+
+function ajaxCategoryListProcess(data)
+{
+    $("#selCategory").empty();
+    $.each(data, function(order, value) {
+        $('#selCategory')
+            .append($("<option></option>")
+                .attr("value",value.Id)
+                .text(value.Name));
+    });
+    $('#selectBox option[value='+defaultCategoryId+']').prop('selected', true);
+    articles.clanky.categoryListLoaded = true;
+}
+
+/**
+ * Check if you ever rate. If not, run ajax to save your rating
+ */
+function hodnoceniSet() {
+    logging("hodnoceniSet");
+    var hodnoceno = ls.storageItem("getItem", "hodnoceno", "jSON");
+
+    if (hodnoceno != null)
+    {
+        for (i = 0; i < hodnoceno.length; i++) {
+            if (hodnoceno[i] == article.data.Id)
+            {
+                alertG("Tento článek již byl hodnocen");
+                return;
+            }
+        }
+    }
+
+    ajaxHodnoceni();
+}
+
+    function ajaxHodnoceni() {
+    logging("ajaxHodnoceni");
+    var hodnoceni = document.getElementById("selHodnoceni").value;
+    hodnoceni = hodnoceni.substring(0,hodnoceni.indexOf("%"));
+    console.log("hodnoceni" + hodnoceni);
+    console.log("article.data" + article.data);
+    var url = urlQuery + "/api/ItemRating/AddRating/"+article.data.Id+"/"+hodnoceni+"/192.168.1.1";
+    $.ajax({
+        url: url,
+        type: 'POST',
+        dataType: 'json',
+        crossDomain: true,
+        success: function()
+        {
+            alertG('Hodnocení vloženo','Potvrzení');
+            $(document.getElementById("selHodnoceni")).attr('disabled', true);
+            var hodnoceno = ls.storageItem("getItem", "hodnoceno", "jSON");
+            if (!hodnoceno)
+                var hodnoceno = [];
+            hodnoceno.push(article.data.Id);
+            ls.storageItem("setItem", "hodnoceno", "jSON", hodnoceno);
+        },
         error: ajaxError
     });
 }
@@ -648,16 +758,25 @@ function ajaxSearch() {
 }
 
 
-function ajaxDoporucene(fileName) {
+function ajaxDoporucene() {
     logging("ajaxDoporucene");
 
-    imgLoadingAdd($('.recList .container.content'));
-
+    /*
     $.getJSON("data/"+fileName, function(json) {
 
         $('.recList .container.content').empty();
         imgLoadingRemove($('.recList .container.content'));
         ajaxDoporuceneProcess(json);
+    });
+    */
+
+    var url = urlQuery + "/api/Context";
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        crossDomain: true,
+        success: ajaxDoporuceneProcess,
+        error: ajaxError
     });
 }
 
@@ -709,17 +828,51 @@ function articlesPreRender(data)
     return htmlString;
 }
 
-function ajaxDoporuceneProcess(data) {
+function doporuceneDataForRender(data)
+{
+    var htmlString = '';
 
-    var htmlString = articlesPreRender(data);
+    for(var i=0;i<data.length;i++)
+    {
+        var dataItem = data[i];
+
+        htmlString += '<div class="_buttonClick rec-categ" data-article-id="'+dataItem.Id+'" data-showWindow="recList">';
+        htmlString += '<h2>'+inited.propertyGet(dataItem, "ContextName")+'</h2>';
+        htmlString += '<span class="next_link"><i class="fa fa-angle-right"></i></span>';
+        htmlString += '</div>';
+    }
+
+    return htmlString;
+}
+
+function doporuceneRenderList(listId)
+{
+    logging("doporuceneRenderList listId:" + listId)
+    if (articles.doporucene.data == null) return;
+
+    //var htmlString = articlesPreRender(articles.doporucene.getDataByID(listId).Items);
+    var htmlString = processArticlesDataForRender(articles.doporucene.getDataByID(listId).Items);
 
     $(".recList .content").html(htmlString);
 
+}
+
+function ajaxDoporuceneProcess(data)
+{
+
+    articles.doporucene.data = data;
+
+    var htmlString = doporuceneDataForRender(data);
+
+    $(".recCateg .content").html(htmlString);
+
     logging("ajaxDoporuceneProcess");
+    imgLoadingRemove($(".articles .content"));
 
 }
 
-function ajaxSearchProcess(data) {
+function ajaxSearchProcess(data)
+{
 
     articles.search.data.push.apply(articles.search.data, data);
 
@@ -731,7 +884,8 @@ function ajaxSearchProcess(data) {
 
 }
 
-function ajaxClankyProcess(data) {
+function ajaxClankyProcess(data)
+{
 
     articles.clanky.data.push.apply(articles.clanky.data, data);
 
@@ -763,16 +917,6 @@ function ajaxGetNovinky(page) {
     });
 }
 
-function getArticles_nepouzivane(page, pageSize) {
-    var url = "http://iliteratura-api-test.azurewebsites.net/api/articles/Get?page={" + page + "}&pageSize={" + pageSize + "}";
-    $.ajax({
-        url: url,
-        dataType: 'json',
-        crossDomain: true,
-        success: processArticles,
-        error: ajaxError
-    });
-}
 
 /**
  * Makes AJAX request for article by its ID.
@@ -855,6 +999,23 @@ function processArticles(data, textStatus, jqXHR) {
     console.log(data);
 
     //htmlString = '<div class="bs_title"><h2>Kniha týdne</h2></div>';
+
+    var htmlString = processArticlesDataForRender(data);
+
+    if(articles.novinky.page==1)
+    {
+        $(".index .container.content").empty();
+    }
+
+    $(".index .container.content").append(htmlString);
+
+    imgLoadingRemove($(".index .container.content"));
+    logging("novinky added");
+    scrollLoadIndex.loadStart = false;
+}
+
+function processArticlesDataForRender(data)
+{
     var htmlString = '';
     for(var i=0;i<data.length;i++)
     {
@@ -898,32 +1059,8 @@ function processArticles(data, textStatus, jqXHR) {
         htmlString += '</div></div>';
 
     }
-    if(articles.novinky.page==1)
-    {
-        $(".index .container.content").empty();
-    }
 
-    $(".index .container.content").append(htmlString);
-
-    imgLoadingRemove($(".index .container.content"));
-    logging("novinky added");
-    scrollLoadIndex.loadStart = false;
-    /*
-    console.log("AJAX Article Detail:", jqXHR.status, textStatus);
-    var img = $('<img/>').attr('src', data.TitleImgUrl);
-    var title = $('<h3></h3>').text(data.Title);
-    var author = $('<div class="author"></div>').text("Autor článku: " + data.Author.NameFirst + " " + data.Author.NameLast + " - " + data.Date);
-    var text = $('<div class="text"></div>').text(data.Text);
-    $("div[data-cont-id='article'] .artical")
-        .empty()
-        .append(img)
-        .append(title)
-        .append(author)
-        .append(text);
-
-        */
-
-
+    return htmlString;
 }
 
 /**
@@ -963,7 +1100,7 @@ function processArticle(data, container) {
     var author = $('<div class="author"></div>').text("Autor článku: " + artAuthor + " - " + data.Date);
     var text = $('<div class="text"></div>').text(data.Text);
     */
-     htmlString = '<div class="artical">';
+    htmlString = '<div class="artical">';
     htmlString += '<img src="'+imgUrl+'" alt="Článek">';
     htmlString += '<h3>'+artTitle+'</h3>';
     htmlString += '<div class="article-author"><span>Autor článku: </span>';
@@ -979,7 +1116,38 @@ function processArticle(data, container) {
     htmlString += artText;
     htmlString += '</p>';
     htmlString += '</div>';
+    htmlString += '</div>';// class="artical"
+    // hodnoceni
+    htmlString += '<div class="rating_box" style="padding: 0px 15px 40px 50%; left: -70px">';
+    htmlString += '<div class="rating_button" style="display:none">Sdílet článek</div>';
+    htmlString += '<div class="rating_button">Hodnotit knihu</div>';
+    htmlString += '<div>';
+    htmlString += '<select id="selHodnoceni" onchange="hodnoceniSet()">';
+    htmlString += '<option>10%</option>';
+    htmlString += '<option>20%</option>';
+    htmlString += '<option>30%</option>';
+    htmlString += '<option>40%</option>';
+    htmlString += '<option>50%</option>';
+    htmlString += '<option>60%</option>';
+    htmlString += '<option>70%</option>';
+    htmlString += '<option>80%</option>';
+    htmlString += '<option>90%</option>';
+    htmlString += '<option>100%</option>';
+    htmlString += '</select>';
     htmlString += '</div>';
+    htmlString += '</div>';
+    // diskuze
+    htmlString += '<div class="discuss">';
+    htmlString += '<h3>Diskuze:</h3>';
+    htmlString += '</div>';
+    htmlString += '<div class="discussForm">';
+    htmlString += '<label>Přidat komentář do diskuze</label>';
+    htmlString += '<input name="name" type="text" class="artical_text_field" placeholder="Vaše jméno">';
+    htmlString += '<input name="mail" type="text" class="artical_text_field" placeholder="Váš e-mail">';
+    htmlString += '<textarea name="message" cols="" rows="" class="artical_text_area" placeholder="Text příspěvku"></textarea>';
+    htmlString += '<div class="disscusionButton _buttonClick" data-click="discussionSend()">Odeslat</div>';
+    htmlString += '</div>';
+
 
     imgLoadingRemove($('.'+container+' .container.content'))
 
@@ -988,14 +1156,37 @@ function processArticle(data, container) {
     $("."+container+" .container.content").scrollTop(0,0);
 
 
-    if(article.data.RelatedArticleIds.length>0)
+    if(article.data.hasOwnProperty("DiscussionsId"))
+    {
+        if (article.data.DiscussionsId != null)
+        {
+            ajaxDiscussionGet(article.data.Id)
+        }
+    }
+
+/*
+    if(article.data.hasOwnProperty("RelatedArticleIds"))
     {
         ajaxDetailsSet();
     } else
     {
         $(".articleDetail .mid_section").empty();
     }
+*/
+    ajaxDetailsSetNew();
+}
 
+function ajaxDetailsSetNew()
+{
+    logging("ajaxDetailsSetNew id: " + article.data.Id);
+    var url = urlQuery + "/api/articles/Get/" + article.data.Id;
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        crossDomain: true,
+        success: processArticleDetailNew,
+        error: ajaxErrorSilent
+    });
 }
 
 function stringUrlImageFix(data)
@@ -1058,6 +1249,114 @@ function ajaxDetailsSet()
                 error: ajaxError
         });
     }
+}
+
+
+function processArticleDetailNew(data) {
+
+    article.detailData = data;
+    logging("processArticleDetailNew:" + article.detailData);
+
+
+    var htmlString = "";
+    htmlString += '<div class="container content">';
+
+
+    if (article.detailData.RelatedArticles)
+    {
+        if (article.detailData.RelatedArticles.length > 0)
+        {
+            htmlString += '<div class="related-articles">';
+            htmlString += '<div class="bs_title"><h2>související články:</h2></div>';
+
+            for(var i=0;i<article.detailData.RelatedArticles.length;i++)
+            {
+                var o = article.detailData.RelatedArticles[i];
+                var title = inited.propertyGet(o,"Title");
+                var type = inited.propertyGet(o,"Type.Name").toUpperCase();
+                var authorArticleName = inited.propertyGet(o,"AuthorArticle.NameFirst") + " ";
+                authorArticleName += inited.propertyGet(o,"AuthorArticle.NameLast");
+                var articleDate = iniDate.conv1(inited.propertyGet(o,"Date"));
+                var artRating = inited.propertyGet(o,"RatingAuthorArticle");
+                if(artRating !="") artRating += "0%";
+                else artRating = "0%";
+
+
+                htmlString += '<div class="book_list _buttonClick" data-article-id="'+ o.Id+'">';
+                htmlString += '<div class="book_list_left">';
+                htmlString += '<h3>'+title+'</h3>';
+                htmlString += '<span>'+type+'</span>';
+                htmlString += '<p>'+ authorArticleName +' '+ articleDate+'</p>';
+                htmlString += '</div>';
+                htmlString += '<div class="book_list_right">';
+                htmlString += '<div class="rate_div">';
+                htmlString += '<div class="rate">'+artRating+'</div>';
+                htmlString += '<a href="#_" class="next_link"><i class="fa fa-angle-right"></i></a> </div>';
+                htmlString += '</div>';
+                htmlString += '</div>';
+
+            }
+
+            htmlString += '</div>';
+        }
+
+    }
+
+    htmlString += '<div class="rating">';
+    htmlString += '<div class="bs_title"><h2>hodnocení knihy: </h2></div>';
+    htmlString += '</div>';
+
+    htmlString += '<div class="gusetbook">';
+    htmlString += '<ul>';
+    htmlString += '<li><span>'+Math.round((article.detailData.RatingAuthorArticle)*10)+'%</span>autor článku</li>';
+    htmlString += '<li><span>'+Math.round((article.detailData.RatingUsersAverage)*10)+'%</span>čtenáři</li>';
+    htmlString += '<ul>';
+    htmlString += '</div>';
+
+    htmlString += '<div class="bs_title">';
+    htmlString += '<h2>zhlédnuto: '+article.detailData.ViewCount+'x</h2>';
+    htmlString += '</div>';
+
+    htmlString += '<div class="catalogs">';
+
+    if (article.detailData.hasOwnProperty("Kosmas"))
+    {
+        if (article.detailData.Kosmas != null)
+        {
+            htmlString += '<a href="http://www.kosmas.cz/knihy/'+article.detailData.Kosmas+'?afil=1047"><div class="bs_title">';
+            htmlString += '<h2>koupit knihu na Kosmas.cz</h2>';
+            htmlString += '</div></a>';
+        }
+    }
+
+    if (article.detailData.hasOwnProperty("Alza"))
+    {
+        if (article.detailData.Alza != null)
+        {
+            var alzaCode = article.detailData.Alza;
+            if (article.detailData.Alza.length > 1)
+            {
+                alzaCode = "";
+                for(var i=0;i<article.detailData.Alza.length;i++)
+                {
+                    alzaCode += article.detailData.Alza[i] + ",";
+                }
+            }
+            htmlString += '<a href="http://www.alza.cz/kod/'+article.detailData.Alza+'?IDP=2745"><div class="bs_title">';
+            htmlString += '<h2>koupit knihu na Alza.cz</h2>'
+            htmlString += '</div></a>';
+        }
+    }
+
+    htmlString += '</div>';
+    htmlString += '<div class="</div>">';
+
+
+    htmlString += '</div>';
+    $(".articleDetail .mid_section").html(htmlString);
+    imgLoadingRemove($('.articleDetail .mid_section'));
+
+
 }
 
 /**
@@ -1286,6 +1585,50 @@ function processDiscussion(data, textStatus, jqXHR) {
     });
 }
 
+
+/**
+ * Function makes AJAX post to discussion.
+ *
+ * @param idArticle of article
+ */
+function ajaxDiscussionGet(idArticle)
+{
+    var url = urlQuery + "/api/discussion/GetDiscussion/" + article.data.Id;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        crossDomain: true,
+        success: discussionProcess,
+        error: ajaxError,
+    });
+}
+
+/**
+ * Makes HTML code from received AJAX data.
+ *
+ * @param data from AJAX request
+ * @param textStatus from AJAX request
+ * @param jqXHR javascript XMLHttpRequest
+ */
+function discussionProcess(data, textStatus, jqXHR) {
+
+    // TODO check jeslti data patri prave k otevrenemu clanku a jestli se neprohlizi uz jiny
+
+    console.log("AJAX Discussion:", jqXHR.status, textStatus);
+    $("div.discuss").empty();
+
+    var discussionBox = "<h3>Diskuze:</h3>";
+    $.each(data, function (key, value) {
+        discussionBox += '<div class="discuss_content">';
+        discussionBox += '<h4>' + value.Name + '</h4>';
+        discussionBox += '<p>' + value.Text + '</p>';
+        discussionBox += '</div>';
+    });
+
+    $("div.discuss").append(discussionBox);
+}
+
 /**
  * Function makes AJAX post to discussion.
  *
@@ -1294,21 +1637,41 @@ function processDiscussion(data, textStatus, jqXHR) {
  * @param email of contributor
  * @param post text
  */
-function postDiscussion(idArticle, name, email, post) {
-    var url = urlQuery + "/discussions/" + idArticle;
-    var json = JSON.stringify({Name: name, Email: email, Text: post});
+function ajaxDiscussionSend(idArticle, name, email, postText)
+{
+    var url = urlQuery + "/api/discussion/AddDiscussionItem/" + article.data.Id + "/" + name + "/" + email + "/" + postText;
+
     $.ajax({
         url: url,
         type: 'POST',
         dataType: 'json',
         crossDomain: true,
         processData: false,
-        data: json,
+//        data: json,
+        beforeSend: function() {waiterShow(true)},
         success: function (data, textStatus, jqXHR) {
             console.log("AJAX PostDiscussion:", jqXHR.status, textStatus);
+            alertG("Příspěvek odeslán.", "Info");
         },
-        error: ajaxError
+        error: ajaxError,
+        complete: function() {discussionSendingUIfreeze(false)}
     });
+}
+
+function discussionSendingUIfreeze(freeze)
+{
+    waiterShow(freeze);
+    if (freeze)
+    {
+        $("div.disscusionButton").removeClass("_buttonClick");
+    } else
+    {
+        if (!$("div.disscusionButton").hasClass("_buttonClick"))
+        {
+            $("div.disscusionButton").addClass("_buttonClick");
+        }
+
+    }
 }
 
 /**
@@ -1405,10 +1768,18 @@ function processSearch(data, textStatus, jqXHR) {
  * @param textStatus status of AJAX
  * @param errThrown error message
  */
-function ajaxError_old(jqXHR, textStatus, errThrown) {
+function ajaxError_old(jqXHR, textStatus, errThrown)
+{
     console.log("AJAX:", textStatus, jqXHR.status, errThrown);
 }
-function ajaxError(data) {
+
+function ajaxErrorSilent(data)
+{
+
+}
+
+function ajaxError(data)
+{
     console.log(data);
     showInfow(false);
 
@@ -1472,35 +1843,38 @@ function imgLoadingRemove(jQueryEl) {
 /**
  * Take data from discussion form and make check. If everything is OK, then call AJAX post.
  */
-function sendDiscussionPost() {
-    removeInputErrorHighlighting();
+function discussionSend() {
+    discussionRemoveInputErrorHighlighting();
     var name, email, text, error, articleID;
     articleID = $('div[data-cont-id="article"] .header .container .next[data-article-detail-id]').attr('data-article-detail-id');
     error = false;
-    name = $('.artical_form input[name="name"]');
-    email = $('.artical_form input[name="mail"]');
-    text = $('.artical_form textarea[name="message"]');
-    if (name.val() === "") {
+    name = $('.discussForm input[name="name"]');
+    email = $('.discussForm input[name="mail"]');
+    text = $('.discussForm textarea[name="message"]');
+    if (name.val() === "")
+    {
         name.before('<p class="error">Jméno musí být vyplněno.</p>');
         name.css('border', '1px solid red');
         error = true;
     }
 
-    if (validateEmail(email.val())) {
+    if (validateEmail(email.val()))
+    {
         email.before('<p class="error">E-mail musí být vyplněn a ve správné formě.</p>');
         email.css('border', '1px solid red');
         error = true;
     }
 
-    if (text.val() === "") {
+    if (text.val() === "")
+    {
         text.before('<p class="error">Text příspěvku musí být vyplněn.</p>');
         text.css('border', '1px solid red');
         error = true;
     }
-    if (!error) {
-        postDiscussion(articleID, name.val(), email.val(), text.val());
-        removeInputErrorHighlighting();
-        alertG("Příspěvek odeslán.", "Info");
+
+    if (!error)
+    {
+        ajaxDiscussionSend(articleID, name.val(), email.val(), text.val());
     }
 }
 
@@ -1518,12 +1892,10 @@ function validateEmail(email) {
 /**
  * Function removes error highlighting and values of inputs and textareas.
  */
-function removeInputErrorHighlighting() {
-    /*
-    $('input').val("").css('border', 0);
-    $('textarea').val("").css('border', 0);
-    $('p.error').remove();
-    */
+function discussionRemoveInputErrorHighlighting() {
+    $('input.discussForm').val("").css('border', 0);
+    $('textarea.discussForm').val("").css('border', 0);
+    $('.discussForm p.error').remove();
 }
 
 /**

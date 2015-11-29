@@ -557,7 +557,7 @@ h1, h2, h3, h4, h5 {
     padding: 0px;
 }
 
-.artical_form {
+.discussForm {
     margin: 0px;
     padding: 15px 15px 50px 15px;
     display: block;
@@ -566,7 +566,7 @@ h1, h2, h3, h4, h5 {
     background: #e9e7db;
 }
 
-.artical_form label {
+.discussForm label {
     color: #333333;
     font-size: 15px;
     line-height: 21px;
@@ -612,7 +612,7 @@ h1, h2, h3, h4, h5 {
     font-style: normal;
 }
 
-.odl_button {
+.disscusionButton {
     width: 100%;
     background: #7aa0c2;
     border-radius: 5px;
@@ -626,7 +626,7 @@ h1, h2, h3, h4, h5 {
     cursor: pointer;
 }
 
-.odl_button:hover {
+.disscusionButton:hover {
     background: #333333;
 }
 

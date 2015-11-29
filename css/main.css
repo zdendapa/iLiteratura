@@ -415,7 +415,7 @@ input[type=button]:active {
     -webkit-appearance: none;
 }
 
-#selBeletrie {
+#selCategory {
     position: absolute;
     background: transparent;
     border: 0px;
@@ -457,6 +457,8 @@ input[type=button]:active {
 .footer {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     z-index: 10;
+    -webkit-transform: translate3d(0px, 0px, 0px);
+    transform: translate3d(0px, 0px, 0px);
 }
 
 .mainContent {

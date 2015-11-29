@@ -12,6 +12,7 @@
     <script type="text/javascript" src="js/inited_utils.js"></script>
     <script type="text/javascript" src="js/scriptsDefault.js"></script>
     <script type="text/javascript" src="js/scripts.js"></script>
+    <script type="text/javascript" src="js/dataManager.js"></script>
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/main.css"/>
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
@@ -30,11 +31,6 @@
         //StatusBar.overlaysWebView(false);
 
     }
-
-
-
-
-
 
     /*
      window.addEventListener('load', function () {
@@ -292,7 +288,7 @@
         <div class="select">
             <h2>BELETRIE ČESKÁ</h2>
             <i class="fa fa-angle-right"></i>
-            <select id="selBeletrie" onchange="$('.articles .select h2').html($('#selBeletrie option:selected').text());clankyZanrChange()">
+            <select id="selCategory" onchange="$('.articles .select h2').html($('#selCategory option:selected').text());clankyZanrChange()">
                 <option value="6" selected>BELETRIE ČESKÁ</option>
                 <option value="5">BELETRIE ZAHRANIČNÍ</option>
                 <option value="7">DĚTSKÁ</option>
@@ -510,14 +506,12 @@
         <div class="discuss" style="display: none">
             <h3>Diskuze:</h3>
         </div>
-        <div class="artical_form" style="display: none;">
+        <div class="discussForm" style="display: none;">
             <label>Přidat komentář do diskuze</label>
             <input name="name" type="text" class="artical_text_field" placeholder="Vaše jméno">
             <input name="mail" type="text" class="artical_text_field" placeholder="Váš e-mail">
-            <textarea name="message" cols="" rows="" class="artical_text_area"
-                      placeholder="Text příspěvku"></textarea>
-
-            <div class="odl_button _buttonClick" data-click="sendDiscussionPost()">Odeslat</div>
+            <textarea name="message" cols="" rows="" class="artical_text_area" placeholder="Text příspěvku"></textarea>
+            <div class="disscusionButton _buttonClick" data-click="sendDiscussionPost()">Odeslat</div>
         </div>
     </div>
     <!--*********midsection***********-->
@@ -537,7 +531,8 @@
     <div class="mid_section">
         <div class="container content">
             <div class="related-articles">
-                <div class="bs_title"><h2>související články:</h2>
+                <div class="bs_title">
+                    <h2>související články:</h2>
 
                     <div class="book_list">
                         <div class="book_list_left">
@@ -556,6 +551,15 @@
             </div>
             <div class="rating">
                 <div class="bs_title"><h2>hodnocení knihy:</h2></div>
+            </div>
+            <div class="gusetbook">
+                <ul>
+                    <li><span>70%</span>autor článku</li>
+                    <li><span>65%</span>čtenáři</li>
+                </ul>
+            </div>
+            <div class="bs_title">
+                <h2>zhlédnuto: 518x</h2>
             </div>
             <div class="catalogs">
                 <div class="bs_title">
@@ -613,7 +617,7 @@
 </div>
 
 
-<div id="verzeApp">v0.2</div>
+<div id="verzeApp">v0.3</div>
 
 <!-------------------------------------------------- menu -->
 
