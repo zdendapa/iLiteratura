@@ -24,6 +24,7 @@ var articles = {
         data : [],
         page : 1,
         categoryListLoaded : false,
+        neverLoaded : true,
         getDataByID : function (id)
         {
             return articles.getDataByID(id,this.data);
@@ -464,7 +465,14 @@ function clickInit() {
         }
     });
 
+    $('body').on("click", 'a', function (e) {
+        e.preventDefault();
+        var url = $(this).attr("href");
 
+        window.open( url, "_blank" );
+    });
+
+/* history
     $('.recList .container').on("click", 'a', function (e) {
         e.preventDefault();
         var url = $(this).attr("href");
@@ -489,7 +497,7 @@ function clickInit() {
 
         }
     });
-
+*/
 }
 
 
@@ -527,6 +535,12 @@ function transitionInit() {
     // show status bar for ios
     scriptDef.iosStatusBarShow();
 
+    // clear html template
+    //$("#selCategory").empty(); it will be arased after its loaded suvccesfuly ajaxCategoryListLoad
+    $(".articles .select h2").html(defaultCategoryName);
+    $(".article .artical").empty();
+    $(".articleDetail .mid_section").empty();
+    $(".recCateg .content").empty();
 }
 
 
@@ -538,9 +552,9 @@ function dataManagerLoad()
 {
 
     ls.checkAvaibility();
+    ajaxCategoryListLoad();
 
-    $("#selCategory").empty();
-    $('.articles .select h2').html(defaultCategoryName);
+    inited.backButtonEnable(backButtonFunction);
 }
 
 
@@ -633,7 +647,7 @@ function showWindow(windowName, par) {
 
 function clankyZanrChange()
 {
-    articles.clanky.page =1;
+    articles.clanky.page = 1;
     articles.clanky.data = [];
     articles.clanky.loadIfEmpty();
 }
@@ -644,15 +658,7 @@ function ajaxClanky(page)
     articles.clanky.page = page;
     var zanrId;
 
-    if (articles.clanky.categoryListLoaded == false)
-    {
-        zanrId = defaultCategoryId;
-        ajaxCategoryListLoad();
-
-    } else
-    {
-        zanrId = $("#selCategory").val();
-    }
+    zanrId = $("#selCategory").val();
 
     logging("ajaxClanky genreId="+zanrId+"&page="+page+"&pageSize=10");
     var url = urlQuery + "/api/articles/GetByGenre?genreId="+zanrId+"&page="+page+"&pageSize=10";
@@ -713,10 +719,13 @@ function hodnoceniSet() {
     ajaxHodnoceni();
 }
 
-    function ajaxHodnoceni() {
+function ajaxHodnoceni()
+{
     logging("ajaxHodnoceni");
     var hodnoceni = document.getElementById("selHodnoceni").value;
+    if (hodnoceni == "nic") return;
     hodnoceni = hodnoceni.substring(0,hodnoceni.indexOf("%"));
+    hodnoceni = Math.round(hodnoceni/20);
     console.log("hodnoceni" + hodnoceni);
     console.log("article.data" + article.data);
     var url = urlQuery + "/api/ItemRating/AddRating/"+article.data.Id+"/"+hodnoceni+"/192.168.1.1";
@@ -786,6 +795,11 @@ function ajaxDoporucene() {
 function articlesPreRender(data)
 {
     var htmlString = '';
+
+    if (data.length == 0)
+    {
+        return '<div style="text-align: center;padding-top: 30px;">nic nenalezeno</div>';
+    }
 
     for(var i=0;i<data.length;i++)
     {
@@ -1019,7 +1033,7 @@ function processArticles(data, textStatus, jqXHR) {
 function processArticlesDataForRender(data)
 {
     var htmlString = '';
-    for(var i=0;i<data.length;i++)
+    for(var i=0; i<data.length; i++)
     {
         var dataArt = data[i];
         var imgUrl = inited.propertyGet(dataArt,"TitleImageUrl");
@@ -1042,10 +1056,15 @@ function processArticlesDataForRender(data)
         if(artRating !="") artRating += "0%";
         if(artRating=="" || artRating=="0") artRating = "";
 
+        var genreName = "";
+        if (dataArt.hasOwnProperty("Genre"))
+        {
+            genreName  = inited.propertyGet(dataArt.Genre,"Name");
+        }
 
         htmlString += '<div class="book_seciton _buttonClick" data-article-id="'+dataArt.Id+'">';
 
-        htmlString += '<div class="book_seciton_left"><img src="'+imgUrl+'" alt="book"><span>RECENZE</span>';
+        htmlString += '<div class="book_seciton_left"><img src="'+imgUrl+'" alt="book"><span>'+genreName+'</span>';
 
         htmlString += '<p>'+ authorArticleName +'<br>'+articleDate+'</p>'
         htmlString += '</div>';
@@ -1088,7 +1107,19 @@ function processArticle(data, container) {
     {
         imgUrl = urlSite + imgUrl;
     }
-    var artAuthor = inited.propertyGet(data,"Author.Firstname") + " " + inited.propertyGet(data,"Author.Lastname");
+    var artAuthor = "";
+    if (data.hasOwnProperty("AuthorArticle"))
+    {
+        for(var i=0; i<data.AuthorArticle.length; i++)
+        {
+            artAuthor += inited.propertyGet(data.AuthorArticle[i],"FullName");
+            if (i+1<data.AuthorArticle.length)
+            {
+                artAuthor += ", ";
+            }
+        }
+    }
+
     var artDate = iniDate.conv1(inited.propertyGet(data,"Date"));
     var artDate = inited.propertyGet(data,"Date");
     var artText = inited.propertyGet(data,"Text");
@@ -1125,6 +1156,8 @@ function processArticle(data, container) {
     htmlString += '<div class="rating_button">Hodnotit knihu</div>';
     htmlString += '<div>';
     htmlString += '<select id="selHodnoceni" onchange="hodnoceniSet()">';
+    htmlString += '<option selected disabled hidden value="nic"></option>';
+    htmlString += '<option>0%</option>';
     htmlString += '<option>10%</option>';
     htmlString += '<option>20%</option>';
     htmlString += '<option>30%</option>';
@@ -1311,7 +1344,7 @@ function processArticleDetailNew(data) {
     htmlString += '<div class="gusetbook">';
     htmlString += '<ul>';
     htmlString += '<li><span>'+Math.round((article.detailData.RatingAuthorArticle)*10)+'%</span>autor článku</li>';
-    htmlString += '<li><span>'+Math.round((article.detailData.RatingUsersAverage)*10)+'%</span>čtenáři</li>';
+    htmlString += '<li><span>'+Math.round((article.detailData.RatingUsersCount)*10)+'%</span>čtenáři</li>';
     htmlString += '<ul>';
     htmlString += '</div>';
 
@@ -1593,7 +1626,7 @@ function processDiscussion(data, textStatus, jqXHR) {
  *
  * @param idArticle of article
  */
-function ajaxDiscussionGet(idArticle)
+function ajaxDiscussionGet()
 {
     var url = urlQuery + "/api/discussion/GetDiscussion/" + article.data.Id;
     $.ajax({
@@ -1617,7 +1650,7 @@ function discussionProcess(data, textStatus, jqXHR) {
 
     // TODO check jeslti data patri prave k otevrenemu clanku a jestli se neprohlizi uz jiny
 
-    console.log("AJAX Discussion:", jqXHR.status, textStatus);
+    console.log("discussionProcess:", jqXHR.status, textStatus);
     $("div.discuss").empty();
 
     var discussionBox = "<h3>Diskuze:</h3>";
@@ -1642,7 +1675,7 @@ function discussionProcess(data, textStatus, jqXHR) {
 function ajaxDiscussionSend(idArticle, name, email, postText)
 {
     var url = urlQuery + "/api/discussion/AddDiscussionItem/" + article.data.Id + "/" + name + "/" + email + "/" + postText;
-
+    //var json = JSON.stringify({RatingUser: rating});
     $.ajax({
         url: url,
         type: 'POST',
@@ -1651,15 +1684,25 @@ function ajaxDiscussionSend(idArticle, name, email, postText)
         processData: false,
 //        data: json,
         beforeSend: function() {waiterShow(true)},
-        success: function (data, textStatus, jqXHR) {
-            console.log("AJAX PostDiscussion:", jqXHR.status, textStatus);
-            alertG("Příspěvek odeslán.", "Info");
-        },
+        success: discussionSendSuccess,
         error: ajaxError,
         complete: function() {discussionSendingUIfreeze(false)}
     });
 }
 
+function discussionSendSuccess()
+{
+    console.log("discussionSendSuccess");
+    alertG("Příspěvek odeslán.", "Info");
+
+    // clear fields
+    $(".discussForm .artical_text_field").val("");
+    $(".discussForm .artical_text_area").val("");
+    // refresh discusions
+    ajaxDiscussionGet();
+}
+
+// to disable send discusion during ajaxSending discusion
 function discussionSendingUIfreeze(freeze)
 {
     waiterShow(freeze);
@@ -1898,6 +1941,17 @@ function discussionRemoveInputErrorHighlighting() {
     $('input.discussForm').val("").css('border', 0);
     $('textarea.discussForm').val("").css('border', 0);
     $('.discussForm p.error').remove();
+}
+
+function backButtonFunction()
+{
+    if (pageSys.pageCurrent == "article" ||
+        pageSys.pageCurrent == "articleDetail" ||
+        pageSys.pageCurrent == "recList"
+    )
+    {
+        pageSys.goBack();
+    }
 }
 
 /**

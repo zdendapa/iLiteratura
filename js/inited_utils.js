@@ -48,15 +48,7 @@ function enableMenuButton() {
     document.addEventListener("menubutton", menuButton, true);
 }
 
-/**
- * Back button
- */
-function enableBackButton() {
-    document.addEventListener("backbutton", backKeyDown, true);
-    if (typeof navigator.app == "undefined") return;
-    if (typeof navigator.app.overrideBackbutton == "undefined") return;
-    navigator.app.overrideBackbutton(true);
-}
+
 
 /**
  * Function asks user if he wants to exit app.
@@ -142,7 +134,16 @@ var inited = {
 
 
         return eval("o" + objProps);
-    }
+    },
+    /**
+     * Back button
+     */
+    backButtonEnable: function(backKeyDown){
+    document.addEventListener("backbutton", backKeyDown, true);
+    if (typeof navigator.app == "undefined") return;
+    if (typeof navigator.app.overrideBackbutton == "undefined") return;
+    navigator.app.overrideBackbutton(true);
+}
 };
 
 var iniDate = {
