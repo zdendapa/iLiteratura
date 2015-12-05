@@ -134,8 +134,8 @@
     <gap:splash src="res/wp/screen-portrait.jpg" gap:platform="winphone"/>
 
 
-    <allow-navigation href="http://webapi.iliteratura.cz" />
-    <access origin="http://webapi.iliteratura.cz"/>
+    <allow-navigation href="http://iliteratura.cz" subdomains="true" />
+    <access origin="http://iliteratura.cz" subdomains="true"/>
     <!-- allow local pages -->
     <!--
         <access origin="http://phonegap.com" />                    - allow any secure requests to http://phonegap.com/
