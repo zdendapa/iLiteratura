@@ -7,6 +7,12 @@
         version="1.0">
     <!--
         1.0
+        1.1
+            - oprava linku na sipce
+            - externi linky se oteviraji v default web-browseru
+             (pridan plugin inappbrowser a funkce openAllLinksWithBlankTargetInSystemBrowser())
+            - oprava slide effektu
+
 
     -->
 
@@ -28,6 +34,7 @@
     <gap:plugin name="org.apache.cordova.dialogs"/>
     <gap:plugin name="org.apache.cordova.splashscreen"/>
     <gap:plugin name="com.indigoway.cordova.whitelist.whitelistplugin"/>
+    <gap:plugin name="org.apache.cordova.inappbrowser" source="pgb" />
 
 
     <gap:plugin name="org.apache.cordova.statusbar"/>

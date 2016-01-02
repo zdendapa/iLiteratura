@@ -206,6 +206,8 @@ function onDeviceReady() {
         navigator.splashscreen.hide();
     }
 
+    openAllLinksWithBlankTargetInSystemBrowser();
+
 }
 
 /**
@@ -924,6 +926,7 @@ function ajaxGetNovinky(page) {
     articles.novinky.page = page;
     logging("ajaxGetNovinky");
     var url = urlQuery + "/api/articles/Get?page="+page+"&pageSize=10";
+
     $.ajax({
         url: url,
         dataType: 'json',
@@ -1030,8 +1033,10 @@ function processArticles(data, textStatus, jqXHR) {
     scrollLoadIndex.loadStart = false;
 }
 
+// for seznam novinek
 function processArticlesDataForRender(data)
 {
+
     var htmlString = '';
     for(var i=0; i<data.length; i++)
     {
@@ -1075,7 +1080,7 @@ function processArticlesDataForRender(data)
         htmlString += '<h3>'+artTitle+'</h3>';
         htmlString += '<div class="rate_div">';
         if(artRating!="") htmlString += '<div class="rate">'+artRating+'</div>';
-        htmlString += '<a href="artical.html" class="next_link"><i class="fa fa-angle-right"></i></a></div>';
+        htmlString += '<div class="next_link"><i class="fa fa-angle-right"></i></div></div>';
         htmlString += '<p>'+artText+'<p>';
         htmlString += '</div></div>';
 
@@ -1085,13 +1090,14 @@ function processArticlesDataForRender(data)
 }
 
 /**
- * Function makes HTML code from AJAX request.
+ * Vstup na detail. Ze seznamu clanku
  *
  * @param data from AJAX request
  * @param textStatus from AJAX request
  * @param jqXHR javascipt XMLHttpRequest
  */
-function processArticle(data, container) {
+function processArticle(data, container)
+{
 
     article.data = data;
     container = container==null?"article":container;
@@ -1127,19 +1133,18 @@ function processArticle(data, container) {
     //artText = stringUrlLinks(artText);
     var artTitle = inited.propertyGet(data,"Title");
     var type = inited.propertyGet(data,"Type.Name").toUpperCase();
-    /*
-    var img = $('<img/>').attr('src', imgUrl);
-    var title = $('<h3></h3>').text(data.Title);
-    var author = $('<div class="author"></div>').text("Autor článku: " + artAuthor + " - " + data.Date);
-    var text = $('<div class="text"></div>').text(data.Text);
-    */
+    var articleDate = inited.propertyGet(data,"Date");
+
+    if (articleDate != "")
+        articleDate = iniDate.conv1(articleDate);
+
     htmlString = '<div class="artical">';
     htmlString += '<img src="'+imgUrl+'" alt="Článek">';
     htmlString += '<h3>'+artTitle+'</h3>';
     htmlString += '<div class="article-author"><span>Autor článku: </span>';
     htmlString += '<span class="author">'+artAuthor+'</span>';
     htmlString += '<span> - </span>';
-    htmlString += '<span class="date">13.7.2014</span>';
+    htmlString += '<span class="date">' + articleDate + '</span>';
     htmlString += '</div>';
 
     htmlString += '<div class="article-type">';
@@ -1314,7 +1319,7 @@ function processArticleDetailNew(data) {
                 var articleDate = iniDate.conv1(inited.propertyGet(o,"Date"));
                 var artRating = inited.propertyGet(o,"RatingAuthorArticle");
                 if(artRating !="") artRating += "0%";
-                else artRating = "0%";
+                if(artRating=="" || artRating=="0") artRating = "";
 
 
                 htmlString += '<div class="book_list _buttonClick" data-article-id="'+ o.Id+'">';
@@ -2090,3 +2095,39 @@ var jsonGet = {
     }
 };
 
+
+function openAllLinksWithBlankTargetInSystemBrowser() {
+    if (local) return;
+
+    if ( typeof cordova === "undefined" || !cordova.InAppBrowser ) {
+        throw new Error("You are trying to run this code for a non-cordova project, " +
+            "or did not install the cordova InAppBrowser plugin");
+    }
+
+    // Currently (for retrocompatibility reasons) the plugin automagically wrap window.open
+    // We don't want the plugin to always be run: we want to call it explicitly when needed
+    // See https://issues.apache.org/jira/browse/CB-9573
+    delete window.open; // scary, but it just sets back to the default window.open behavior
+    var windowOpen = window.open; // Yes it is not deleted !
+
+    // Note it does not take a target!
+    var systemOpen = function(url, options) {
+        // Do not use window.open becaus the InAppBrowser open will not proxy window.open
+        // in the future versions of the plugin (see doc) so it is safer to call InAppBrowser.open directly
+        cordova.InAppBrowser.open(url,"_system",options);
+    };
+
+
+    // Handle direct calls like window.open("url","_blank")
+    window.open = function(url,target,options) {
+        if ( target == "_blank" ) systemOpen(url,options);
+        else windowOpen(url,target,options);
+    };
+
+    // Handle html links like <a href="url" target="_blank">
+    // See https://issues.apache.org/jira/browse/CB-6747
+    $(document).on('click', 'a[target=_blank]', function(event) {
+        event.preventDefault();
+        systemOpen($(this).attr('href'));
+    });
+}
