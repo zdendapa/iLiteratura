@@ -206,7 +206,7 @@ function onDeviceReady() {
         navigator.splashscreen.hide();
     }
 
-    openAllLinksWithBlankTargetInSystemBrowser();
+    //openAllLinksWithBlankTargetInSystemBrowser();
 
 }
 
@@ -471,7 +471,9 @@ function clickInit() {
         e.preventDefault();
         var url = $(this).attr("href");
 
-        window.open( url, "_blank" );
+        alert("jj");
+        window.open( url, "_system" );
+        //cordova.InAppBrowser.open(url,"_system");
     });
 
 /* history
