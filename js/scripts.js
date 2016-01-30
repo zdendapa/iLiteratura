@@ -576,7 +576,6 @@ function showWindow(windowName, par) {
             direction = "l";
         }
     }
-    console.log(direction);
 
     if (windowName === "index") {
         //containerVisibilitySet("index", true);
@@ -798,7 +797,7 @@ function articlesPreRender(data)
 
     if (data.length == 0)
     {
-        return '<div style="text-align: center;padding-top: 30px;">recenze zatím není dostupná, pokud nás na to chcete upozornit, napište nám na redakce@iLiteratura.cz</div>';
+        return '<div style="text-align: center;padding-top: 30px;margin: 1em;">recenze zatím není dostupná, pokud nás na to chcete upozornit, napište nám na redakce@iLiteratura.cz</div>';
     }
 
     for(var i=0;i<data.length;i++)
