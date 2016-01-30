@@ -98,10 +98,6 @@ h1, h2, h3, h4, h5 {
     border-bottom: solid 1px #e8e8e6;
 }
 
-.book_seciton:first-child {
-    border-bottom: none;
-}
-
 .bs_title {
     background: #e9e7db;
     margin: 0 0 4px 0px;

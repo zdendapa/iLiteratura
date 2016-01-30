@@ -4,13 +4,14 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="cz.iniapps.iliteratura"
-        version="1.0">
+        version="1.1">
     <!--
         1.0
         1.1
             - oprava linku na sipce
             - externi linky se oteviraji v default web-browseru
             - oprava slide effektu
+            - pri zadnem hodnoceni neni videt cele kolecko hodnoceni
 
 
     -->
