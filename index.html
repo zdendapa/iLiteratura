@@ -41,8 +41,7 @@
 
 </script>
 
-<!-------------------------------------------------- this info must be last of spec! Put spec before!
- its on the top of z-index layer
+<!-------------------------------------------------- z-index: 1500
 -->
 
 <div class="special cover">
@@ -64,7 +63,7 @@
     </div>
 </div>
 
-<!-------------------------------------------------- popups -->
+<!-------------------------------------------------- popups z-index: 1400 -->
 <div data-cont-id="specAbout" class="special about">
     <div class="backgroundBlur"></div>
     <div class="backgroundWhite"></div>
@@ -193,10 +192,8 @@
 
 <div data-cont-id="recCateg" class="mainContent recCateg">
     <div class="header">
-        <div class="header">
-            <div class="container">
-                <span class="title_content">Doporučené</span>
-            </div>
+        <div class="container">
+            <span class="title_content">Doporučené</span>
         </div>
     </div>
 
@@ -226,11 +223,9 @@
 
 <div data-cont-id="recList" class="mainContent recList">
     <div class="header">
-        <div class="header">
-            <div class="container">
-                <span class="back"><i class="fa fa-angle-left"></i>zpět</span>
-                <span class="title_content">Doporučené</span>
-            </div>
+        <div class="container">
+            <span class="back"><i class="fa fa-angle-left"></i>zpět</span>
+            <span class="title_content">Doporučené</span>
         </div>
     </div>
 
@@ -241,10 +236,8 @@
 
 <div data-cont-id="recArticles" class="mainContent recArticles">
     <div class="header">
-        <div class="header">
-            <div class="container">
-                <span class="title_content">Doporučené</span>
-            </div>
+        <div class="container">
+            <span class="title_content">Doporučené</span>
         </div>
         <div class="bs_title">
             <h2>Vánoce</h2>
@@ -286,17 +279,15 @@
 
 <div data-cont-id="articles" class="mainContent articles">
     <div class="header">
-        <div class="header">
-            <div class="container">
-                <span class="title_content">Články</span>
-                <span style="display: none;" class="next text">řadit podle</span>
-                <select style="display: none" id="selSort" onchange="">
-                    <option>Rad 1</option>
-                    <option>Rad 2</option>
-                    <option>Rad 3</option>
-                    <option>Rad 4</option>
-                </select>
-            </div>
+        <div class="container">
+            <span class="title_content">Články</span>
+            <span style="display: none;" class="next text">řadit podle</span>
+            <select style="display: none" id="selSort" onchange="">
+                <option>Rad 1</option>
+                <option>Rad 2</option>
+                <option>Rad 3</option>
+                <option>Rad 4</option>
+            </select>
         </div>
         <div class="bs_title">
             <h2>žánr:</h2>
@@ -359,9 +350,9 @@
         <div class="container">
             <span class="title_content">Vyhledávání</span>
         </div>
-        <div class="search-input">
-            <input id="inputSearch" name="search" type="text" class="artical_text_field" placeholder="Hledat"/>
-        </div>
+    </div>
+    <div class="search-input">
+        <input id="inputSearch" name="search" type="text" class="artical_text_field" placeholder="Hledat"/>
     </div>
 
     <!--*********headsection***********-->

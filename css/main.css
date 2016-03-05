@@ -115,7 +115,7 @@ div.special.about {
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 1500;
+    z-index: 1400;
 }
 .special.about .table {
     display: table;
@@ -351,10 +351,12 @@ div.special.about {
 }
 
 .search-input {
-    position: relative;
+    position: absolute;
     top: 45px;
+    left: 0px;
     padding: 15px;
     background-color: #e9e7db;
+    right: 0px;
 }
 
 .search-input input {

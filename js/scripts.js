@@ -396,13 +396,13 @@ function clickInit() {
     });
 
 
-    $('.mainContent .header').on(support.supportedTouchStartEven, function ()
+    $('.mainContent .header div.container').on(support.supportedTouchStartEven, function ()
     {
         if (pageSys.pageCurrent == "index")
             showWindow("specAbout", true);
         else
         {
-            var $container = $(this).parent().find('.container.content');
+            var $container = $(this).parent().parent().find('.container.content');
             $container.animate({scrollTop: 0}, '300', 'swing');
         }
     });
