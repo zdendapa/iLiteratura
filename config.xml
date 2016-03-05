@@ -4,7 +4,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="cz.iniapps.iliteratura"
-        version="1.1">
+        version="1.2">
     <!--
         1.0
         1.1
@@ -12,7 +12,11 @@
             - externi linky se oteviraji v default web-browseru
             - oprava slide effektu
             - pri zadnem hodnoceni neni videt cele kolecko hodnoceni
-
+        1.2
+            - pridani popup o projektu [10]
+            - user rating předělat hodnocení na 0-100 [3]
+            - kdyz se nenalezne scanerem, napise hlasku [11]
+            - opraven ciselnik publicistika [15]
 
     -->
 

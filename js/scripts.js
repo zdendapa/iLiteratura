@@ -12,6 +12,7 @@ var articles = {
     // vyhledavani
     search : {
         data : [],
+        isByScaner : false,
         waitContainer : $('.search .content'),
         getDataByID : function (id)
         {
@@ -176,8 +177,8 @@ var article = {
 
 // waiter in page (for scrollable effect must be in page wher you go)
 var waiterInner = '<div class="waiter table">  <div class="tableCellMiddle">  <img class="wait" src="img/wait.gif" alt="Wait"/>  </div>  </div>';
-var defaultCategoryId = 48;
-var defaultCategoryName = "Publicistika";
+var defaultCategoryId = 4;
+var defaultCategoryName = "beletrie";
 
 /**
  * Function call init function and show default window
@@ -394,9 +395,16 @@ function clickInit() {
 
     });
 
-    $('.mainContent .header').on(support.supportedTouchStartEven, function () {
-        var $container = $(this).parent().find('.container.content');
-        $container.animate({scrollTop: 0}, '300', 'swing');
+
+    $('.mainContent .header').on(support.supportedTouchStartEven, function ()
+    {
+        if (pageSys.pageCurrent == "index")
+            showWindow("specAbout", true);
+        else
+        {
+            var $container = $(this).parent().find('.container.content');
+            $container.animate({scrollTop: 0}, '300', 'swing');
+        }
     });
 
     $('.footer').on(support.supportedTouchStartEven, 'span', function () {
@@ -457,8 +465,9 @@ function clickInit() {
 
         if (e.keyCode == 13) {
             var input = $(this).val();
-            if (input !== "") {
-                ajaxSearch();
+            if (input !== "")
+            {
+                ajaxSearch(false);
             }
         }
     });
@@ -562,7 +571,14 @@ function dataManagerLoad()
  * @param windowName name of window class
  * @param par parameter
  */
-function showWindow(windowName, par) {
+function showWindow(windowName, par)
+{
+    // bez historie
+    if (windowName === "specAbout") {
+        containerVisibilitySet("specAbout", par);
+        return;
+    }
+
     // -------
     var direction = "r";
     var oldPage = pageSys.pageCurrent;
@@ -611,6 +627,7 @@ function showWindow(windowName, par) {
         //containerVisibilitySet("recList", true);
         containerSlide(oldPage, windowName, direction);
     }
+
 
     // vlozeni do page historie
     pageSys.addCurrent(windowName);
@@ -747,8 +764,10 @@ function ajaxHodnoceni()
     });
 }
 
-function ajaxSearch() {
+function ajaxSearch(isByScaner)
+{
     logging("ajaxSearch");
+    articles.search.isByScaner = isByScaner;
     var str = $("#inputSearch").val();
     var url = urlQuery + "/api/articles/Search?searchString="+str;
     $.ajax({
@@ -795,7 +814,7 @@ function articlesPreRender(data)
 {
     var htmlString = '';
 
-    if (data.length == 0)
+    if (data.length == 0 && articles.search.isByScaner)
     {
         return '<div style="text-align: center;padding-top: 30px;margin: 1em;">recenze zatím není dostupná, pokud nás na to chcete upozornit, napište nám na redakce@iLiteratura.cz</div>';
     }
@@ -1346,7 +1365,7 @@ function processArticleDetailNew(data) {
     htmlString += '<div class="gusetbook">';
     htmlString += '<ul>';
     htmlString += '<li><span>'+Math.round((article.detailData.RatingAuthorArticle)*10)+'%</span>autor článku</li>';
-    htmlString += '<li><span>'+Math.round((article.detailData.RatingUsersCount)*10)+'%</span>čtenáři</li>';
+    htmlString += '<li><span>' + Math.round(article.detailData.RatingUsersAverage) + '%</span>čtenáři</li>';
     htmlString += '<ul>';
     htmlString += '</div>';
 
@@ -1983,8 +2002,9 @@ function scanBarcode() {
         $('.footer').find('span.active').removeClass('active');
         $('.footer').find('li[data-animation="search"] span').addClass('active');
 
-        setTimeout(function () {
-            ajaxSearch();
+        setTimeout(function ()
+        {
+            ajaxSearch(true);
         }, 100);
 
 
