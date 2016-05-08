@@ -705,10 +705,15 @@ function shareClick() {
         return;
     }
 
-    if (local || window.plugins == null || !window.plugins.hasOwnProperty("socialsharing"))
-        shareByExternalLink();
-    else
+    if (shareMethodIsPlugin())
         shareByPlugin();
+    else
+        shareByExternalLink();
+}
+
+function shareMethodIsPlugin()
+{
+    return !(local || window.plugins == null || !window.plugins.hasOwnProperty("socialsharing"));
 }
 
 function shareByPlugin()
@@ -729,10 +734,10 @@ function shareByPlugin()
         alertG("Sdílení se nezdařilo " + msg);
     };
 
+    // this doenst work, I dont know why:
     //window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
     window.plugins.socialsharing.share(null, article.detailData.Title, null, article.detailData.Url);
-
-    alertG("plugin called");
+    ;
 }
 
 function shareByExternalLink()
@@ -1217,7 +1222,10 @@ function processArticle(data, container)
         recenze = true;
 
     htmlString += '<div class="rating_box">';
-    htmlString += '<div class="rating_button">Sdílet článek</div>';
+    if (shareMethodIsPlugin())
+        htmlString += '<div class="rating_button _buttonClick" data-click="shareClick()">Sdílet článek</div>';
+    else
+        htmlString += '<div class="rating_button">Sdílet článek</div>';
 
     if (recenze)
     {
@@ -1240,16 +1248,18 @@ function processArticle(data, container)
         htmlString += '</div>';
     }
 
-
-    htmlString += '<div>';
-    htmlString += '<select id="selSocial" onchange="shareClick()">';
-    htmlString += '<option selected disabled hidden value="nic"></option>';
-    htmlString += '<option>Facebook</option>';
-    htmlString += '<option>Twitter</option>';
-    htmlString += '<option>Google+</option>';
-    htmlString += '<option>E-mail</option>';
-    htmlString += '</select>';
-    htmlString += '</div>';
+    if(!shareMethodIsPlugin())
+    {
+        htmlString += '<div>';
+        htmlString += '<select id="selSocial" onchange="shareClick()">';
+        htmlString += '<option selected disabled hidden value="nic"></option>';
+        htmlString += '<option>Facebook</option>';
+        htmlString += '<option>Twitter</option>';
+        htmlString += '<option>Google+</option>';
+        htmlString += '<option>E-mail</option>';
+        htmlString += '</select>';
+        htmlString += '</div>';
+    }
 
     htmlString += '</div>';
     // diskuze
