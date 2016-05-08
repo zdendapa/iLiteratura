@@ -4,7 +4,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="cz.iniapps.iliteratura"
-        version="1.2">
+        version="1.3">
     <!--
         1.0
         1.1
@@ -14,9 +14,14 @@
             - pri zadnem hodnoceni neni videt cele kolecko hodnoceni
         1.2
             - pridani popup o projektu [10]
-            - user rating předělat hodnocení na 0-100 [3]
+            - user rating číselná oprava na 0-100 [3]
             - kdyz se nenalezne scanerem, napise hlasku [11]
             - opraven ciselnik publicistika [15]
+        1.3
+            - socials
+            - zobrazeni tlacitka "hodnotit knihu" jen pro recenzi
+            - pridan google analytics
+            - pro google analytics pridan uniquedeviceid
 
     -->
 
@@ -39,6 +44,8 @@
     <gap:plugin name="org.apache.cordova.splashscreen"/>
     <gap:plugin name="com.indigoway.cordova.whitelist.whitelistplugin"/>
     <gap:plugin name="org.apache.cordova.inappbrowser" source="pgb" />
+    <gap:plugin name="com.danielcwilson.plugins.googleanalytics" source="pgb" />
+    <gap:plugin name="hu.dpal.phonegap.plugins.uniquedeviceid" source="pgb" />
 
 
     <gap:plugin name="org.apache.cordova.statusbar"/>
@@ -147,6 +154,7 @@
 
     <allow-navigation href="*" />
     <access origin="*"/>
+    <allow-intent href="mailto:*" />
     <!-- allow local pages -->
     <!--
         <access origin="http://phonegap.com" />                    - allow any secure requests to http://phonegap.com/

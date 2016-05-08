@@ -198,6 +198,10 @@ function onDeviceReady() {
     $(".index .container.content").empty();
     waiterInject($(".index .container.content"));
 
+
+    if (!local)
+        window.analytics.startTrackerWithId('UA-10589204-1');
+
     ajaxGetNovinky(1);
     showWindow("index");
     waiterShow(false);
@@ -205,7 +209,10 @@ function onDeviceReady() {
 
     if (!local) {
         navigator.splashscreen.hide();
+        window.plugins.uniqueDeviceID.get(function(uuid){indow.analytics.setUserId(uuid)});
     }
+
+
 
     //openAllLinksWithBlankTargetInSystemBrowser();
 
@@ -631,33 +638,8 @@ function showWindow(windowName, par)
 
     // vlozeni do page historie
     pageSys.addCurrent(windowName);
-    return;
-
-
-    // Animace
-    var smer = "r";
-    if (par == "smer-l") {
-        smer = "l";
-
-    }
-    var prevWindow = pageSys.pageCurrent;
-    if (par == "back") {
-        smer = "l";
-        prevWindow = pageSys.pageBack;
-
-    }
-    /*
-     console.log(prevWindow);
-     console.log(windowName);
-     */
-    if (prevWindow && (prevWindow !== windowName)) {
-
-        animateWindow(prevWindow, windowName, smer);
-
-    }
-
-    // vlozeni do page historie
-    pageSys.addCurrent(windowName);
+    if (!local)
+        window.analytics.trackView(windowName);
 
 }
 
@@ -713,6 +695,31 @@ function ajaxCategoryListProcess(data)
     $('#selectBox option[value='+defaultCategoryId+']').prop('selected', true);
     articles.clanky.categoryListLoaded = true;
 }
+
+function shareClick() {
+    logging("shareClick");
+
+    if (article.detailData.Url == null || article.detailData.Url == "")
+    {
+        alertG("Článku chybí odkaz pro sdílení");
+        return;
+    }
+
+    var shareType = document.getElementById("selSocial").value;
+    var url = "";
+    if (shareType == "Facebook")
+        url = "https://www.facebook.com/sharer/sharer.php?u=" + article.detailData.Url;
+    if (shareType == "Twitter")
+        url = "https://twitter.com/home?status=" + article.detailData.Url;
+    if (shareType == "Google+")
+        url = "https://plus.google.com/share?url=" + article.detailData.Url;
+    if (shareType == "E-mail")
+        url = "mailto:?subject=" + article.detailData.Title + "&body=" + article.detailData.Url;
+
+    if (url != "")
+        window.open(url, '_blank', 'location=yes');
+}
+
 
 /**
  * Check if you ever rate. If not, run ajax to save your rating
@@ -1172,25 +1179,46 @@ function processArticle(data, container)
     htmlString += '</div>';
     htmlString += '</div>';// class="artical"
     // hodnoceni
-    htmlString += '<div class="rating_box" style="padding: 0px 15px 40px 50%; left: -70px">';
-    htmlString += '<div class="rating_button" style="display:none">Sdílet článek</div>';
-    htmlString += '<div class="rating_button">Hodnotit knihu</div>';
+
+    var recenze = false;
+    if (article.data.Type.Id == 1)
+        recenze = true;
+
+    htmlString += '<div class="rating_box">';
+    htmlString += '<div class="rating_button">Sdílet článek</div>';
+
+    if (recenze)
+    {
+        htmlString += '<div class="rating_button">Hodnotit knihu</div>';
+        htmlString += '<div>';
+        htmlString += '<select id="selHodnoceni" onchange="hodnoceniSet()">';
+        htmlString += '<option selected disabled hidden value="nic"></option>';
+        htmlString += '<option>0%</option>';
+        htmlString += '<option>10%</option>';
+        htmlString += '<option>20%</option>';
+        htmlString += '<option>30%</option>';
+        htmlString += '<option>40%</option>';
+        htmlString += '<option>50%</option>';
+        htmlString += '<option>60%</option>';
+        htmlString += '<option>70%</option>';
+        htmlString += '<option>80%</option>';
+        htmlString += '<option>90%</option>';
+        htmlString += '<option>100%</option>';
+        htmlString += '</select>';
+        htmlString += '</div>';
+    }
+
+
     htmlString += '<div>';
-    htmlString += '<select id="selHodnoceni" onchange="hodnoceniSet()">';
+    htmlString += '<select id="selSocial" onchange="shareClick()">';
     htmlString += '<option selected disabled hidden value="nic"></option>';
-    htmlString += '<option>0%</option>';
-    htmlString += '<option>10%</option>';
-    htmlString += '<option>20%</option>';
-    htmlString += '<option>30%</option>';
-    htmlString += '<option>40%</option>';
-    htmlString += '<option>50%</option>';
-    htmlString += '<option>60%</option>';
-    htmlString += '<option>70%</option>';
-    htmlString += '<option>80%</option>';
-    htmlString += '<option>90%</option>';
-    htmlString += '<option>100%</option>';
+    htmlString += '<option>Facebook</option>';
+    htmlString += '<option>Twitter</option>';
+    htmlString += '<option>Google+</option>';
+    htmlString += '<option>E-mail</option>';
     htmlString += '</select>';
     htmlString += '</div>';
+
     htmlString += '</div>';
     // diskuze
     htmlString += '<div class="discuss">';
