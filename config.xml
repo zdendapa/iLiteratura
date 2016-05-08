@@ -18,7 +18,7 @@
             - kdyz se nenalezne scanerem, napise hlasku [11]
             - opraven ciselnik publicistika [15]
         1.3
-            - socials
+            - socials externim linkem, nebo pluginem (nl.x-services.plugins.socialsharing)
             - zobrazeni tlacitka "hodnotit knihu" jen pro recenzi
             - pridan google analytics
             - pro google analytics pridan uniquedeviceid
@@ -46,6 +46,7 @@
     <gap:plugin name="org.apache.cordova.inappbrowser" source="pgb" />
     <gap:plugin name="com.danielcwilson.plugins.googleanalytics" source="pgb" />
     <gap:plugin name="hu.dpal.phonegap.plugins.uniquedeviceid" source="pgb" />
+    <gap:plugin name="nl.x-services.plugins.socialsharing" source="npm" />
 
 
     <gap:plugin name="org.apache.cordova.statusbar"/>
