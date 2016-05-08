@@ -729,8 +729,6 @@ function shareByPlugin()
         alertG("Sdílení se nezdařilo " + msg);
     };
 
-    alertG("result functions sets");
-
     //window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
     window.plugins.socialsharing.share(null, article.detailData.Title, null, article.detailData.Url);
 
