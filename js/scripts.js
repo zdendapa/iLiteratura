@@ -731,7 +731,8 @@ function shareByPlugin()
 
     alertG("result functions sets");
 
-    window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+    //window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+    window.plugins.socialsharing.share(null, article.detailData.Title, null, article.detailData.Url);
 
     alertG("plugin called");
 }
