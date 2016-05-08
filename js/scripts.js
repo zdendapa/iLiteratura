@@ -713,13 +713,16 @@ function shareClick() {
 
 function shareByPlugin()
 {
+    alertG("test" + window.plugins.socialsharing == null);
     var options = {
         //message: 'share this', // not supported on some apps (Facebook, Instagram)
         subject: article.detailData.Title, // fi. for email
         //files: ['', ''], // an array of filenames either locally or remotely
-        url: article.detailData.Url,
+        url: article.detailData.Url
         //chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
     };
+
+    alertG("options set");
 
     var onSuccess = function(result) {
         alertG(result.completed, "Sdílení");
@@ -729,7 +732,11 @@ function shareByPlugin()
         alertG("Sdílení se nezdařilo " + msg);
     };
 
+    alertG("result functions sets");
+
     window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+
+    alertG("plugin called");
 }
 
 function shareByExternalLink()
