@@ -46,7 +46,7 @@
     <gap:plugin name="org.apache.cordova.inappbrowser" source="pgb" />
     <gap:plugin name="com.danielcwilson.plugins.googleanalytics" source="pgb" />
     <gap:plugin name="hu.dpal.phonegap.plugins.uniquedeviceid" source="pgb" />
-    <gap:plugin name="nl.x-services.plugins.socialsharing" source="npm" />
+    <gap:plugin name="nl.x-services.plugins.socialsharing" source="pgb" />
 
 
     <gap:plugin name="org.apache.cordova.statusbar"/>
